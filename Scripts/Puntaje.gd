@@ -61,4 +61,3 @@ func _process(delta):
 func _on_button_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")
-

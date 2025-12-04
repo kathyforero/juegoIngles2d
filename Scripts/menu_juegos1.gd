@@ -3,11 +3,37 @@ extends Control
 # Señal que se emite para actualizar la escena, en este caso el menú principal.
 signal update_scene(path)
 
+var en: bool = false
+
 # Función que se llama cuando el nodo entra en la escena por primera vez.
 # Emite una señal para indicar que se debe mostrar el menú principal.
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false   # por defecto español
+
+
+func update_language_minigames():
+	if en:
+		# Modo inglés
+		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame.png")
+		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random.png")
+	else:
+		# Modo español
+		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame_es.png")
+		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random_es.png")
+
 func _ready():
 	emit_signal("update_scene", "menu_principal")
 	# Deshabilitamos Random y mostramos candado al inicio
+	
+	en = load_language_setting()          # lee idioma desde el JSON
+	update_language_minigames()           # cambia las texturas según idioma
+	
 	$btn_random.disabled = true
 	$btn_random.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	$candado.visible = true

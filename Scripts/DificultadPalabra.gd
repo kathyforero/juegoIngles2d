@@ -1,9 +1,57 @@
 extends Node2D
 signal update_scene(path)
 
+var en: bool = false
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false   # por defecto español
+
+
+func update_language_difficulty():
+	# Fondo de “Seleccionar dificultad”
+	if has_node("LetreroSelectDifficultyOrderIt"):
+		var bg_sprite := $LetreroSelectDifficultyOrderIt
+		if en:
+			bg_sprite.texture = load("res://Sprites/global/Letrero select difficulty order it.png")
+		else:
+			bg_sprite.texture = load("res://Sprites/global/Letrero select difficulty order it_es.png")
+
+	if en:
+		$TextureButton.texture_normal  = load("res://Sprites/buttons/Boton_easy.png")
+		$TextureButton.texture_hover   = load("res://Sprites/buttons/boton_easy_hover.png")
+
+		$TextureButton2.texture_normal = load("res://Sprites/buttons/Boton_medium.png")
+		$TextureButton2.texture_hover  = load("res://Sprites/buttons/boton_medium_hover.png")
+		$TextureButton2.texture_disabled = $TextureButton2.texture_normal
+
+		$TextureButton3.texture_normal = load("res://Sprites/buttons/Boton_difficult.png")
+		$TextureButton3.texture_hover  = load("res://Sprites/buttons/Boton_difficult_hover.png")
+		$TextureButton3.texture_disabled = $TextureButton3.texture_normal
+	else:
+		# Modo ESPAÑOL
+		$TextureButton.texture_normal  = load("res://Sprites/buttons/Boton_easy_es.png")
+		$TextureButton.texture_hover   = load("res://Sprites/buttons/boton_easy_hover_es.png")
+
+		$TextureButton2.texture_normal = load("res://Sprites/buttons/Boton_medium_es.png")
+		$TextureButton2.texture_hover  = load("res://Sprites/buttons/boton_medium_hover_es.png")
+		$TextureButton2.texture_disabled = $TextureButton2.texture_normal
+
+		$TextureButton3.texture_normal = load("res://Sprites/buttons/Boton_difficult_es.png")
+		$TextureButton3.texture_hover  = load("res://Sprites/buttons/Boton_difficult_hover_es.png")
+		$TextureButton3.texture_disabled = $TextureButton3.texture_normal
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("update_scene", "menu_juegos")
+	
+	en = load_language_setting()   # lee idioma guardado
+	update_language_difficulty()   # aplica texturas según idioma
+	
 	$TextureButton2.disabled = true
 	$TextureButton3.disabled = true
 	verificar_progreso(Global.rutaArchivos+"/Progress/progressMinigames.dat")

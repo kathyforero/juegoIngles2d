@@ -2,6 +2,8 @@ extends Node
 
 signal update_scene(path)
 
+var en: bool = false
+
 # Diccionario con todas las rutas de niveles organizadas por juego y dificultad
 var game_levels = {
 	"puzzle": {

@@ -28,7 +28,7 @@ metadata/_edit_use_anchors_ = true
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_u1tl3")]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 416.0
 offset_top = 224.0
 offset_right = 864.0
@@ -67,7 +67,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton" type="TextureButton" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 272.0
 offset_top = 544.0
 offset_right = 579.0

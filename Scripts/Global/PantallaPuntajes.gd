@@ -13,13 +13,54 @@ enum ventana {PUZZLE = 0, MATCH = 1, ORDER = 2}
 var ventanaActual = ventana.PUZZLE
 var posActual = 0
 var ejecutablePath = Global.rutaArchivos
+
+var en: bool = false
 # Called when the node enters the scene tree for the first time.
+
+func load_language_setting():
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var json_as_dict = JSON.parse_string(json_as_text)
+		en = json_as_dict["english"]
+		return
+	en = false
+	
+func update_language_scores_screen():
+	if en:
+		$Label.text = "Speed"          # antes: Velocidad
+		$Label2.text = "Accuracy"      # antes: Precisión
+		$Label3.text = "Levels"        # antes: Niveles
+		$Label14.text = "Scores"       # botón/etiqueta lateral
+
+		# Título central según minijuego:
+		match ventanaActual:
+			ventana.PUZZLE:
+				$Label4.text = "Puzzle's Total"
+			ventana.MATCH:
+				$Label4.text = "Match It's Total"
+			ventana.ORDER:
+				$Label4.text = "Order It's Total"
+	else:
+		$Label.text = "Velocidad"
+		$Label2.text = "Precisión"
+		$Label3.text = "Niveles"
+		$Label14.text = "Puntajes"
+
+		match ventanaActual:
+			ventana.PUZZLE:
+				$Label4.text = "Total de Puzzle"
+			ventana.MATCH:
+				$Label4.text = "Total de Match It"
+			ventana.ORDER:
+				$Label4.text = "Total de Order It"	
+
 func _ready():
 	$RetrocederButton.visible = false
 	#Leer archivo
 	_leer_archivo()	
 	_actualizar_valores()	
-	pass # Replace with function body.
+	load_language_setting()
+	update_language_scores_screen()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -101,7 +142,7 @@ func _on_siguiente_button_pressed():
 		$RetrocederButton.visible = true
 	_leer_archivo()
 	_actualizar_valores()
-	pass # Replace with function body.
+	update_language_scores_screen()
 
 
 func _on_retroceder_button_pressed():
@@ -113,7 +154,7 @@ func _on_retroceder_button_pressed():
 		$RetrocederButton.visible = false
 	_leer_archivo()
 	_actualizar_valores()
-	pass # Replace with function body.
+	update_language_scores_screen()
 
 
 func _on_salir_button_pressed():

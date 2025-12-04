@@ -10,6 +10,7 @@ func update_language():
 		$TextureButton3.texture_normal = load("res://Sprites/buttons/score.png")
 		$TextureButton.texture_hover = load("res://Sprites/buttons/playhover.png")
 		$TextureButton3.texture_hover = load("res://Sprites/buttons/scoreHover.png")     
+		$TextureRect.texture = load("res://Sprites/global/cuadro_principal_en.png")
 		
 func load_language_setting():
 	if FileAccess.file_exists("res://language_setting.json"):  
