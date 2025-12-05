@@ -11,6 +11,7 @@ var time_seconds = 120
 @onready var title = $Title
 @onready var difficulty_value = $Difficulty_value
 @onready var level_value = $Level_value
+@onready var level_label = $Level 
 @onready var image = $image
 #@onready var sentence = $TextureRect2/Sentence
 @onready var sentense = $Sentense
@@ -19,8 +20,25 @@ var time_seconds = 120
 @onready var temporizador = $Temporizador
 @onready var timer = $Temporizador/Timer
 
+var en: bool = false
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false
+	
 #Realiza las conexiones a las funciones con sus señales e inicializa variables
 func _ready():
+	en = load_language_setting()
+	
+	if en:
+		level_label.text = "LEVEL:"
+	else:
+		level_label.text = "NIVEL:"
+	
 	word.visible = false
 	sentense.visible = false
 	phrase_text.visible = false
@@ -40,11 +58,22 @@ func _on_update_title(new_title):
 	title.text = new_title
 	
 func _on_update_difficulty(new_difficulty):
-	difficulty_value.text = new_difficulty
-	print(new_difficulty)
+	if en:
+		difficulty_value.text = new_difficulty
+	else:
+		match new_difficulty:
+			"Easy":
+				difficulty_value.text = "Fácil"
+			"Medium":
+				difficulty_value.text = "Medio"
+			"Hard":
+				difficulty_value.text = "Difícil"
+			_:
+				difficulty_value.text = new_difficulty
 	
 func _on_update_level(new_level):
-	level_value.text = new_level
+		level_value.text = new_level
+	
 
 #Función para actualziar la imagen de las frases, y escalarla correctamente
 func _on_uptate_imagen_game(new_image):

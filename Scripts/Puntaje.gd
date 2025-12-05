@@ -1,10 +1,45 @@
 extends Node2D
+
 var score = 0
 var bonus = 0
 var fastBonus=0
 var perfectBonus=0
+
+var en: bool = false
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false
+	
+func update_language_score_screen():
+	var board := $TextoFelicitaciones        # cartel grande de FELICITACIONES
+	var lbl_total := $"Tu puntaje"     # label de texto (ojo: usa el nombre exacto del nodo)
+	var lbl_fast  := $"Bonus de velocidad"
+	var lbl_perf  := $Perfecto              # el label que muestra “Perfecto / Buen trabajo / etc”
+	var btn       := $Button                # botón para continuar
+
+	if en:
+		board.texture = load("res://Sprites/global/texto felicitaciones_eng.png")
+		lbl_total.text = "Your score"
+		lbl_fast.text = "Very Fast"
+		lbl_perf.text = "Perfect"
+		btn.icon = load("res://Sprites/buttons/Boton_Next.png")
+	else:
+		board.texture = load("res://Sprites/global/texto felicitaciones.png")
+		lbl_total.text = "Tu puntaje"
+		lbl_fast.text = "Muy veloz"
+		lbl_perf.text = "Perfecto"
+		btn.icon = load("res://Sprites/buttons/Boton_Next_es.png")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	en = load_language_setting()
+	update_language_score_screen()
+	
 	updateScore()
 	score = 0
 	fastBonus=0
