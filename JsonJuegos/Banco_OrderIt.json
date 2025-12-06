@@ -1,0 +1,73 @@
+{
+  "easy": [
+	{ "esp": "Ave",       "eng": "BIRD", "image": "Easy/bird.png" },
+	{ "esp": "Pelota",    "eng": "BALL", "image": "Easy/ball.png" },
+	{ "esp": "Halcón",    "eng": "HAWK", "image": "Easy/hawk.png" },
+	{ "esp": "Cantar",    "eng": "SING", "image": "Easy/sing.png" },
+	{ "esp": "Pescar",    "eng": "FISH", "image": "Easy/fish.png" },
+	{ "esp": "Caminar",   "eng": "WALK", "image": "Easy/walk.png" },
+	{ "esp": "Matemáticas","eng": "MATH","image": "Easy/math.png" },
+	{ "esp": "Leer",      "eng": "READ", "image": "Easy/read.png" },
+	{ "esp": "Jugar",     "eng": "PLAY", "image": "Easy/play.png" },
+
+	{ "esp": "Luna",      "eng": "MOON", "image": "Easy/moon.png" },
+	{ "esp": "Estrella",  "eng": "STAR", "image": "Easy/star.png" },
+	{ "esp": "Árbol",     "eng": "TREE", "image": "Easy/tree.png" },
+	{ "esp": "Lluvia",    "eng": "RAIN", "image": "Easy/rain.png" },
+	{ "esp": "Leche",     "eng": "MILK", "image": "Easy/milk.png" },
+	{ "esp": "Juego",     "eng": "GAME", "image": "Easy/game.png" },
+	{ "esp": "Mano",      "eng": "HAND", "image": "Easy/hand.png" },
+	{ "esp": "Comida",    "eng": "FOOD", "image": "Easy/food.png" },
+	{ "esp": "Frío",      "eng": "COLD", "image": "Easy/cold.png" },
+	{ "esp": "Azul",      "eng": "BLUE", "image": "Easy/blue.png" },
+	{ "esp": "León",      "eng": "LION", "image": "Easy/lion.png" }
+  ],
+
+  "medium": [
+	{ "esp": "Casa",      "eng": "HOUSE", "image": "Medium/house.png" },
+	{ "esp": "Libro",     "eng": "BOOKS", "image": "Medium/books.png" },
+	{ "esp": "Mesa",      "eng": "TABLE", "image": "Medium/table.png" },
+	{ "esp": "Tierra",    "eng": "EARTH", "image": "Medium/earth.jpg" },
+	{ "esp": "Playa",     "eng": "BEACH", "image": "Medium/beach.png" },
+	{ "esp": "Fuego",     "eng": "FLAME", "image": "Medium/flame.png" },
+	{ "esp": "Noche",     "eng": "NIGHT", "image": "Medium/night.jpg" },
+	{ "esp": "Miel",      "eng": "HONEY", "image": "Medium/honey.png" },
+	{ "esp": "Dulce",     "eng": "SWEET", "image": "Medium/sweet.png" },
+	{ "esp": "Feliz",     "eng": "HAPPY", "image": "Medium/happy.png" },
+	{ "esp": "Papel",     "eng": "PAPER", "image": "Medium/paper.png" },
+
+	{ "esp": "Manzana",   "eng": "APPLE", "image": "Medium/apple.png" },
+	{ "esp": "Agua",      "eng": "WATER", "image": "Medium/water.png" },
+	{ "esp": "Música",    "eng": "MUSIC", "image": "Medium/music.png" },
+	{ "esp": "Sonrisa",   "eng": "SMILE", "image": "Medium/smile.png" },
+	{ "esp": "Planta",    "eng": "PLANT", "image": "Medium/plant.png" },
+	{ "esp": "Pan",       "eng": "BREAD", "image": "Medium/bread.png" },
+	{ "esp": "Nube",      "eng": "CLOUD", "image": "Medium/cloud.png" },
+	{ "esp": "Tren",      "eng": "TRAIN", "image": "Medium/train.png" },
+	{ "esp": "Corazón",   "eng": "HEART", "image": "Medium/heart.png" }
+  ],
+
+  "hard": [
+	{ "esp": "Escuela",   "eng": "SCHOOL",   "image": "Hard/school.png" },
+	{ "esp": "Familia",   "eng": "FAMILY",   "image": "Hard/family.jpg" },
+	{ "esp": "Ventana",   "eng": "WINDOW",   "image": "Hard/window.jpg" },
+	{ "esp": "Jardín",    "eng": "GARDEN",   "image": "Hard/garden.png" },
+	{ "esp": "Animal",    "eng": "ANIMAL",   "image": "Hard/animal.png" },
+	{ "esp": "Cantante",  "eng": "SINGER",   "image": "Hard/singer.png" },
+	{ "esp": "Calle",     "eng": "STREET",   "image": "Hard/street.jpg" },
+	{ "esp": "Oficina",   "eng": "OFFICE",   "image": "Hard/office.png" },
+	{ "esp": "Bosque",    "eng": "FOREST",   "image": "Hard/forest.jpg" },
+	{ "esp": "Ciudades",  "eng": "CITIES",   "image": "Hard/cities.png" },
+
+	{ "esp": "Planeta",   "eng": "PLANET",   "image": "Hard/planet.png" },
+	{ "esp": "Doctor",    "eng": "DOCTOR",   "image": "Hard/doctor.png" },
+	{ "esp": "Mercado",   "eng": "MARKET",   "image": "Hard/market.png" },
+	{ "esp": "Personas",  "eng": "PEOPLE",   "image": "Hard/people.png" },
+	{ "esp": "Futuro",    "eng": "FUTURE",   "image": "Hard/future.png" },
+	{ "esp": "Naranja",   "eng": "ORANGE",   "image": "Hard/orange.png" },
+	{ "esp": "Amigo",     "eng": "FRIEND",   "image": "Hard/friend.png" },
+	{ "esp": "Mono",      "eng": "MONKEY",   "image": "Hard/monkey.png" },
+	{ "esp": "Verano",    "eng": "SUMMER",   "image": "Hard/summer.png" },
+	{ "esp": "Invierno",  "eng": "WINTER",   "image": "Hard/winter.png" }
+  ]
+}

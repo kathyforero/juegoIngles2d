@@ -3,42 +3,6 @@ extends Control
 # Referencia al nodo VideoStreamPlayer que reproduce el video en la interfaz de instrucciones.
 @onready var video_stream_player = $TextureRect/Panel/VideoStreamPlayer
 
-var en: bool = false
-
-func load_language_setting() -> bool:
-	if FileAccess.file_exists("res://language_setting.json"):
-		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
-		var data = JSON.parse_string(json_as_text)
-		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
-			return data["english"]
-	return false
-
-func update_language_instructions():
-	var scene_name := name
-	# Cambiar fondo y texto del botón según idioma
-	if en:
-		$TextureRect/Button.text = "START"
-		match scene_name:
-			"InstruccionesFrases":
-				$TextureRect/RichTextLabel.text = "Welcome to the puzzle adventure kids!"
-			"InstruccionesPalabra":
-				$TextureRect/RichTextLabel.text = "Welcome to the order it adventure kids!"
-			"InstruccionesUnir":
-				$TextureRect/RichTextLabel.text = "Welcome to the match it adventure kids!"
-			_:
-				$TextureRect/RichTextLabel.text = ""
-	else:
-		$TextureRect/Button.text = "EMPEZAR"
-		match scene_name:
-			"InstruccionesFrases":
-				$TextureRect/RichTextLabel.text = "¡Bienvenidos a la aventura de puzzle, niños!"
-			"InstruccionesPalabra":
-				$TextureRect/RichTextLabel.text = "¡Bienvenidos a la aventura de order it, niños!"
-			"InstruccionesUnir":
-				$TextureRect/RichTextLabel.text = "¡Bienvenidos a la aventura de match it, niños!"
-			_:
-				$TextureRect/RichTextLabel.text = ""
-
 # Función que reanuda el juego.
 # Despausa el árbol de nodos (lo que reactiva el juego) y reproduce la animación de "blur" en reversa para quitar el efecto de desenfoque.
 # Después, elimina esta escena de instrucciones.
@@ -58,8 +22,6 @@ func pause():
 func _ready():
 	$AnimationPlayer.play("RESET")  # Reiniciar la animación.
 	pause()  # Pausar el juego para que se enfoque en las instrucciones.
-	en = load_language_setting()
-	update_language_instructions()
 	video_stream_player.play()  # Reproducir el video de instrucciones.
 
 # Función que se ejecuta cuando el botón es presionado.

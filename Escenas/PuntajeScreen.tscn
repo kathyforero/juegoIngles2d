@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://4axweujk3q73"]
+[gd_scene load_steps=13 format=3 uid="uid://4axweujk3q73"]
 
 [ext_resource type="Script" uid="uid://cpdvsfk14lhlq" path="res://Scripts/Puntaje.gd" id="1_da5bc"]
 [ext_resource type="Texture2D" uid="uid://dfqhr1lcxhukc" path="res://Sprites/global/Background_game.png" id="2_2sjkm"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="6_63w4k"]
 [ext_resource type="Texture2D" uid="uid://dysynh8dy4kgi" path="res://Sprites/global/texto felicitaciones.png" id="6_li3sf"]
 [ext_resource type="AudioStream" uid="uid://bfv3xkxn5hs8y" path="res://Sonido/subidaPuntaje.mp3" id="8_spwxl"]
+[ext_resource type="PackedScene" uid="uid://bes70044ak1if" path="res://Escenas/BestNamePopup.tscn" id="9_5x4im"]
 [ext_resource type="Texture2D" uid="uid://b6adqoc1dhqe5" path="res://Sprites/Hojas en letrero.png" id="9_v2qdo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_htnof"]
@@ -75,6 +76,24 @@ offset_bottom = 428.0
 text = "00"
 label_settings = SubResource("LabelSettings_htnof")
 
+[node name="NewBestLabel" type="Label" parent="."]
+visible = false
+offset_left = 943.0
+offset_top = 371.0
+offset_right = 1095.0
+offset_bottom = 418.0
+label_settings = SubResource("LabelSettings_htnof")
+
+[node name="BestNameDialog" parent="." instance=ExtResource("9_5x4im")]
+visible = false
+offset_left = 641.0
+offset_top = 151.0
+offset_right = 641.0
+offset_bottom = 151.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="Puntaje2" type="Label" parent="."]
 offset_left = 830.0
 offset_top = 454.0
@@ -119,3 +138,7 @@ label_settings = SubResource("LabelSettings_htnof")
 stream = ExtResource("8_spwxl")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="BestNameDialog/CenterContainer/Panel/MarginContainer/VBox/ButtonsRow/CancelButton" to="." method="_on_BestNameDialog_cancelled"]
+[connection signal="pressed" from="BestNameDialog/CenterContainer/Panel/MarginContainer/VBox/ButtonsRow/SaveButton" to="." method="_on_BestNameDialog_confirmed"]
+
+[editable path="BestNameDialog"]

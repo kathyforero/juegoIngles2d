@@ -1,55 +1,54 @@
 extends Node
 
-#Signals
+# Signals
 signal set_timer()
 signal update_title(new_title)
 signal update_difficulty(new_difficulty)
 signal update_level(new_level)
 signal uptate_imagen_game(new_image)
 signal set_visible_word(new_word)
+
 var ejecutablePath = Global.rutaArchivos
 var pantallaVictoria = preload("res://Escenas/PantallaVictoria.tscn")
 var pantallaAcaboTiempo = preload("res://Escenas/NivelFinalizado.tscn")
 var difuminado = preload("res://Piezas/ColorRectDifuminado.tscn")
+
+@onready var hints_panel = $HintsPanel
+@onready var hints_label = $HintsPanel/Label
+var pistas_restantes := 1  # Hard: 1 hint
+
 var instance
 var instanceAcaboTiempo
 var instantiatedAcaboTiempo = false
 var instanceDifuminado
 var instantiatedDifuminado = false
 
-var palabras = {
-	"Escuela": "SCHOOL", 
-	"Familia": "FAMILY", 
-	"Ventana": "WINDOW", 
-	"Jardín": "GARDEN", 
-	"Animal": "ANIMAL", 
-	"Cantante": "SINGER", 
-	"Calle": "STREET", 
-	"Oficina": "OFFICE",
-	"Bosque": "FOREST",
-	"Ciudades": "CITIES",
-}
+var palabras: Dictionary = {}
+var palabras_imagen: Dictionary = {}
 
-@export var palabra ="SCHOOL"
+@export var palabra = "SCHOOL"
 @export var palabraES = "Escuela"
 var instantiated = false
 var gano = false
 var letters
-var rondas = 4
+var rondas = 6
 var rondaActual = 1
-var tiempoCronometro = 120 
+var tiempoCronometro = 100
 var velocidad = 20
 var perfect = 100
 var valorNivel = 100
 var palabraAnterior
 
 func _ready():
-	Score.perfectBonus=100
+	Score.perfectBonus = 100
+	
+	_cargar_palabras_desde_banco_hard()
+	
 	emit_signal("set_timer")
 	emit_signal("update_title", "Order it")
 	setDifficultTitle()
-	emit_signal("update_level", "1/4")
-	emit_signal("uptate_imagen_game", "Escuela")
+	emit_signal("update_level", "1/" + str(rondas))
+	
 	instance = pantallaVictoria.instantiate()
 	instantiated = true
 	instanceAcaboTiempo = pantallaAcaboTiempo.instantiate()
@@ -59,24 +58,38 @@ func _ready():
 	setLetters()
 	tiempoCronometro = $Box_inside_game.time_seconds
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if(instantiated):
-		# Check all 6 letters for completion
+	if instantiated:
 		if ($Letras/Letter.correct and $Letras/Letter2.correct and
-		 $Letras/Letter3.correct and $Letras/Letter4.correct and
-		 $Letras/Letter5.correct and $Letras/Letter6.correct and 
-		 rondaActual==rondas and !gano):
+			$Letras/Letter3.correct and $Letras/Letter4.correct and
+			$Letras/Letter5.correct and $Letras/Letter6.correct and
+			rondaActual == rondas and !gano):
 			gano = true
 			victory()
 		if ($Letras/Letter.correct and $Letras/Letter2.correct and
-		 $Letras/Letter3.correct and $Letras/Letter4.correct and
-		 $Letras/Letter5.correct and $Letras/Letter6.correct):
-			if(rondaActual<rondas):
+			$Letras/Letter3.correct and $Letras/Letter4.correct and
+			$Letras/Letter5.correct and $Letras/Letter6.correct):
+			if rondaActual < rondas:
 				await nuevaRonda()
-			else: gano=true
-	pass
+			else:
+				gano = true
+
+func _cargar_palabras_desde_banco_hard():
+	palabras.clear()
+	palabras_imagen.clear()
 	
+	if typeof(BancoOrderIt) == TYPE_NIL:
+		push_error("Autoload 'BancoOrderIt' not found. Check Project Settings → AutoLoad.")
+		return
+	
+	for ejercicio in BancoOrderIt.hard:
+		if ejercicio.has("esp") and ejercicio.has("eng"):
+			var esp := str(ejercicio["esp"])
+			var eng := str(ejercicio["eng"])
+			palabras[esp] = eng
+			if ejercicio.has("image"):
+				palabras_imagen[esp] = str(ejercicio["image"])
+
 func setDifficultTitle():
 	match Score.actualDifficult:
 		Score.difficult["easy"]:
@@ -85,33 +98,35 @@ func setDifficultTitle():
 			emit_signal("update_difficulty", "Medium")
 		Score.difficult["hard"]:
 			emit_signal("update_difficulty", "Difficult")
-			
+
 func setLetters():
 	palabraES = palabras.keys().pick_random()
 	emit_signal("set_visible_word", palabraES)
+
+	if palabras_imagen.has(palabraES):
+		emit_signal("uptate_imagen_game", palabras_imagen[palabraES])
+
 	palabra = palabras[palabraES]
 	letters = palabra.split()
-	var tempLetters: Array[String]= []
-	while(true):
-		tempLetters= []
+	var tempLetters: Array[String] = []
+
+	while true:
+		tempLetters.clear()
 		for i in letters.size():
 			tempLetters.append(letters[i])
 		tempLetters.shuffle()
-		if (tempLetters[0]!=letters[0]):
+		if tempLetters[0] != letters[0]:
 			break
-	if(palabraAnterior != null):
-		$Imagenes.get_node(palabraAnterior).visible = false
-	$Imagenes.get_node(palabraES).visible=true
-	
-	# Set shuffled letters for 6-letter word
+
+	# Letras desordenadas (6)
 	$Letras/Letter.setLetter(tempLetters[0])
 	$Letras/Letter2.setLetter(tempLetters[1])
 	$Letras/Letter3.setLetter(tempLetters[2])
 	$Letras/Letter4.setLetter(tempLetters[3])
 	$Letras/Letter5.setLetter(tempLetters[4])
 	$Letras/Letter6.setLetter(tempLetters[5])
-	
-	# Set correct order for 6-letter word
+
+	# Orden correcto (6)
 	$Ordenada/Letterbox5.setLetter(letters[0])
 	$Ordenada/Letterbox6.setLetter(letters[1])
 	$Ordenada/Letterbox7.setLetter(letters[2])
@@ -122,10 +137,13 @@ func setLetters():
 func victory():
 	$Box_inside_game.timer.stop()
 	actualizar_velocidad()
+	_actualizar_puntajes(ejecutablePath + "/Scores/puntajesOrder.dat")
+
+	var totalActual = velocidad + Score.perfectBonus + valorNivel
 	Score.newScore = valorNivel
 	Score.fastBonus = velocidad
+	# Score.perfectBonus ya viene modificado por Letter.gd
 	Score.LatestGame = Score.Games.OrderIt
-	_actualizar_puntajes(ejecutablePath+"/Scores/puntajesOrder.dat")
 	actualizar_progreso(ejecutablePath+"/Progress/progressMinigames.dat")
 	instance.position = Vector2(1000,0)
 	$AnimationPlayer.play("Gana")
@@ -142,80 +160,83 @@ func victory():
 		instance.position.x-=50
 
 func _actualizar_puntajes(path):
-	var content
 	var precisionActual = Score.perfectBonus
+	var totalActual = velocidad + precisionActual + valorNivel
+	var is_new_record := false
+	var diff_key := "hard"  # este script es SOLO para Hard
+
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open(path, FileAccess.READ)
 		var puntajes = file.get_var()
 		file.close()
-		print("Puntajes cargados: ", puntajes)
-		var velocidadPasada = puntajes[Score.actualDifficult]["velocidad"]
-		var precisionPasada = puntajes[Score.actualDifficult]["precision"]
-		var nivelesPasado = puntajes[Score.actualDifficult]["niveles"]
-		
-		if int(velocidadPasada) < velocidad:
-			puntajes[Score.actualDifficult]["velocidad"] = velocidad
-		if int(precisionPasada) < precisionActual:
-			puntajes[Score.actualDifficult]["precision"] = precisionActual
-		if int(nivelesPasado) < valorNivel:
-			puntajes[Score.actualDifficult]["niveles"] = valorNivel
-		if int(velocidadPasada) < velocidad || int(precisionPasada) < precisionActual || int(nivelesPasado) < valorNivel:
-			if DirAccess.remove_absolute(path) == OK:
-				print("Archivo existente borrado.")
-				_guardar_puntajes(puntajes, path)
+
+		for diff in ["easy", "medium", "hard"]:
+			if not puntajes.has(diff):
+				puntajes[diff] = {
+					"velocidad": 0,
+					"precision": 0,
+					"niveles": 0,
+					"best_score": 0,
+					"name": ""
+				}
 			else:
-				print("Error al intentar borrar el archivo.")
+				if not puntajes[diff].has("best_score"):
+					var v = int(puntajes[diff].get("velocidad", 0))
+					var p = int(puntajes[diff].get("precision", 0))
+					var n = int(puntajes[diff].get("niveles", 0))
+					puntajes[diff]["best_score"] = v + p + n
+				if not puntajes[diff].has("name"):
+					puntajes[diff]["name"] = ""
+
+		var registro_actual = puntajes[diff_key]
+		var best_prev := int(registro_actual.get("best_score", 0))
+
+		if totalActual >= best_prev:
+			is_new_record = true
+			var nombre_guardado = registro_actual.get("name", "")
+			puntajes[diff_key] = {
+				"velocidad": velocidad,
+				"precision": precisionActual,
+				"niveles": valorNivel,
+				"best_score": totalActual,
+				"name": nombre_guardado
+			}
+
+			var new_file = FileAccess.open(path, FileAccess.WRITE)
+			new_file.store_var(puntajes)
+			new_file = null
 	else:
-		match Score.actualDifficult:
-			Score.difficult["easy"]:
-				content = {
-					"easy": {
-						"velocidad":velocidad,
-						"precision":precisionActual,
-						"niveles":valorNivel	
-					},"medium": {
-						"velocidad":0,
-						"precision":0,
-						"niveles":0
-					},"hard": {
-						"velocidad":0,
-						"precision":0,
-						"niveles":0	
-					}
-				}
-			Score.difficult["medium"]:
-				content = {
-					"easy": {
-						"velocidad":0,
-						"precision":0,
-						"niveles":0	
-					},"medium": {
-						"velocidad":velocidad,
-						"precision":precisionActual,
-						"niveles":valorNivel	
-					},"hard": {
-						"velocidad":0,
-						"precision":0,
-						"niveles":0	
-					}
-				}
-			Score.difficult["hard"]:
-				content = {
-					"easy": {
-						"velocidad":0,
-						"precision":0,
-						"niveles":0
-					},"medium": {
-						"velocidad":0,
-						"precision":0,
-						"niveles":0
-					},"hard": {
-						"velocidad":velocidad,
-						"precision":precisionActual,
-						"niveles":valorNivel	
-					}
-				}
-		_guardar_puntajes(content, path)
+		is_new_record = true
+		var content = {
+			"easy": {
+				"velocidad": 0,
+				"precision": 0,
+				"niveles": 0,
+				"best_score": 0,
+				"name": "---"
+			},
+			"medium": {
+				"velocidad": 0,
+				"precision": 0,
+				"niveles": 0,
+				"best_score": 0,
+				"name": "---"
+			},
+			"hard": {
+				"velocidad": velocidad,
+				"precision": precisionActual,
+				"niveles": valorNivel,
+				"best_score": totalActual,
+				"name": ""
+			}
+		}
+
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_var(content)
+		file = null
+
+	Score.latest_total_score = totalActual
+	Score.is_new_best = is_new_record
 
 func _guardar_puntajes(content, path):
 	var file = FileAccess.open(path ,FileAccess.WRITE)
@@ -255,7 +276,7 @@ func actualizar_progreso(path):
 func lose():
 	$Box_inside_game.timer.stop()
 	get_tree().paused = true
-	instanceAcaboTiempo.nombreEscenaDificultad = "DificultadPalabra1.tscn"
+	instanceAcaboTiempo.nombreEscenaDificultad = "Dificultad_OrderIt.tscn"
 	instanceAcaboTiempo.position = Vector2(1000,0)
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.add_child(instanceDifuminado)
@@ -268,19 +289,30 @@ func lose():
 		instanceAcaboTiempo.position.x-=50
 
 func _dar_pista():
+	if pistas_restantes <= 0:
+		hints_label.text = "No hints remaining!"
+		hints_panel.visible = true
+		get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
+		return
+
+	pistas_restantes -= 1
+	hints_label.text = str(pistas_restantes) + " Hints Remaining"
+	hints_panel.visible = true
+	get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
+
 	for i in $Letras.get_children():
-		if(!i.correct):
+		if not i.correct:
 			for j in $Ordenada.get_children():
-				if(j.letter == i.letter and !j.occupied):
+				if j.letter == i.letter and not j.occupied:
 					i.hint()
 					j.hint()
 					return
 
 func nuevaRonda():
-	palabraAnterior=palabraES
+	palabraAnterior = palabraES
 	palabras.erase(palabraES)
 	$Box_inside_game.timer.stop()
-	# Reset all 6 letters
+
 	$Letras/Letter.resetVars()
 	$Letras/Letter2.resetVars()
 	$Letras/Letter3.resetVars()
@@ -288,7 +320,6 @@ func nuevaRonda():
 	$Letras/Letter5.resetVars()
 	$Letras/Letter6.resetVars()
 	
-	# Wait for all animations to finish
 	await $Letras/Letter.animacionFinalizado()
 	await $Letras/Letter2.animacionFinalizado()
 	await $Letras/Letter3.animacionFinalizado()
@@ -296,7 +327,6 @@ func nuevaRonda():
 	await $Letras/Letter5.animacionFinalizado()
 	await $Letras/Letter6.animacionFinalizado()
 	
-	# Reset all positions
 	$Letras/Letter.resetPos()
 	$Letras/Letter2.resetPos()
 	$Letras/Letter3.resetPos()
@@ -304,8 +334,8 @@ func nuevaRonda():
 	$Letras/Letter5.resetPos()
 	$Letras/Letter6.resetPos()
 	
-	rondaActual+=1
-	emit_signal("update_level", str(rondaActual)+"/4")
+	rondaActual += 1
+	emit_signal("update_level", "%d/%d" % [rondaActual, rondas])
 	await setLetters()
 	$Box_inside_game.timer.start()
 
@@ -319,3 +349,6 @@ func actualizar_velocidad():
 		velocidad+=40
 	else:
 		velocidad+=0
+
+func _hide_hints_panel():
+	hints_panel.visible = false

@@ -62,9 +62,10 @@ func _marcar_correcto():
 # Función para manejar cuando es incorrecto
 func _marcar_incorrecto(): 
 	var principal = get_parent().get_parent()
-	if principal and principal.has_method("precisionActual"):
+	if principal:
 		if principal.precisionActual > principal.precisionMinima:
 			principal.precisionActual -= 10
+		print("Precision ahora: ", principal.precisionActual)
 	$AnimationPlayer.play("Incorrecto")
 	await $AnimationPlayer.animation_finished
 	_reset_position()

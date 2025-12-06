@@ -3,26 +3,10 @@ extends Control
 # Señal que se emite para actualizar la escena, en este caso el menú principal.
 signal update_scene(path)
 
-var en: bool = false
-
 # Función que se llama cuando el nodo entra en la escena por primera vez.
 # Emite una señal para indicar que se debe mostrar el menú principal.
-	
-func update_language_buttons():
-	if en:
-		# Modo inglés: botones en inglés
-		$TextureButton.texture_normal  = load("res://Sprites/buttons/btnIngles_en.png")
-		$TextureButton2.texture_normal = load("res://Sprites/buttons/btnEspañol_en.png")
-	else:
-		# Modo español: botones en español (los originales)
-		$TextureButton.texture_normal  = load("res://Sprites/buttons/btnIngles.png")
-		$TextureButton2.texture_normal = load("res://Sprites/buttons/btnEspaño.png")
-
-
 func _ready():
 	print("ok")
-	en = load_language_setting()          # lee el idioma guardado
-	update_language_buttons()             # pone los botones correctos
 	emit_signal("update_scene", "menu_principal") 
  
 # Función que se ejecuta cuando el botón del juego de puzzles es presionado.
@@ -33,14 +17,10 @@ func _on_btn_puzzle_pressed():
 
 func _on_texturebutton_pressed(): 
 	save_language_setting(true)  # Guardar configuración para inglés
-	en = load_language_setting()
-	update_language_buttons()
 	print("Idioma guardado: Inglés") 
 
 func _on_texturebutton2_pressed():
 	save_language_setting(false)  # Guardar configuración para español
-	en = load_language_setting()
-	update_language_buttons()
 	print("Idioma guardado: Español")
 	
 func save_language_setting(is_english: bool):
@@ -51,14 +31,16 @@ func save_language_setting(is_english: bool):
 	
 	
 func load_language_setting() -> bool:
-	if FileAccess.file_exists("res://language_setting.json"):
-		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
-		var data = JSON.parse_string(json_as_text)
-		
-		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
-			return data["english"]
-	
-	return false   # por defecto español
+	if FileAccess.file_exists("user://language_setting.json"):
+		var file = FileAccess.open("user://language_setting.json", FileAccess.READ)
+		var json = JSON.new()  # Crear una instancia de JSON
+		var parse_result = json.parse(file.get_as_text())  # Analizar el JSON
+		file.close() 
+		if parse_result.error == OK:
+			var save_data = parse_result.result  # Obtener el diccionario
+			if "english" in save_data:
+				return save_data["english"]  
+	return false  # Valor predeterminado si no existe el archivo
 
 # Función que se ejecuta cuando el botón del juego 'Match It' es presionado.
 # Reproduce el sonido de clic y cambia la escena al nivel de dificultad de 'Match It'.
