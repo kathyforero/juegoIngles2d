@@ -290,17 +290,26 @@ func nuevaRonda():
 	await get_tree().create_timer(0.3).timeout
 	
 	# Apagar letras de izquierda a derecha según el orden correcto (ANTES de resetear)
-	for i in range(letters.size()):
-		var letra_correcta = letters[i]
-		# Buscar qué nodo Letter tiene esta letra y está correcto
-		var letras_disponibles = [$Letras/Letter, $Letras/Letter2, $Letras/Letter3, $Letras/Letter4]
-		for letra in letras_disponibles:
-			if letra.letter == letra_correcta and letra.correct:
-				await letra.animacionFinalizado()
-				# Pequeño delay entre cada letra para que se vea el efecto secuencial
-				if i < letters.size() - 1:
-					await get_tree().create_timer(0.15).timeout
-				break
+	# Letterboxes en orden de izquierda a derecha
+	var letterboxes = [$Ordenada/Letterbox5, $Ordenada/Letterbox6, $Ordenada/Letterbox7, $Ordenada/Letterbox8]
+	
+	for i in range(letterboxes.size()):
+		var letterbox = letterboxes[i]
+		var letra_encontrada = null
+		
+		# Buscar la letra que está en esta posición específica (por posición, no por contenido)
+		if letterbox.occupied and letterbox.current_node != null:
+			if typeof(letterbox.current_node) != TYPE_STRING:
+				var area = letterbox.current_node
+				if area and area.get_parent():
+					letra_encontrada = area.get_parent()
+		
+		# Si se encontró la letra en esta posición, ejecutar su animación
+		if letra_encontrada and letra_encontrada.correct:
+			await letra_encontrada.animacionFinalizado()
+			# Pequeño delay entre cada letra para que se vea el efecto secuencial
+			if i < letterboxes.size() - 1:
+				await get_tree().create_timer(0.05).timeout
 	
 	$Letras/Letter.resetVars()
 	$Letras/Letter2.resetVars()
