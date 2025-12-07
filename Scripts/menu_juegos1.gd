@@ -43,6 +43,9 @@ func _ready():
 	$candado.visible = true
 	# Conectar señal gui_input para capturar clics incluso cuando disabled
 	$btn_random.gui_input.connect(_on_btn_random_gui_input)
+	# Conectar señales para cambiar el cursor cuando el mouse está encima
+	$btn_random.mouse_entered.connect(_on_btn_random_mouse_entered)
+	$btn_random.mouse_exited.connect(_on_btn_random_mouse_exited)
 	verificar_progreso(Global.rutaArchivos + "/Progress/progressMinigames.dat")
 	
 func actualizar_candados(progreso):
@@ -144,6 +147,17 @@ func _on_btn_random_gui_input(event):
 			var titulo = "¡Modo Random Bloqueado!"
 			var mensaje = "Completa todos los niveles DIFÍCILES de los tres juegos para desbloquearlo."
 			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
+# Función que se ejecuta cuando el mouse entra sobre el botón random
+func _on_btn_random_mouse_entered():
+	$btn_random.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+# Función que se ejecuta cuando el mouse sale del botón random
+func _on_btn_random_mouse_exited():
+	if not random_desbloqueado:
+		$btn_random.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	else:
+		$btn_random.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
 # Función que se ejecuta cuando el botón del modo random es presionado.
 func _on_btn_random_pressed():
