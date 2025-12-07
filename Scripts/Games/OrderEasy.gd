@@ -112,18 +112,6 @@ func victory():
 	# Pequeño delay antes de empezar las animaciones
 	await get_tree().create_timer(0.3).timeout
 	
-	# Apagar letras de izquierda a derecha según el orden correcto
-	for i in range(letters.size()):
-		var letra_correcta = letters[i]
-		# Buscar qué nodo Letter tiene esta letra y está correcto
-		var letras_disponibles = [$Letras/Letter, $Letras/Letter2, $Letras/Letter3, $Letras/Letter4]
-		for letra in letras_disponibles:
-			if letra.letter == letra_correcta and letra.correct:
-				await letra.animacionFinalizado()
-				# Pequeño delay entre cada letra para que se vea el efecto secuencial
-				if i < letters.size() - 1:
-					await get_tree().create_timer(0.15).timeout
-				break
 	
 	await $AnimationPlayer.animation_finished
 	var canvas_layer = CanvasLayer.new()
