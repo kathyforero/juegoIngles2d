@@ -71,6 +71,11 @@ func _ready():
 	# Conectar señales gui_input para capturar clics incluso cuando disabled
 	$TextureButton2.gui_input.connect(_on_texture_button_2_gui_input)
 	$TextureButton3.gui_input.connect(_on_texture_button_3_gui_input)
+	# Conectar señales para cambiar el cursor cuando el mouse está encima
+	$TextureButton2.mouse_entered.connect(_on_texture_button_2_mouse_entered)
+	$TextureButton2.mouse_exited.connect(_on_texture_button_2_mouse_exited)
+	$TextureButton3.mouse_entered.connect(_on_texture_button_3_mouse_entered)
+	$TextureButton3.mouse_exited.connect(_on_texture_button_3_mouse_exited)
 	verificar_progreso(Global.rutaArchivos+"/Progress/progressMinigames.dat")
 	
 
@@ -199,3 +204,22 @@ func _on_texture_button_3_pressed():
 		ButtonClick.button_click()
 		Score.actualDifficult = Score.difficult["hard"]
 		get_tree().change_scene_to_file("res://Escenas/Games/UnirHard.tscn")
+
+# Funciones para cambiar el cursor cuando el mouse está encima de los botones bloqueados
+func _on_texture_button_2_mouse_entered():
+	$TextureButton2.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_texture_button_2_mouse_exited():
+	if not medium_desbloqueado:
+		$TextureButton2.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	else:
+		$TextureButton2.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_texture_button_3_mouse_entered():
+	$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_texture_button_3_mouse_exited():
+	if not hard_desbloqueado:
+		$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	else:
+		$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
