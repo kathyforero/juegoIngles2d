@@ -4,8 +4,8 @@ extends Node2D
 signal update_scene(path)
 signal update_title(new_title)
 signal set_timer()
-signal update_difficulty(new_difficulty)
-signal update_level(new_level)
+#signal update_difficulty(new_difficulty)  # No usado actualmente
+#signal update_level(new_level)  # No usado actualmente
 signal set_not_visible_image()
 
 var en: bool = false

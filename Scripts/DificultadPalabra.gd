@@ -67,7 +67,7 @@ func _ready():
 	$TextureButton3.mouse_exited.connect(_on_texture_button_3_mouse_exited)
 	verificar_progreso(Global.rutaArchivos+"/Progress/progressMinigames.dat")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func actualizar_candados(progreso, minigame):

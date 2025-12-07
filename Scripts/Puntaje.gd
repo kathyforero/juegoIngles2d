@@ -87,7 +87,7 @@ func updateScore():
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
 
-func _process(delta):
+func _process(_delta):
 	$Puntaje.text = str(score)
 	$Puntaje2.text = "+"+str(fastBonus)
 	$Puntaje3.text = "+"+str(perfectBonus)
