@@ -55,11 +55,12 @@ func _process(_delta):
 		 rondaActual==rondas and !gano):
 			gano = true
 			victory()
-		if ($Letras/Letter.correct and $Letras/Letter2.correct and
-		 $Letras/Letter3.correct and $Letras/Letter4.correct):
-			if(rondaActual<rondas):
-				await nuevaRonda()
-			else: gano=true
+		elif ($Letras/Letter.correct and $Letras/Letter2.correct and
+		 $Letras/Letter3.correct and $Letras/Letter4.correct and
+		 rondaActual<rondas and !gano):
+			gano = true  # Temporal para evitar múltiples llamadas
+			await nuevaRonda()
+			gano = false  # Resetear para la siguiente ronda
 	pass
 	
 func setDifficultTitle():
@@ -107,6 +108,23 @@ func victory():
 	actualizar_progreso(ejecutablePath+"/Progress/progressMinigames.dat")
 	instance.position = Vector2(1000,0)
 	$AnimationPlayer.play("Gana")
+	
+	# Pequeño delay antes de empezar las animaciones
+	await get_tree().create_timer(0.3).timeout
+	
+	# Apagar letras de izquierda a derecha según el orden correcto
+	for i in range(letters.size()):
+		var letra_correcta = letters[i]
+		# Buscar qué nodo Letter tiene esta letra y está correcto
+		var letras_disponibles = [$Letras/Letter, $Letras/Letter2, $Letras/Letter3, $Letras/Letter4]
+		for letra in letras_disponibles:
+			if letra.letter == letra_correcta and letra.correct:
+				await letra.animacionFinalizado()
+				# Pequeño delay entre cada letra para que se vea el efecto secuencial
+				if i < letters.size() - 1:
+					await get_tree().create_timer(0.15).timeout
+				break
+	
 	await $AnimationPlayer.animation_finished
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.add_child(instanceDifuminado)
@@ -279,14 +297,27 @@ func nuevaRonda():
 	
 	palabras.erase(palabraES)
 	$Box_inside_game.timer.stop()
+	
+	# Pequeño delay antes de empezar las animaciones
+	await get_tree().create_timer(0.3).timeout
+	
+	# Apagar letras de izquierda a derecha según el orden correcto (ANTES de resetear)
+	for i in range(letters.size()):
+		var letra_correcta = letters[i]
+		# Buscar qué nodo Letter tiene esta letra y está correcto
+		var letras_disponibles = [$Letras/Letter, $Letras/Letter2, $Letras/Letter3, $Letras/Letter4]
+		for letra in letras_disponibles:
+			if letra.letter == letra_correcta and letra.correct:
+				await letra.animacionFinalizado()
+				# Pequeño delay entre cada letra para que se vea el efecto secuencial
+				if i < letters.size() - 1:
+					await get_tree().create_timer(0.15).timeout
+				break
+	
 	$Letras/Letter.resetVars()
 	$Letras/Letter2.resetVars()
 	$Letras/Letter3.resetVars()
 	$Letras/Letter4.resetVars()
-	await $Letras/Letter.animacionFinalizado()
-	await $Letras/Letter2.animacionFinalizado()
-	await $Letras/Letter3.animacionFinalizado()
-	await $Letras/Letter4.animacionFinalizado()
 	$Letras/Letter.resetPos()
 	$Letras/Letter2.resetPos()
 	$Letras/Letter3.resetPos()
