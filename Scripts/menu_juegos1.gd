@@ -41,6 +41,8 @@ func _ready():
 	# $btn_random.disabled = true
 	$btn_random.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	$candado.visible = true
+	# Conectar señal gui_input para capturar clics incluso cuando disabled
+	$btn_random.gui_input.connect(_on_btn_random_gui_input)
 	verificar_progreso(Global.rutaArchivos + "/Progress/progressMinigames.dat")
 	
 func actualizar_candados(progreso):
@@ -61,7 +63,8 @@ func actualizar_candados(progreso):
 			# Ya fue desbloqueado antes, solo ocultamos candado si sigue visible
 			$candado.visible = false
 
-		# Habilitamos el cursor de mano
+		# Habilitamos el botón y el cursor de mano
+		$btn_random.disabled = false
 		$btn_random.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	else:
 		random_desbloqueado = false
@@ -134,13 +137,16 @@ func _on_btn_order_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/DificultadPalabra1.tscn")
 
+# Función que se ejecuta cuando se hace clic en el botón random (incluso si está deshabilitado)
+func _on_btn_random_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not random_desbloqueado:
+			var titulo = "¡Modo Random Bloqueado!"
+			var mensaje = "Completa todos los niveles DIFÍCILES de los tres juegos para desbloquearlo."
+			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
 # Función que se ejecuta cuando el botón del modo random es presionado.
 func _on_btn_random_pressed():
-	if not random_desbloqueado:
-		# Mostrar modal
-		var titulo = "¡Modo Random Bloqueado!"
-		var mensaje = "Completa todos los niveles DIFÍCILES de los tres juegos para desbloquearlo."
-		$ModalBloqueo.mostrar_modal(titulo, mensaje)
-	else:
+	if random_desbloqueado:
 		ButtonClick.button_click()
 		DificultadRandom.load_next_random_level()
