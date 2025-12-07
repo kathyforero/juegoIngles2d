@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwpl3b47m1h8q"]
+[gd_scene load_steps=15 format=3 uid="uid://bwpl3b47m1h8q"]
 
 [ext_resource type="Script" uid="uid://bkrxuirr4wpoe" path="res://Scripts/menu_principal.gd" id="1_jn68a"]
 [ext_resource type="PackedScene" uid="uid://c6vh7gkg27w0a" path="res://Escenas/parallax_backgroundMenu.tscn" id="1_u1tl3"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://1j7ys5sxfofk" path="res://Sprites/buttons/LenguajeBoton.png" id="7_r82gn"]
 [ext_resource type="Texture2D" uid="uid://bxp6e6bchd8wr" path="res://Sprites/buttons/botonPuntajes.png" id="11_1ahhs"]
 [ext_resource type="Texture2D" uid="uid://r0dn38lkavun" path="res://Sprites/buttons/botonPuntajesHover.png" id="12_667qk"]
+[ext_resource type="Texture2D" uid="uid://supmxa3us3kh" path="res://Sprites/buttons/btn_guia_principal.png" id="13_pg8rb"]
+[ext_resource type="Texture2D" uid="uid://b1wke883agt56" path="res://Sprites/buttons/btn_guia_hover.png" id="14_m202y"]
 
 [node name="MenuPrincipal" type="Control"]
 layout_mode = 3
@@ -40,8 +42,8 @@ expand_mode = 1
 layout_mode = 1
 offset_left = 1167.0
 offset_top = 121.0
-offset_right = 1167.64
-offset_bottom = 121.32
+offset_right = 1188.677
+offset_bottom = 121.32001
 
 [node name="TextureButton2" type="TextureButton" parent="."]
 layout_mode = 0
@@ -58,9 +60,9 @@ stretch_mode = 0
 [node name="TextureButton4" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 1164.0
-offset_top = 205.0
+offset_top = 206.0
 offset_right = 1230.0
-offset_bottom = 266.0
+offset_bottom = 267.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("7_r82gn")
 ignore_texture_size = true
@@ -89,9 +91,22 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("11_1ahhs")
 texture_hover = ExtResource("12_667qk")
 
+[node name="TextureButton5" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 670.0
+offset_right = 792.0
+offset_bottom = 767.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("13_pg8rb")
+texture_hover = ExtResource("14_m202y")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="TextureButton2" to="." method="_on_texture_button_2_pressed"]
 [connection signal="pressed" from="TextureButton4" to="." method="_on_texture_button_4_pressed"]
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="TextureButton3" to="." method="_on_texture_button_3_pressed"]
+[connection signal="pressed" from="TextureButton5" to="." method="_on_texture_button_5_pressed"]

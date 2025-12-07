@@ -344,15 +344,38 @@ func victory():
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
 
+	# Obtener el orden correcto de la oración
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	
+	# PRIMERO: Ejecutar animaciones "Final" (poner azul) en el orden correcto (de izquierda a derecha)
+	for indice in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[indice]
+		var pieza_encontrada = false
+		# Buscar la pieza que corresponde a esta palabra (por target_letter o letter si está correcta)
+		for i in range(4):
+			var pieza = $Cadenas.get_node("Pieza"+str(i))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				# Pequeño delay para que se vea secuencial antes de la siguiente pieza
+				if indice < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.1).timeout
+				pieza_encontrada = true
+				break
+		# Si no se encontró por target_letter/letter, buscar por posición en el array ordenado
+		if not pieza_encontrada:
+			for i in range(4):
+				var pieza = $Cadenas.get_node("Pieza"+str(i))
+				if pieza.correct:
+					var posicion_pieza = cadenasOrdenadas[indiceImagen][indiceCadena].find(pieza.letter)
+					if posicion_pieza == indice:
+						await pieza._animacion_finalizado()
+						# Pequeño delay para que se vea secuencial antes de la siguiente pieza
+						if indice < ordenCorrecto.size() - 1:
+							await get_tree().create_timer(0.1).timeout
+						break
+	
+	# DESPUÉS: Reproducir animación "Gana" que hace que las piezas salten
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	var pieza3 = get_node("Cadenas/Pieza3")   
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado() 
-	await pieza3._animacion_finalizado() 
 	await $AnimationPlayer.animation_finished
 	$AudioStreamPlayer2D.play()
 	var canvas_layer = CanvasLayer.new()
@@ -384,15 +407,39 @@ func lose():
 #Se invoca cada vez que se gana una ronda
 func rondaWin():
 	$Box_inside_game.timer.stop()
+	
+	# Obtener el orden correcto de la oración
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	
+	# PRIMERO: Ejecutar animaciones "Final" (poner azul) en el orden correcto (de izquierda a derecha)
+	for indice in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[indice]
+		var pieza_encontrada = false
+		# Buscar la pieza que corresponde a esta palabra (por target_letter o letter si está correcta)
+		for i in range(4):
+			var pieza = $Cadenas.get_node("Pieza"+str(i))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				# Pequeño delay para que se vea secuencial antes de la siguiente pieza
+				if indice < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.1).timeout
+				pieza_encontrada = true
+				break
+		# Si no se encontró por target_letter/letter, buscar por posición en el array ordenado
+		if not pieza_encontrada:
+			for i in range(4):
+				var pieza = $Cadenas.get_node("Pieza"+str(i))
+				if pieza.correct:
+					var posicion_pieza = cadenasOrdenadas[indiceImagen][indiceCadena].find(pieza.letter)
+					if posicion_pieza == indice:
+						await pieza._animacion_finalizado()
+						# Pequeño delay para que se vea secuencial antes de la siguiente pieza
+						if indice < ordenCorrecto.size() - 1:
+							await get_tree().create_timer(0.1).timeout
+						break
+	
+	# DESPUÉS: Reproducir animación "Gana" que hace que las piezas salten
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	var pieza3 = get_node("Cadenas/Pieza3") 
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado()
-	await pieza3._animacion_finalizado() 
 	await $AnimationPlayer.animation_finished
 	await _reiniciar_componentes()
 	$Box_inside_game.timer.start()

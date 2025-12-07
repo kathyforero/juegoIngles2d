@@ -45,6 +45,9 @@ func update_language_difficulty():
 		$TextureButton3.texture_normal = load("res://Sprites/buttons/Boton_difficult_es.png")
 		$TextureButton3.texture_hover  = load("res://Sprites/buttons/Boton_difficult_hover_es.png")
 		$TextureButton3.texture_disabled = $TextureButton3.texture_normal
+# Variables para controlar el estado de desbloqueo
+var medium_desbloqueado = false
+var hard_desbloqueado = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,6 +58,9 @@ func _ready():
 	
 	$TextureButton2.disabled = true
 	$TextureButton3.disabled = true
+	# Conectar señales gui_input para capturar clics incluso cuando disabled
+	$TextureButton2.gui_input.connect(_on_texture_button_2_gui_input)
+	$TextureButton3.gui_input.connect(_on_texture_button_3_gui_input)
 	verificar_progreso(Global.rutaArchivos+"/Progress/progressMinigames.dat")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,16 +71,19 @@ func _process(delta):
 func actualizar_candados(progreso, minigame):
 	if(progreso[minigame]["medium"] && progreso[minigame]["firstMedium"] == false):
 		$Sprite2D.visible = false
+		medium_desbloqueado = true
 		$TextureButton2.disabled = false
 		$TextureButton2.mouse_default_cursor_shape = $TextureButton2.CURSOR_POINTING_HAND
 	if(progreso[minigame]["hard"] && progreso[minigame]["firstHard"] == false):
 		$Sprite2D3.visible=false
+		hard_desbloqueado = true
 		$TextureButton3.disabled = false
 		$TextureButton3.mouse_default_cursor_shape = $TextureButton3.CURSOR_POINTING_HAND
 	
 	if(progreso[minigame]["medium"] && progreso[minigame]["firstMedium"]):
 		$Sprite2D/AnimationPlayer.play("Unlock")
 		await $Sprite2D/AnimationPlayer.animation_finished
+		medium_desbloqueado = true
 		$TextureButton2.disabled = false
 		$TextureButton2.mouse_default_cursor_shape = $TextureButton2.CURSOR_POINTING_HAND
 		progreso[minigame]["firstMedium"] = false
@@ -83,6 +92,7 @@ func actualizar_candados(progreso, minigame):
 	elif(progreso[minigame]["hard"] && progreso[minigame]["firstHard"]):
 		$Sprite2D3/AnimationPlayer.play("Unlock")
 		await $Sprite2D3/AnimationPlayer.animation_finished
+		hard_desbloqueado = true
 		$TextureButton3.disabled = false	
 		$TextureButton3.mouse_default_cursor_shape = $TextureButton3.CURSOR_POINTING_HAND
 		progreso[minigame]["firstHard"] = false
@@ -149,12 +159,28 @@ func _on_texture_button_pressed():
 	get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel1.tscn")
 
 
+func _on_texture_button_2_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not medium_desbloqueado:
+			var titulo = "¡Dificultad Media Bloqueada!"
+			var mensaje = "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FÁCIL de Puzzle.\n\n¡Sigue practicando!"
+			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
+func _on_texture_button_3_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not hard_desbloqueado:
+			var titulo = "¡Dificultad Difícil Bloqueada!"
+			var mensaje = "Para desbloquear la dificultad DIFÍCIL, primero debes completar el nivel MEDIO de Puzzle.\n\n¡Sigue practicando!"
+			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
 func _on_texture_button_2_pressed():
-	ButtonClick.button_click()
-	Score.actualDifficult = Score.difficult["medium"]
-	get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel2.tscn")    
+	if medium_desbloqueado:
+		ButtonClick.button_click()
+		Score.actualDifficult = Score.difficult["medium"]
+		get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel2.tscn")    
 	
 func _on_texture_button_3_pressed():
-	ButtonClick.button_click()
-	Score.actualDifficult = Score.difficult["hard"]
-	get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel3.tscn") 
+	if hard_desbloqueado:
+		ButtonClick.button_click()
+		Score.actualDifficult = Score.difficult["hard"]
+		get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel3.tscn") 

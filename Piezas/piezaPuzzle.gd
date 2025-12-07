@@ -93,9 +93,11 @@ func _animacion_finalizado():
 
 func _animacion_retorno():
 	$AnimationPlayer.play("Retorno")
+	await $AnimationPlayer.animation_finished
 
 func _reiniciar_variables():
 	originalpos = global_position
 	snap_to = Vector2()
 	correct = false
+	$AnimationPlayer.play("RESET")
 	_actualizar_label()

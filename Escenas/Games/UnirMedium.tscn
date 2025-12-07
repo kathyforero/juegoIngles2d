@@ -230,7 +230,8 @@ position = Vector2(451, 319)
 scale = Vector2(0.231, 0.276)
 
 [node name="Fondo_clic" parent="Box_imagen_match/Button" index="1"]
-scale = Vector2(0.228, 0.763)
+position = Vector2(124.114, 67)
+scale = Vector2(0.22861663, 0.83185834)
 
 [node name="imagen" parent="Box_imagen_match/Button" index="2"]
 scale = Vector2(0.185, 0.161)
@@ -244,7 +245,8 @@ position = Vector2(124, 81)
 scale = Vector2(0.231, 0.276)
 
 [node name="Fondo_clic" parent="Box_imagen_match2/Button" index="1"]
-scale = Vector2(0.228, 0.763)
+position = Vector2(124, 80.1095)
+scale = Vector2(0.228, 0.8239779)
 
 [node name="imagen" parent="Box_imagen_match2/Button" index="2"]
 position = Vector2(124, 81)
@@ -259,7 +261,8 @@ position = Vector2(124, 99)
 scale = Vector2(0.231, 0.276)
 
 [node name="Fondo_clic" parent="Box_imagen_match3/Button" index="1"]
-scale = Vector2(0.228, 0.763)
+position = Vector2(123.5, 98.890495)
+scale = Vector2(0.23402555, 0.8328273)
 
 [node name="imagen" parent="Box_imagen_match3/Button" index="2"]
 position = Vector2(124, 100)

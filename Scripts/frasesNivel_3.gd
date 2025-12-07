@@ -347,20 +347,48 @@ func victory():
 	Score.fastBonus = velocidad
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
-
+	
+	# Obtener el orden correcto de la oración
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	
+	# Primero ejecutar animaciones de color azul en el orden correcto (de izquierda a derecha)
+	for indice in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[indice]
+		var pieza_encontrada = null
+		
+		# Buscar la pieza que está en el piezaBox de esta posición
+		var piezaBox = $Ordenada.get_node("piezaBox"+str(indice))
+		if piezaBox and piezaBox.current_node != null and piezaBox.current_node != "none":
+			# current_node es el Area2D, su padre es la pieza
+			var area = piezaBox.current_node
+			if area and area.get_parent():
+				pieza_encontrada = area.get_parent()
+		
+		# Si no se encontró por piezaBox, buscar por target_letter o letter
+		if not pieza_encontrada or not pieza_encontrada.correct:
+			for i in range(6):
+				var pieza = $Cadenas.get_node("Pieza"+str(i))
+				if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+					pieza_encontrada = pieza
+					break
+		
+		# Si aún no se encontró, buscar por posición en el array ordenado
+		if not pieza_encontrada or not pieza_encontrada.correct:
+			for i in range(6):
+				var pieza = $Cadenas.get_node("Pieza"+str(i))
+				if pieza.correct:
+					var posicion_pieza = cadenasOrdenadas[indiceImagen][indiceCadena].find(pieza.letter)
+					if posicion_pieza == indice:
+						pieza_encontrada = pieza
+						break
+		
+		# Ejecutar animación si se encontró la pieza
+		if pieza_encontrada and pieza_encontrada.correct:
+			await pieza_encontrada._animacion_finalizado()
+		await get_tree().create_timer(0.1).timeout
+	
+	# Ahora ejecutar la animación de salto
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	var pieza3 = get_node("Cadenas/Pieza3")   
-	var pieza4 = get_node("Cadenas/Pieza4")
-	var pieza5 = get_node("Cadenas/Pieza5") 
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado() 
-	await pieza3._animacion_finalizado() 
-	await pieza4._animacion_finalizado() 
-	await pieza5._animacion_finalizado() 
 	await $AnimationPlayer.animation_finished
 	$AudioStreamPlayer2D.play()
 	var canvas_layer = CanvasLayer.new()
@@ -391,21 +419,52 @@ func lose():
 
 #Se invoca cada vez que se gana una ronda
 func rondaWin():
+	$Box_inside_game.timer.stop()
+	
+	# Obtener el orden correcto de la oración
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	
+	# Primero ejecutar animaciones de color azul en el orden correcto (de izquierda a derecha)
+	for indice in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[indice]
+		var pieza_encontrada = null
+		
+		# Buscar la pieza que está en el piezaBox de esta posición
+		var piezaBox = $Ordenada.get_node("piezaBox"+str(indice))
+		if piezaBox and piezaBox.current_node != null and piezaBox.current_node != "none":
+			# current_node es el Area2D, su padre es la pieza
+			var area = piezaBox.current_node
+			if area and area.get_parent():
+				pieza_encontrada = area.get_parent()
+		
+		# Si no se encontró por piezaBox, buscar por target_letter o letter
+		if not pieza_encontrada or not pieza_encontrada.correct:
+			for i in range(6):
+				var pieza = $Cadenas.get_node("Pieza"+str(i))
+				if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+					pieza_encontrada = pieza
+					break
+		
+		# Si aún no se encontró, buscar por posición en el array ordenado
+		if not pieza_encontrada or not pieza_encontrada.correct:
+			for i in range(6):
+				var pieza = $Cadenas.get_node("Pieza"+str(i))
+				if pieza.correct:
+					var posicion_pieza = cadenasOrdenadas[indiceImagen][indiceCadena].find(pieza.letter)
+					if posicion_pieza == indice:
+						pieza_encontrada = pieza
+						break
+		
+		# Ejecutar animación si se encontró la pieza
+		if pieza_encontrada and pieza_encontrada.correct:
+			await pieza_encontrada._animacion_finalizado()
+		await get_tree().create_timer(0.1).timeout
+	
+	# Ahora ejecutar la animación de salto
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	var pieza3 = get_node("Cadenas/Pieza3")
-	var pieza4 = get_node("Cadenas/Pieza4") 
-	var pieza5 = get_node("Cadenas/Pieza5")  
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado()
-	await pieza3._animacion_finalizado() 
-	await pieza4._animacion_finalizado() 
-	await pieza5._animacion_finalizado()   
 	await $AnimationPlayer.animation_finished
-	_reiniciar_componentes()
+	await _reiniciar_componentes()
+	$Box_inside_game.timer.start()
 	 
 #Botón para regresar al menú
 func _on_btn_go_back_pressed():

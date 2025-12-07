@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://b7b6lpl8pnuro"]
+[gd_scene load_steps=18 format=3 uid="uid://b7b6lpl8pnuro"]
 
 [ext_resource type="Script" uid="uid://dnojyjejh5pqy" path="res://Scripts/DificultadPalabra.gd" id="1_4w5kx"]
+[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="11_modal"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="1_simt8"]
 [ext_resource type="Texture2D" uid="uid://cn0bvm36rr6rs" path="res://Sprites/global/Letrero select difficulty order it.png" id="2_3sr3a"]
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="2_8usbs"]
@@ -133,6 +134,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton2" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 519.0
 offset_top = 530.0
 offset_right = 800.0
@@ -145,6 +147,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton3" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 519.0
 offset_top = 600.0
 offset_right = 798.0
@@ -179,6 +182,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_3t862")
 }
 script = ExtResource("9_w6nfa")
+
+[node name="ModalBloqueo" parent="." instance=ExtResource("11_modal")]
 
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

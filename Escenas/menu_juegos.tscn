@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://cu1nuxh8st3ux"]
+[gd_scene load_steps=20 format=3 uid="uid://cu1nuxh8st3ux"]
 
 [ext_resource type="Script" uid="uid://cxc5bgurkkjxn" path="res://Scripts/menu_juegos1.gd" id="1_8om4q"]
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_ae3ik"]
+[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="1_modal"]
 [ext_resource type="Texture2D" uid="uid://dtfvr6dmjys6b" path="res://Sprites/mini_games/Tablero_minigame.png" id="3_prnin"]
 [ext_resource type="Texture2D" uid="uid://b6i60n65brh3n" path="res://Sprites/mini_games/Letrero_minigame.png" id="4_41r5y"]
 [ext_resource type="Texture2D" uid="uid://cufijlsaxqdx8" path="res://Sprites/mini_games/Dibujo puzzles.png" id="5_1oynu"]
@@ -203,6 +204,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_3t862")
 }
 script = ExtResource("15_1jjh1")
+
+[node name="ModalBloqueo" parent="." instance=ExtResource("1_modal")]
 
 [connection signal="pressed" from="Hbox_botones_juegos/btn_puzzle" to="." method="_on_btn_puzzle_pressed"]
 [connection signal="pressed" from="Hbox_botones_juegos/btn_match" to="." method="_on_btn_match_pressed"]

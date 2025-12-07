@@ -345,12 +345,19 @@ func victory():
 	Score.LatestGame = Score.Games.Puzzle
 
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado()
+	
+	# Obtener el orden correcto de la oración
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	
+	# Ejecutar animaciones en el orden correcto (de izquierda a derecha)
+	for palabra in ordenCorrecto:
+		# Buscar la pieza que corresponde a esta palabra (por target_letter o letter si está correcta)
+		for i in range(3):
+			var pieza = $Cadenas.get_node("Pieza"+str(i))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				break
+	
 	await $AnimationPlayer.animation_finished
 	$AudioStreamPlayer2D.play()
 	var canvas_layer = CanvasLayer.new()
@@ -383,12 +390,19 @@ func lose():
 func rondaWin():
 	$Box_inside_game.timer.stop()
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado()
+	
+	# Obtener el orden correcto de la oración
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	
+	# Ejecutar animaciones en el orden correcto (de izquierda a derecha)
+	for palabra in ordenCorrecto:
+		# Buscar la pieza que corresponde a esta palabra (por target_letter o letter si está correcta)
+		for i in range(3):
+			var pieza = $Cadenas.get_node("Pieza"+str(i))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				break
+	
 	await $AnimationPlayer.animation_finished
 	await _reiniciar_componentes()
 	$Box_inside_game.timer.start()

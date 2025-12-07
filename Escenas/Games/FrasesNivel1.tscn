@@ -135,7 +135,7 @@ texture = ExtResource("6_f6fcs")
 [node name="Ordenada" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Ordenada"]
-position = Vector2(654.34, 760)
+position = Vector2(640, 762)
 scale = Vector2(0.239555, 0.227204)
 texture = ExtResource("7_0udpd")
 
