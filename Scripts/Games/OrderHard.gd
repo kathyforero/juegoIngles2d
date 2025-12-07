@@ -69,12 +69,13 @@ func _process(_delta):
 		 rondaActual==rondas and !gano):
 			gano = true
 			victory()
-		if ($Letras/Letter.correct and $Letras/Letter2.correct and
+		elif ($Letras/Letter.correct and $Letras/Letter2.correct and
 		 $Letras/Letter3.correct and $Letras/Letter4.correct and
-		 $Letras/Letter5.correct and $Letras/Letter6.correct):
-			if(rondaActual<rondas):
-				await nuevaRonda()
-			else: gano=true
+		 $Letras/Letter5.correct and $Letras/Letter6.correct and
+		 rondaActual<rondas and !gano):
+			gano = true  # Temporal para evitar múltiples llamadas
+			await nuevaRonda()
+			gano = false  # Resetear para la siguiente ronda
 	pass
 	
 func setDifficultTitle():
@@ -280,30 +281,44 @@ func nuevaRonda():
 	palabraAnterior=palabraES
 	palabras.erase(palabraES)
 	$Box_inside_game.timer.stop()
-	# Reset all 6 letters
+	
+	# Pequeño delay antes de empezar las animaciones
+	await get_tree().create_timer(0.05).timeout
+	
+	# Apagar letras de izquierda a derecha según el orden correcto (ANTES de resetear)
+	# Letterboxes en orden de izquierda a derecha (6 letras)
+	var letterboxes = [$Ordenada/Letterbox5, $Ordenada/Letterbox6, $Ordenada/Letterbox7, $Ordenada/Letterbox8, $Ordenada/Letterbox9, $Ordenada/Letterbox10]
+	
+	for i in range(letterboxes.size()):
+		var letterbox = letterboxes[i]
+		var letra_encontrada = null
+		
+		# Buscar la letra que está en esta posición específica (por posición, no por contenido)
+		if letterbox.occupied and letterbox.current_node != null:
+			if typeof(letterbox.current_node) != TYPE_STRING:
+				var area = letterbox.current_node
+				if area and area.get_parent():
+					letra_encontrada = area.get_parent()
+		
+		# Si se encontró la letra en esta posición, ejecutar su animación
+		if letra_encontrada and letra_encontrada.correct:
+			await letra_encontrada.animacionFinalizado()
+			# Pequeño delay entre cada letra para que se vea el efecto secuencial
+			if i < letterboxes.size() - 1:
+				await get_tree().create_timer(0.05).timeout
+	
 	$Letras/Letter.resetVars()
 	$Letras/Letter2.resetVars()
 	$Letras/Letter3.resetVars()
 	$Letras/Letter4.resetVars()
 	$Letras/Letter5.resetVars()
 	$Letras/Letter6.resetVars()
-	
-	# Wait for all animations to finish
-	await $Letras/Letter.animacionFinalizado()
-	await $Letras/Letter2.animacionFinalizado()
-	await $Letras/Letter3.animacionFinalizado()
-	await $Letras/Letter4.animacionFinalizado()
-	await $Letras/Letter5.animacionFinalizado()
-	await $Letras/Letter6.animacionFinalizado()
-	
-	# Reset all positions
 	$Letras/Letter.resetPos()
 	$Letras/Letter2.resetPos()
 	$Letras/Letter3.resetPos()
 	$Letras/Letter4.resetPos()
 	$Letras/Letter5.resetPos()
 	$Letras/Letter6.resetPos()
-	
 	rondaActual+=1
 	emit_signal("update_level", str(rondaActual)+"/4")
 	await setLetters()
