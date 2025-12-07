@@ -6,6 +6,7 @@ var originalpos = Vector2()  # Inicializado en _ready()
 var snap_to = Vector2()  # Inicializado en _ready()
 var target_letter = "A"
 var correct = false
+var locked = false  # Bloqueo permanente cuando está correcta y en posición
 
 func _ready():
 	# Establece la posición inicial y el texto del Label
@@ -25,20 +26,33 @@ func _ready():
 		print("Advertencia: Nodo padre o abuelo no encontrado.")
 
 func _process(_delta):
-	# Solo actualiza la posición si se está arrastrando
-	if dragging:
+	# Solo actualiza la posición si se está arrastrando y NO está bloqueada
+	if dragging and not locked:
 		position = get_global_mouse_position()
-		correct = false
 		$AnimationPlayer.play("RESET")
 
 func _get_drag_data(_at_position):
 	print("Iniciando arrastre.")
 
 func _on_button_button_down():
+	# Si está bloqueada (correcta y en posición), solo reproducir animación
+	if locked:
+		$AnimationPlayer.play("Correcto")
+		return
+	
+	# Si está correcta pero aún no bloqueada, no permitir arrastrar
+	if correct:
+		return
+		
 	dragging = true
 	self.move_to_front()
 
 func _on_button_button_up():
+	# Si está bloqueada, no hacer nada
+	if locked or correct:
+		dragging = false
+		return
+		
 	dragging = false
 	if position.distance_to(snap_to) < 70:  # Verifica si está cerca del objetivo
 		position = snap_to
@@ -55,9 +69,13 @@ func _on_update_phrase():
 
 # Función para marcar como correcto
 func _marcar_correcto():
+	correct = true
 	$AnimationPlayer.play("Correcto")
 	await $AnimationPlayer.animation_finished
-	correct = true
+	# Asegurarse de que el scale regrese a normal después de la animación
+	$"InteractivoLetra(vacio)".scale = Vector2(1, 1)
+	# Bloquear permanentemente la pieza en su posición
+	locked = true
 
 # Función para manejar cuando es incorrecto
 func _marcar_incorrecto(): 
@@ -73,6 +91,8 @@ func _marcar_incorrecto():
 func _reset_position():
 	position = originalpos
 	correct = false
+	# Asegurarse de resetear el scale cuando se devuelve
+	$"InteractivoLetra(vacio)".scale = Vector2(1, 1)
 	$AnimationPlayer.play("Retorno")
 
 # Función para actualizar el texto del Label
@@ -99,5 +119,10 @@ func _reiniciar_variables():
 	originalpos = global_position
 	snap_to = Vector2()
 	correct = false
+	locked = false
+	dragging = false
+	# Asegurarse de resetear el scale y color
+	$"InteractivoLetra(vacio)".scale = Vector2(1, 1)
+	$"InteractivoLetra(vacio)".modulate = Color(1, 1, 1, 1)
 	$AnimationPlayer.play("RESET")
 	_actualizar_label()
