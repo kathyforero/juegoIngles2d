@@ -316,7 +316,8 @@ offset_right = 304.05545
 offset_bottom = 34.006348
 
 [node name="Correct" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
+visible = false
+z_index = 99
 position = Vector2(690, 511)
 scale = Vector2(0.226744, 0.226744)
 texture = ExtResource("7_ykav8")
@@ -328,26 +329,28 @@ libraries = {
 
 [node name="Incorrect" type="Sprite2D" parent="."]
 visible = false
+z_index = 99
 position = Vector2(687, 505)
 scale = Vector2(0.239417, 0.239417)
 texture = ExtResource("8_v53kj")
 
 [node name="Win" type="Node2D" parent="."]
+visible = false
 
 [node name="Correct" type="Sprite2D" parent="Win"]
-modulate = Color(1, 1, 1, 0)
+z_index = 99
 position = Vector2(695, 323.437)
 scale = Vector2(0.196039, 0.196039)
 texture = ExtResource("7_ykav8")
 
 [node name="Correct2" type="Sprite2D" parent="Win"]
-modulate = Color(1, 1, 1, 0)
+z_index = 99
 position = Vector2(695, 511)
 scale = Vector2(0.182776, 0.182776)
 texture = ExtResource("7_ykav8")
 
 [node name="Correct3" type="Sprite2D" parent="Win"]
-modulate = Color(1, 1, 1, 0)
+z_index = 99
 position = Vector2(695, 706)
 scale = Vector2(0.182776, 0.182776)
 texture = ExtResource("7_ykav8")
@@ -384,19 +387,6 @@ text = "3 Hints Remaining"
 horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 162
-
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-points = PackedVector2Array(599, 332)
-
-[node name="Line2D" type="Line2D" parent="Line2D"]
-points = PackedVector2Array(592, 328, 784, 329)
-
-[node name="Line2D2" type="Line2D" parent="Line2D"]
-points = PackedVector2Array(592, 512, 786, 512)
-
-[node name="Line2D3" type="Line2D" parent="Line2D"]
-points = PackedVector2Array(596, 703, 786, 703)
 
 [editable path="Box_imagen_match"]
 [editable path="Box_imagen_match2"]

@@ -359,8 +359,19 @@ func victory():
 		await get_tree().create_timer(0.000000001).timeout
 		instance.position.x-=50
 		
+# Método para cambiar la opacidad de todas las flechas
+func cambiar_opacidad_flechas(opacidad: float):
+	for value in arrows.keys():
+		var arrow_data = arrows[value]
+		if arrow_data is Dictionary and arrow_data.has("line"):
+			var line = arrow_data["line"]
+			if is_instance_valid(line):
+				var current_color = line.default_color
+				line.default_color = Color(current_color.r, current_color.g, current_color.b, opacidad)
+
 # Método que ejecuta la animación de victoria.
 func animation_win():
+	cambiar_opacidad_flechas(0.4)  # Reducir opacidad a 25% durante la animación
 	$AnimationPlayer.play("Win")
 	await $AnimationPlayer.animation_finished
 
@@ -537,16 +548,9 @@ func crear_flecha(imagen_box, texto_box):
 	var line = Line2D.new()
 	line.name = "Arrow_Line_" + imagen_box.value
 	line.width = 5.0
-	line.default_color = Color(0.2, 0.8, 0.2, 1.0)  # Verde
+	line.default_color = Color(0.2, 0.8, 0.2, 0.6)  # Verde con 60% opacidad
 	line.z_index = 10  # Delante de todo para que sea visible
 	add_child(line)
-	
-	# Crear punta de flecha (triángulo)
-	var arrow_head = Polygon2D.new()
-	arrow_head.name = "Arrow_Head_" + imagen_box.value
-	arrow_head.color = Color(0.2, 0.8, 0.2, 1.0)  # Verde
-	arrow_head.z_index = 10  # Delante de todo para que sea visible
-	add_child(arrow_head)
 	
 	# Conectar directamente los BOX (no sus hijos)
 	var start_pos = imagen_box.position
@@ -556,22 +560,9 @@ func crear_flecha(imagen_box, texto_box):
 	line.add_point(start_pos)
 	line.add_point(end_pos)
 	
-	# Configurar la punta de flecha
-	var arrow_size = 20.0
-	var direction = (end_pos - start_pos).normalized()
-	var perpendicular = Vector2(-direction.y, direction.x)
-	
-	var arrow_points = PackedVector2Array([
-		end_pos,  # Punta de la flecha
-		end_pos - direction * arrow_size + perpendicular * arrow_size * 0.6,
-		end_pos - direction * arrow_size - perpendicular * arrow_size * 0.6
-	])
-	arrow_head.polygon = arrow_points
-	
 	# Guardar la flecha en el diccionario junto con las referencias a los nodos
 	arrows[imagen_box.value] = {
 		"line": line,
-		"arrow_head": arrow_head,
 		"imagen": imagen_box,
 		"texto": texto_box
 	}
@@ -586,11 +577,10 @@ func actualizar_flecha(value):
 	
 	var arrow_data = arrows[value]
 	var line = arrow_data["line"]
-	var arrow_head = arrow_data["arrow_head"]
 	var imagen_box = arrow_data["imagen"]
 	var texto_box = arrow_data["texto"]
 	
-	if not is_instance_valid(line) or not is_instance_valid(arrow_head) or not is_instance_valid(imagen_box) or not is_instance_valid(texto_box):
+	if not is_instance_valid(line) or not is_instance_valid(imagen_box) or not is_instance_valid(texto_box):
 		return
 	
 	# Conectar directamente los BOX (no sus hijos)
@@ -601,18 +591,6 @@ func actualizar_flecha(value):
 	line.clear_points()
 	line.add_point(start_pos)
 	line.add_point(end_pos)
-	
-	# Actualizar la punta de flecha
-	var arrow_size = 20.0
-	var direction = (end_pos - start_pos).normalized()
-	var perpendicular = Vector2(-direction.y, direction.x)
-	
-	var arrow_points = PackedVector2Array([
-		end_pos,
-		end_pos - direction * arrow_size + perpendicular * arrow_size * 0.6,
-		end_pos - direction * arrow_size - perpendicular * arrow_size * 0.6
-	])
-	arrow_head.polygon = arrow_points
 
 # Método para eliminar todas las flechas
 func eliminar_todas_las_flechas():
@@ -621,6 +599,4 @@ func eliminar_todas_las_flechas():
 		if arrow_data is Dictionary:
 			if arrow_data.has("line") and is_instance_valid(arrow_data["line"]):
 				arrow_data["line"].queue_free()
-			if arrow_data.has("arrow_head") and is_instance_valid(arrow_data["arrow_head"]):
-				arrow_data["arrow_head"].queue_free()
 	arrows.clear()
