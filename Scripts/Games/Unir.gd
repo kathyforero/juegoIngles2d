@@ -538,27 +538,19 @@ func crear_flecha(imagen_box, texto_box):
 	line.name = "Arrow_Line_" + imagen_box.value
 	line.width = 5.0
 	line.default_color = Color(0.2, 0.8, 0.2, 1.0)  # Verde
-	line.z_index = -1  # Detrás de las imágenes y textos pero delante del fondo
+	line.z_index = 10  # Delante de todo para que sea visible
 	add_child(line)
 	
 	# Crear punta de flecha (triángulo)
 	var arrow_head = Polygon2D.new()
 	arrow_head.name = "Arrow_Head_" + imagen_box.value
 	arrow_head.color = Color(0.2, 0.8, 0.2, 1.0)  # Verde
-	arrow_head.z_index = -1  # Detrás de las imágenes y textos pero delante del fondo
+	arrow_head.z_index = 10  # Delante de todo para que sea visible
 	add_child(arrow_head)
 	
-	# Calcular posiciones correctamente usando los offsets del Button
-	var texto_button = texto_box.get_node("Button")
-	
-	# Para la imagen: usar su posición directamente (ya está centrada)
+	# Conectar directamente los BOX (no sus hijos)
 	var start_pos = imagen_box.position
-	
-	# Para el texto: calcular correctamente usando offset_top + altura/2
-	var texto_height = texto_button.offset_bottom - texto_button.offset_top
-	var texto_y = texto_box.position.y + texto_button.offset_top + (texto_height / 2.0)
-	var texto_x = texto_box.position.x + texto_button.offset_left
-	var end_pos = Vector2(texto_x, texto_y)
+	var end_pos = texto_box.position
 	
 	# Configurar la línea
 	line.add_point(start_pos)
@@ -601,17 +593,9 @@ func actualizar_flecha(value):
 	if not is_instance_valid(line) or not is_instance_valid(arrow_head) or not is_instance_valid(imagen_box) or not is_instance_valid(texto_box):
 		return
 	
-	# Calcular posiciones correctamente usando los offsets del Button
-	var texto_button = texto_box.get_node("Button")
-	
-	# Para la imagen: usar su posición directamente
+	# Conectar directamente los BOX (no sus hijos)
 	var start_pos = imagen_box.position
-	
-	# Para el texto: calcular correctamente usando offset_top + altura/2
-	var texto_height = texto_button.offset_bottom - texto_button.offset_top
-	var texto_y = texto_box.position.y + texto_button.offset_top + (texto_height / 2.0)
-	var texto_x = texto_box.position.x + texto_button.offset_left
-	var end_pos = Vector2(texto_x, texto_y)
+	var end_pos = texto_box.position
 	
 	# Actualizar la línea
 	line.clear_points()

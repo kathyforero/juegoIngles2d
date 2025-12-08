@@ -222,14 +222,15 @@ _data = {
 }
 
 [node name="Box_texto_match" type="Node2D"]
+position = Vector2(142, 47)
 skew = 0.0750492
 script = ExtResource("1_lfryq")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 759.0
-offset_top = 286.0
-offset_right = 1059.0
-offset_bottom = 351.0
+offset_left = -1.5346069
+offset_top = -27.883545
+offset_right = 298.4654
+offset_bottom = 37.116455
 theme = ExtResource("2_jcky5")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
@@ -262,7 +263,7 @@ justification_flags = 162
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_0vcc6")
+&"": SubResource("AnimationLibrary_0vcc6")
 }
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -222,7 +222,13 @@ offset_right = 4.0
 offset_bottom = 8.0
 
 [node name="Box_imagen_match" parent="." instance=ExtResource("5_pu0rm")]
-position = Vector2(451, 319)
+position = Vector2(595, 296)
+
+[node name="Button" parent="Box_imagen_match" index="0"]
+offset_left = -274.0
+offset_top = -68.0
+offset_right = -26.0
+offset_bottom = 66.0
 
 [node name="Fondo" parent="Box_imagen_match/Button" index="0"]
 scale = Vector2(0.231, 0.276)
@@ -235,7 +241,13 @@ scale = Vector2(0.228, 0.763)
 scale = Vector2(0.066, 0.08)
 
 [node name="Box_imagen_match2" parent="." instance=ExtResource("5_pu0rm")]
-position = Vector2(451, 500)
+position = Vector2(595, 503)
+
+[node name="Button" parent="Box_imagen_match2" index="0"]
+offset_left = -274.0
+offset_top = -81.0
+offset_right = -26.0
+offset_bottom = 53.0
 
 [node name="Fondo" parent="Box_imagen_match2/Button" index="0"]
 position = Vector2(124, 81)
@@ -250,7 +262,13 @@ position = Vector2(124, 79)
 scale = Vector2(0.066, 0.08)
 
 [node name="Box_imagen_match3" parent="." instance=ExtResource("5_pu0rm")]
-position = Vector2(451, 682)
+position = Vector2(595, 706)
+
+[node name="Button" parent="Box_imagen_match3" index="0"]
+offset_left = -275.0
+offset_top = -98.0
+offset_right = -27.0
+offset_bottom = 36.0
 
 [node name="Fondo" parent="Box_imagen_match3/Button" index="0"]
 position = Vector2(124, 99)
@@ -265,31 +283,37 @@ position = Vector2(124, 99)
 scale = Vector2(0.066, 0.08)
 
 [node name="Box_texto_match" parent="." instance=ExtResource("6_a68mb")]
-position = Vector2(49, 0)
+position = Vector2(793, 296)
 
 [node name="Button" parent="Box_texto_match" index="0"]
-offset_left = 759.827
-offset_top = 297.031
-offset_right = 1059.83
-offset_bottom = 362.031
+offset_left = 4.567025
+offset_top = -30.985191
+offset_right = 304.5699
+offset_bottom = 34.01481
+
+[node name="Label" parent="Box_texto_match/Button" index="2"]
+offset_left = -2.0751953
+offset_top = -2.0028381
+offset_right = 299.9248
+offset_bottom = 65.99716
 
 [node name="Box_texto_match2" parent="." instance=ExtResource("6_a68mb")]
-position = Vector2(49, 180)
+position = Vector2(793.1841, 503.22314)
 
 [node name="Button" parent="Box_texto_match2" index="0"]
-offset_left = 760.053
-offset_top = 300.039
-offset_right = 1060.05
-offset_bottom = 365.039
+offset_left = 5.487976
+offset_top = -31.719086
+offset_right = 305.4851
+offset_bottom = 33.280914
 
 [node name="Box_texto_match3" parent="." instance=ExtResource("6_a68mb")]
-position = Vector2(49, 360)
+position = Vector2(793, 706)
 
 [node name="Button" parent="Box_texto_match3" index="0"]
-offset_left = 761.61
-offset_top = 314.886
-offset_right = 1061.61
-offset_bottom = 379.886
+offset_left = 4.055336
+offset_top = -30.993652
+offset_right = 304.05545
+offset_bottom = 34.006348
 
 [node name="Correct" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
