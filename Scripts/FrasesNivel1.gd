@@ -343,21 +343,27 @@ func victory():
 	Score.fastBonus = velocidad
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
+	await get_tree().create_timer(0.05).timeout
 
-	$AnimationPlayer.play("Gana")
-	
 	# Obtener el orden correcto de la oración
 	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
 	
-	# Ejecutar animaciones en el orden correcto (de izquierda a derecha)
-	for palabra in ordenCorrecto:
+	# Ejecutar animaciones en el orden correcto (de izquierda a derecha) ANTES de la animación Gana
+	for i in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[i]
 		# Buscar la pieza que corresponde a esta palabra (por target_letter o letter si está correcta)
-		for i in range(3):
-			var pieza = $Cadenas.get_node("Pieza"+str(i))
+		for j in range(3):
+			var pieza = $Cadenas.get_node("Pieza"+str(j))
 			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
 				await pieza._animacion_finalizado()
+				# Pequeño delay entre cada pieza para que se vea el efecto secuencial
+				if i < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.05).timeout
 				break
 	
+	
+	# Ahora sí reproducir la animación Gana
+	$AnimationPlayer.play("Gana")
 	await $AnimationPlayer.animation_finished
 	$AudioStreamPlayer2D.play()
 	var canvas_layer = CanvasLayer.new()
@@ -389,20 +395,28 @@ func lose():
 #Se invoca cada vez que se gana una ronda
 func rondaWin():
 	$Box_inside_game.timer.stop()
-	$AnimationPlayer.play("Gana")
 	
 	# Obtener el orden correcto de la oración
 	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
-	
-	# Ejecutar animaciones en el orden correcto (de izquierda a derecha)
-	for palabra in ordenCorrecto:
+	await get_tree().create_timer(0.05).timeout
+
+
+	# Ejecutar animaciones en el orden correcto (de izquierda a derecha) ANTES de la animación Gana
+	for i in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[i]
 		# Buscar la pieza que corresponde a esta palabra (por target_letter o letter si está correcta)
-		for i in range(3):
-			var pieza = $Cadenas.get_node("Pieza"+str(i))
+		for j in range(3):
+			var pieza = $Cadenas.get_node("Pieza"+str(j))
 			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
 				await pieza._animacion_finalizado()
+				# Pequeño delay entre cada pieza para que se vea el efecto secuencial
+				if i < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.05).timeout
 				break
 	
+	
+	# Ahora sí reproducir la animación Gana
+	$AnimationPlayer.play("Gana")
 	await $AnimationPlayer.animation_finished
 	await _reiniciar_componentes()
 	$Box_inside_game.timer.start()

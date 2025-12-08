@@ -343,6 +343,7 @@ func victory():
 	Score.fastBonus = velocidad
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
+	await get_tree().create_timer(0.05).timeout
 
 	# Obtener el orden correcto de la oración
 	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
@@ -358,7 +359,7 @@ func victory():
 				await pieza._animacion_finalizado()
 				# Pequeño delay para que se vea secuencial antes de la siguiente pieza
 				if indice < ordenCorrecto.size() - 1:
-					await get_tree().create_timer(0.1).timeout
+					await get_tree().create_timer(0.05).timeout
 				pieza_encontrada = true
 				break
 		# Si no se encontró por target_letter/letter, buscar por posición en el array ordenado
@@ -371,7 +372,7 @@ func victory():
 						await pieza._animacion_finalizado()
 						# Pequeño delay para que se vea secuencial antes de la siguiente pieza
 						if indice < ordenCorrecto.size() - 1:
-							await get_tree().create_timer(0.1).timeout
+							await get_tree().create_timer(0.05).timeout
 						break
 	
 	# DESPUÉS: Reproducir animación "Gana" que hace que las piezas salten
@@ -410,6 +411,7 @@ func rondaWin():
 	
 	# Obtener el orden correcto de la oración
 	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	await get_tree().create_timer(0.05).timeout
 	
 	# PRIMERO: Ejecutar animaciones "Final" (poner azul) en el orden correcto (de izquierda a derecha)
 	for indice in range(ordenCorrecto.size()):
@@ -422,7 +424,7 @@ func rondaWin():
 				await pieza._animacion_finalizado()
 				# Pequeño delay para que se vea secuencial antes de la siguiente pieza
 				if indice < ordenCorrecto.size() - 1:
-					await get_tree().create_timer(0.1).timeout
+					await get_tree().create_timer(0.05).timeout
 				pieza_encontrada = true
 				break
 		# Si no se encontró por target_letter/letter, buscar por posición en el array ordenado
@@ -435,7 +437,7 @@ func rondaWin():
 						await pieza._animacion_finalizado()
 						# Pequeño delay para que se vea secuencial antes de la siguiente pieza
 						if indice < ordenCorrecto.size() - 1:
-							await get_tree().create_timer(0.1).timeout
+							await get_tree().create_timer(0.05).timeout
 						break
 	
 	# DESPUÉS: Reproducir animación "Gana" que hace que las piezas salten

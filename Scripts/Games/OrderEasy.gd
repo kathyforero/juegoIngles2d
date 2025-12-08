@@ -107,6 +107,8 @@ func victory():
 	_actualizar_puntajes(ejecutablePath+"/Scores/puntajesOrder.dat")
 	actualizar_progreso(ejecutablePath+"/Progress/progressMinigames.dat")
 	instance.position = Vector2(1000,0)
+	await get_tree().create_timer(0.8).timeout
+
 	$AnimationPlayer.play("Gana")
 	
 	# Pequeño delay antes de empezar las animaciones
@@ -309,7 +311,7 @@ func nuevaRonda():
 			await letra_encontrada.animacionFinalizado()
 			# Pequeño delay entre cada letra para que se vea el efecto secuencial
 			if i < letterboxes.size() - 1:
-				await get_tree().create_timer(0.05).timeout
+				await get_tree().create_timer(0.01).timeout
 	
 	$Letras/Letter.resetVars()
 	$Letras/Letter2.resetVars()

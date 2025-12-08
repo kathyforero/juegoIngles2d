@@ -347,6 +347,7 @@ func victory():
 	Score.fastBonus = velocidad
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
+	await get_tree().create_timer(0.05).timeout
 	
 	# Obtener el orden correcto de la oración
 	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
@@ -385,7 +386,8 @@ func victory():
 		# Ejecutar animación si se encontró la pieza
 		if pieza_encontrada and pieza_encontrada.correct:
 			await pieza_encontrada._animacion_finalizado()
-		await get_tree().create_timer(0.1).timeout
+		if indice < ordenCorrecto.size() - 1:
+			await get_tree().create_timer(0.05).timeout
 	
 	# Ahora ejecutar la animación de salto
 	$AnimationPlayer.play("Gana")
@@ -423,6 +425,7 @@ func rondaWin():
 	
 	# Obtener el orden correcto de la oración
 	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	await get_tree().create_timer(0.05).timeout
 	
 	# Primero ejecutar animaciones de color azul en el orden correcto (de izquierda a derecha)
 	for indice in range(ordenCorrecto.size()):
@@ -458,7 +461,8 @@ func rondaWin():
 		# Ejecutar animación si se encontró la pieza
 		if pieza_encontrada and pieza_encontrada.correct:
 			await pieza_encontrada._animacion_finalizado()
-		await get_tree().create_timer(0.1).timeout
+		if indice < ordenCorrecto.size() - 1:
+			await get_tree().create_timer(0.05).timeout
 	
 	# Ahora ejecutar la animación de salto
 	$AnimationPlayer.play("Gana")
