@@ -361,6 +361,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 justification_flags = 162
 
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(599, 332)
+
+[node name="Line2D" type="Line2D" parent="Line2D"]
+points = PackedVector2Array(592, 328, 784, 329)
+
+[node name="Line2D2" type="Line2D" parent="Line2D"]
+points = PackedVector2Array(592, 512, 786, 512)
+
+[node name="Line2D3" type="Line2D" parent="Line2D"]
+points = PackedVector2Array(596, 703, 786, 703)
+
 [editable path="Box_imagen_match"]
 [editable path="Box_imagen_match2"]
 [editable path="Box_imagen_match3"]

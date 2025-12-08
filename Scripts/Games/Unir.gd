@@ -7,6 +7,7 @@ signal set_timer()
 signal update_difficulty(new_difficulty)
 signal update_level(new_level)
 signal set_not_visible_image()
+signal set_visible_word(new_word)  # Señal para box_inside_game.gd
 var ejecutablePath = Global.rutaArchivos
 
 # Variables para el control del nivel, dificultad, título, rondas, y otras propiedades del juego.
@@ -66,6 +67,9 @@ var instanceAcaboTiempo
 var instantiatedAcaboTiempo = false
 var instanceDifuminado
 var instantiatedDifuminado = false
+
+# Diccionario para almacenar las flechas creadas (key: value del match, value: nodo de la flecha)
+var arrows = {}
 
 # Método llamado cuando el nodo entra en la escena por primera vez.
 func _ready():
@@ -165,6 +169,8 @@ func handle_value_match(target_node):
 		target_node.animation_match()
 		target_node.mark_to_match()
 		$AnimationPlayer.play("correct")
+		# Crear flecha entre la imagen y el texto
+		crear_flecha(selected_image, target_node)
 	else:
 		# Si no coincide, disminuir la precisión y reproducir la animación de fallo.
 		if(precisionActual>precisionMinima):
@@ -274,6 +280,8 @@ func reset_compoments():
 	box_texto_match.animation_reset()
 	box_texto_match_2.animation_reset()
 	box_texto_match_3.animation_reset()
+	# Eliminar todas las flechas
+	eliminar_todas_las_flechas()
 
 # Método llamado cuando se gana una ronda.
 func ronda_win():
@@ -302,19 +310,19 @@ func _dar_pista():
 	# Optionally, hide the panel after a delay (e.g., 2 seconds)
 	get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
 
-	var images = [box_imagen_match, box_imagen_match_2, box_imagen_match_3]
+	var image_boxes = [box_imagen_match, box_imagen_match_2, box_imagen_match_3]
 	var words = [box_texto_match, box_texto_match_2, box_texto_match_3]
 	var indices_a_eliminar = []
-	for i in range(images.size()):
-		if(images[i].blocked):
+	for i in range(image_boxes.size()):
+		if(image_boxes[i].blocked):
 			indices_a_eliminar.append(i)
 			
 	indices_a_eliminar.reverse()
 	for i in indices_a_eliminar:
-		images.pop_at(i)
+		image_boxes.pop_at(i)
 	
-	images.shuffle()
-	var image_pista = images.pop_front()
+	image_boxes.shuffle()
+	var image_pista = image_boxes.pop_front()
 	
 	for word in words:
 		if image_pista.value == word.target:
@@ -413,7 +421,6 @@ func _actualizar_velocidad():
 		velocidad+=40
 	else:
 		velocidad+=0
-	var content = {"niveles": valorNivel, "velocidad": velocidad}
 
 # Método para actualizar los puntajes del jugador.
 func _actualizar_puntajes(path):
@@ -519,3 +526,117 @@ func _guardar_puntajes(content, path):
 # Método para volver a la pantalla de selección de niveles.
 func go_selection():
 	get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")
+
+# Método para crear una flecha entre una imagen y un texto
+func crear_flecha(imagen_box, texto_box):
+	# Si ya existe una flecha para este match, no crear otra
+	if arrows.has(imagen_box.value):
+		return
+	
+	# Crear un nodo Line2D directo para la flecha
+	var line = Line2D.new()
+	line.name = "Arrow_Line_" + imagen_box.value
+	line.width = 5.0
+	line.default_color = Color(0.2, 0.8, 0.2, 1.0)  # Verde
+	line.z_index = -1  # Detrás de las imágenes y textos pero delante del fondo
+	add_child(line)
+	
+	# Crear punta de flecha (triángulo)
+	var arrow_head = Polygon2D.new()
+	arrow_head.name = "Arrow_Head_" + imagen_box.value
+	arrow_head.color = Color(0.2, 0.8, 0.2, 1.0)  # Verde
+	arrow_head.z_index = -1  # Detrás de las imágenes y textos pero delante del fondo
+	add_child(arrow_head)
+	
+	# Calcular posiciones correctamente usando los offsets del Button
+	var texto_button = texto_box.get_node("Button")
+	
+	# Para la imagen: usar su posición directamente (ya está centrada)
+	var start_pos = imagen_box.position
+	
+	# Para el texto: calcular correctamente usando offset_top + altura/2
+	var texto_height = texto_button.offset_bottom - texto_button.offset_top
+	var texto_y = texto_box.position.y + texto_button.offset_top + (texto_height / 2.0)
+	var texto_x = texto_box.position.x + texto_button.offset_left
+	var end_pos = Vector2(texto_x, texto_y)
+	
+	# Configurar la línea
+	line.add_point(start_pos)
+	line.add_point(end_pos)
+	
+	# Configurar la punta de flecha
+	var arrow_size = 20.0
+	var direction = (end_pos - start_pos).normalized()
+	var perpendicular = Vector2(-direction.y, direction.x)
+	
+	var arrow_points = PackedVector2Array([
+		end_pos,  # Punta de la flecha
+		end_pos - direction * arrow_size + perpendicular * arrow_size * 0.6,
+		end_pos - direction * arrow_size - perpendicular * arrow_size * 0.6
+	])
+	arrow_head.polygon = arrow_points
+	
+	# Guardar la flecha en el diccionario junto con las referencias a los nodos
+	arrows[imagen_box.value] = {
+		"line": line,
+		"arrow_head": arrow_head,
+		"imagen": imagen_box,
+		"texto": texto_box
+	}
+	
+	# Actualizar la flecha periódicamente para seguir los nodos si se mueven
+	actualizar_flecha(imagen_box.value)
+
+# Método para actualizar la posición de una flecha
+func actualizar_flecha(value):
+	if not arrows.has(value):
+		return
+	
+	var arrow_data = arrows[value]
+	var line = arrow_data["line"]
+	var arrow_head = arrow_data["arrow_head"]
+	var imagen_box = arrow_data["imagen"]
+	var texto_box = arrow_data["texto"]
+	
+	if not is_instance_valid(line) or not is_instance_valid(arrow_head) or not is_instance_valid(imagen_box) or not is_instance_valid(texto_box):
+		return
+	
+	# Calcular posiciones correctamente usando los offsets del Button
+	var texto_button = texto_box.get_node("Button")
+	
+	# Para la imagen: usar su posición directamente
+	var start_pos = imagen_box.position
+	
+	# Para el texto: calcular correctamente usando offset_top + altura/2
+	var texto_height = texto_button.offset_bottom - texto_button.offset_top
+	var texto_y = texto_box.position.y + texto_button.offset_top + (texto_height / 2.0)
+	var texto_x = texto_box.position.x + texto_button.offset_left
+	var end_pos = Vector2(texto_x, texto_y)
+	
+	# Actualizar la línea
+	line.clear_points()
+	line.add_point(start_pos)
+	line.add_point(end_pos)
+	
+	# Actualizar la punta de flecha
+	var arrow_size = 20.0
+	var direction = (end_pos - start_pos).normalized()
+	var perpendicular = Vector2(-direction.y, direction.x)
+	
+	var arrow_points = PackedVector2Array([
+		end_pos,
+		end_pos - direction * arrow_size + perpendicular * arrow_size * 0.6,
+		end_pos - direction * arrow_size - perpendicular * arrow_size * 0.6
+	])
+	arrow_head.polygon = arrow_points
+
+# Método para eliminar todas las flechas
+func eliminar_todas_las_flechas():
+	for value in arrows.keys():
+		var arrow_data = arrows[value]
+		if arrow_data is Dictionary:
+			if arrow_data.has("line") and is_instance_valid(arrow_data["line"]):
+				arrow_data["line"].queue_free()
+			if arrow_data.has("arrow_head") and is_instance_valid(arrow_data["arrow_head"]):
+				arrow_data["arrow_head"].queue_free()
+	arrows.clear()
