@@ -8,6 +8,10 @@ var target_letter = "A"
 var correct = false
 var locked = false  # Bloqueo permanente cuando está correcta y en posición
 
+# Variables para doble clic
+var last_click_time = 0.0
+var double_click_threshold = 0.4  # Tiempo máximo entre clics para considerar doble clic
+
 func _ready():
 	# Establece la posición inicial y el texto del Label
 	originalpos = global_position
@@ -43,6 +47,16 @@ func _on_button_button_down():
 	# Si está correcta pero aún no bloqueada, no permitir arrastrar
 	if correct:
 		return
+	
+	# Detectar doble clic
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - last_click_time < double_click_threshold:
+		# Es un doble clic, posicionar automáticamente
+		_posicionar_automaticamente()
+		last_click_time = 0.0  # Resetear para evitar triple clic
+		return
+	
+	last_click_time = current_time
 		
 	dragging = true
 	self.move_to_front()
@@ -108,8 +122,16 @@ func _animacion_pista():
 	$AnimationPlayer.play("Pista")
 
 func _animacion_finalizado():
+	# Asegurarse de que la pieza esté en verde (si ya está locked, ya está en verde)
+	# Esperar un momento para que se vea el verde antes de cambiar a azul
+	if locked:
+		await get_tree().create_timer(0.2).timeout
+	
+	# Reproducir la animación Final (verde a azul)
 	$AnimationPlayer.play("Final")
 	await $AnimationPlayer.animation_finished
+	# Pequeño delay adicional para asegurar que se vea completamente la iluminación verde
+	await get_tree().create_timer(0.1).timeout
 
 func _animacion_retorno():
 	$AnimationPlayer.play("Retorno")
@@ -126,3 +148,56 @@ func _reiniciar_variables():
 	$"InteractivoLetra(vacio)".modulate = Color(1, 1, 1, 1)
 	$AnimationPlayer.play("RESET")
 	_actualizar_label()
+
+# Función para posicionar automáticamente la pieza en el primer espacio disponible
+func _posicionar_automaticamente():
+	if locked or correct:
+		return
+	
+	# Buscar el nodo padre que contiene los piezaBox (FrasesNivel1, FrasesNivel2, FrasesNivel3)
+	var parent_scene = get_tree().current_scene
+	if not parent_scene:
+		return
+	
+	# Buscar el nodo "Ordenada" que contiene los piezaBox
+	var ordenada_node = parent_scene.get_node_or_null("Ordenada")
+	if not ordenada_node:
+		return
+	
+	# Buscar el PRIMER piezaBox disponible (de izquierda a derecha), sin importar la letra
+	var pieza_boxes = ordenada_node.get_children()
+	# Ordenar los piezaBox por posición X para ir de izquierda a derecha
+	pieza_boxes.sort_custom(func(a, b): return a.position.x < b.position.x)
+	
+	for pieza_box in pieza_boxes:
+		# Verificar que es un piezaBox accediendo directamente a sus propiedades
+		# Si no tiene las propiedades, simplemente continuar con el siguiente
+		if not pieza_box.has_method("_animacion_pista"):
+			continue
+		
+		# Buscar el PRIMER espacio disponible (sin importar qué letra debería ir ahí)
+		if not pieza_box.occupied:
+			# Obtener el Area2D de esta pieza
+			var area = $Area2D
+			if not area:
+				return
+			
+			# Posicionar la pieza automáticamente
+			position = pieza_box.position
+			snap_to = pieza_box.position
+			target_letter = pieza_box.letter
+			
+			# Activar el piezaBox simulando que la pieza entró al área
+			pieza_box._on_area_2d_area_shape_entered(0, area, 0, 0)
+			
+			# Verificar si es correcta y marcarla
+			if letter == target_letter:
+				_marcar_correcto()
+			else:
+				# Si no es correcta, reproducir animación incorrecta y devolver
+				_marcar_incorrecto()
+			
+			return
+	
+	# Si no se encontró un espacio disponible, reproducir animación de error sutil
+	_animacion_pista()
