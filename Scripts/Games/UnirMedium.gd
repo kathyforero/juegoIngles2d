@@ -67,6 +67,9 @@ var instantiatedAcaboTiempo = false
 var instanceDifuminado
 var instantiatedDifuminado = false
 
+# Diccionario para almacenar las flechas creadas (key: value del match, value: nodo de la flecha)
+var arrows = {}
+
 # Método llamado cuando el nodo entra en la escena por primera vez.
 func _ready():
 	load_medium_mode_animals()
@@ -78,6 +81,7 @@ func _ready():
 	setDifficultTitle()
 	emit_signal("update_level", str(level))
 	emit_signal("set_not_visible_image")
+	emit_signal("set_visible_word", "")  # Se usa para evitar warning de señal no utilizada
 
 	# Instanciar escenas necesarias para el juego.
 	instance = pantallaVictoria.instantiate()
@@ -90,6 +94,15 @@ func _ready():
 	# Inicializar el tiempo del cronómetro y comenzar el juego.
 	tiempoCronometro = $Box_inside_game2.time_seconds
 	hints_panel.visible = false
+	
+	# Asegurar que las cajas estén sobre las líneas (igual que easy)
+	box_imagen_match.z_index = 11
+	box_imagen_match_2.z_index = 11
+	box_imagen_match_3.z_index = 11
+	box_texto_match.z_index = 11
+	box_texto_match_2.z_index = 11
+	box_texto_match_3.z_index = 11
+	
 	iniciar_juego()
 
 # Load the data from MatchIt.json for easy mode
@@ -165,6 +178,8 @@ func handle_value_match(target_node):
 		target_node.animation_match()
 		target_node.mark_to_match()
 		$AnimationPlayer.play("correct")
+		# Crear flecha entre la imagen y el texto
+		crear_flecha(selected_image, target_node)
 	else:
 		# Si no coincide, disminuir la precisión y reproducir la animación de fallo.
 		if(precisionActual>precisionMinima):
@@ -240,6 +255,8 @@ func reset_compoments():
 	box_texto_match.animation_reset()
 	box_texto_match_2.animation_reset()
 	box_texto_match_3.animation_reset()
+	# Eliminar todas las flechas
+	eliminar_todas_las_flechas()
 
 # Método llamado cuando se gana una ronda.
 func ronda_win():
@@ -269,19 +286,19 @@ func _dar_pista():
 	# Optionally, hide the panel after a delay (e.g., 2 seconds)
 	get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
 
-	var images = [box_imagen_match, box_imagen_match_2, box_imagen_match_3]
+	var available_images = [box_imagen_match, box_imagen_match_2, box_imagen_match_3]
 	var words = [box_texto_match, box_texto_match_2, box_texto_match_3]
 	var indices_a_eliminar = []
-	for i in range(images.size()):
-		if(images[i].blocked):
+	for i in range(available_images.size()):
+		if(available_images[i].blocked):
 			indices_a_eliminar.append(i)
 			
 	indices_a_eliminar.reverse()
 	for i in indices_a_eliminar:
-		images.pop_at(i)
+		available_images.pop_at(i)
 	
-	images.shuffle()
-	var image_pista = images.pop_front()
+	available_images.shuffle()
+	var image_pista = available_images.pop_front()
 	
 	for word in words:
 		if image_pista.value == word.target:
@@ -320,8 +337,10 @@ func victory():
 		
 # Método que ejecuta la animación de victoria.
 func animation_win():
+	cambiar_opacidad_flechas(0.4)  # Reducir opacidad durante la animación de victoria
 	$AnimationPlayer.play("Win")
 	await $AnimationPlayer.animation_finished
+	cambiar_opacidad_flechas(0.6)  # Restaurar opacidad cercana al default
 
 func actualizar_progreso(path):
 	if FileAccess.file_exists(path):  # Verifica si el archivo existe  
@@ -380,8 +399,66 @@ func _actualizar_velocidad():
 		velocidad+=40
 	else:
 		velocidad+=0
-	var content = {"niveles": valorNivel, "velocidad": velocidad}
 
+# Método para crear una flecha entre una imagen y un texto
+func crear_flecha(imagen_box, texto_box):
+	if arrows.has(imagen_box.value):
+		return
+	
+	var line = Line2D.new()
+	line.name = "Arrow_Line_" + imagen_box.value
+	line.width = 5.0
+	line.default_color = Color(0.2, 0.8, 0.2, 0.6)  # Verde con 60% opacidad
+	line.z_index = 10
+	add_child(line)
+	
+	# Conectar directamente los BOX (no sus hijos)
+	var start_pos = imagen_box.position
+	var end_pos = texto_box.position
+	line.add_point(start_pos)
+	line.add_point(end_pos)
+	
+	arrows[imagen_box.value] = {
+		"line": line,
+		"imagen": imagen_box,
+		"texto": texto_box
+	}
+	
+	actualizar_flecha(imagen_box.value)
+
+# Método para actualizar la posición de una flecha
+func actualizar_flecha(value):
+	if not arrows.has(value):
+		return
+	var arrow_data = arrows[value]
+	var line = arrow_data["line"]
+	var imagen_box = arrow_data["imagen"]
+	var texto_box = arrow_data["texto"]
+	if not is_instance_valid(line) or not is_instance_valid(imagen_box) or not is_instance_valid(texto_box):
+		return
+	var start_pos = imagen_box.position
+	var end_pos = texto_box.position
+	line.clear_points()
+	line.add_point(start_pos)
+	line.add_point(end_pos)
+
+# Método para eliminar todas las flechas
+func eliminar_todas_las_flechas():
+	for value in arrows.keys():
+		var arrow_data = arrows[value]
+		if arrow_data is Dictionary and arrow_data.has("line") and is_instance_valid(arrow_data["line"]):
+			arrow_data["line"].queue_free()
+	arrows.clear()
+
+# Método para cambiar la opacidad de todas las flechas
+func cambiar_opacidad_flechas(opacidad: float):
+	for value in arrows.keys():
+		var arrow_data = arrows[value]
+		if arrow_data is Dictionary and arrow_data.has("line"):
+			var line = arrow_data["line"]
+			if is_instance_valid(line):
+				var c = line.default_color
+				line.default_color = Color(c.r, c.g, c.b, opacidad)
 # Método para actualizar los puntajes del jugador.
 func _actualizar_puntajes(path):
 	var content
