@@ -94,6 +94,15 @@ func _ready():
 	# Inicializar el tiempo del cronómetro y comenzar el juego.
 	tiempoCronometro = $Box_inside_game.time_seconds
 	hints_panel.visible = false
+	
+	# Establecer z_index de los nodos de imagen y texto para que estén por encima de las líneas
+	box_imagen_match.z_index = 11
+	box_imagen_match_2.z_index = 11
+	box_imagen_match_3.z_index = 11
+	box_texto_match.z_index = 11
+	box_texto_match_2.z_index = 11
+	box_texto_match_3.z_index = 11
+	
 	iniciar_juego()
 
 # Load the data from MatchIt.json for easy mode
