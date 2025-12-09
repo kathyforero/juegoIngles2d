@@ -315,6 +315,7 @@ offset_right = 302.7433
 offset_bottom = 34.9153
 
 [node name="Correct" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 position = Vector2(690, 511)
 scale = Vector2(0.226744, 0.226744)
