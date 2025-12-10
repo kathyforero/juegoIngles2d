@@ -7,7 +7,6 @@ signal set_timer()
 signal update_difficulty(new_difficulty)
 signal update_level(new_level)
 signal set_not_visible_image()
-signal set_visible_word(new_word)  # Señal para box_inside_game.gd
 var ejecutablePath = Global.rutaArchivos
 
 # Variables para el control del nivel, dificultad, título, rondas, y otras propiedades del juego.

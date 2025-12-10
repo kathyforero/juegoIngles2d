@@ -81,7 +81,6 @@ func _ready():
 	setDifficultTitle()
 	emit_signal("update_level", str(level))
 	emit_signal("set_not_visible_image")
-	emit_signal("set_visible_word", "")  # Se usa para evitar warning de señal no utilizada
 
 	# Instanciar escenas necesarias para el juego.
 	instance = pantallaVictoria.instantiate()

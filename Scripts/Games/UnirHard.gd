@@ -322,19 +322,19 @@ func _dar_pista():
 	# Optionally, hide the panel after a delay (e.g., 2 seconds)
 	get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
 
-	var images = [box_imagen_match, box_imagen_match_2, box_imagen_match_3]
+	var hint_images = [box_imagen_match, box_imagen_match_2, box_imagen_match_3]
 	var words = [box_texto_match, box_texto_match_2, box_texto_match_3]
 	var indices_a_eliminar = []
-	for i in range(images.size()):
-		if(images[i].blocked):
+	for i in range(hint_images.size()):
+		if(hint_images[i].blocked):
 			indices_a_eliminar.append(i)
 			
 	indices_a_eliminar.reverse()
 	for i in indices_a_eliminar:
-		images.pop_at(i)
+		hint_images.pop_at(i)
 	
-	images.shuffle()
-	var image_pista = images.pop_front()
+	hint_images.shuffle()
+	var image_pista = hint_images.pop_front()
 	
 	for word in words:
 		if image_pista.value == word.target:
@@ -435,7 +435,7 @@ func _actualizar_velocidad():
 		velocidad+=40
 	else:
 		velocidad+=0
-	var content = {"niveles": valorNivel, "velocidad": velocidad}
+	var _content = {"niveles": valorNivel, "velocidad": velocidad}
 
 # Flechas: crear, actualizar, limpiar, opacidad
 func crear_flecha(imagen_box, texto_box):

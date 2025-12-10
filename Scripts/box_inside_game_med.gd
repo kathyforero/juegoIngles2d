@@ -48,7 +48,6 @@ func _ready():
 	get_parent().connect("update_difficulty", Callable(self, "_on_update_difficulty"))
 	get_parent().connect("update_level", Callable(self, "_on_update_level"))
 	get_parent().connect("set_timer", Callable(self, "_on_set_timer"))
-	get_parent().connect("set_visible_word", Callable(self, "_on_set_visible_word"))
 
 # Función para actualizar el título del juego
 func _on_update_title(new_title):
