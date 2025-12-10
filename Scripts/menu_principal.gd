@@ -132,6 +132,7 @@ func _on_texture_button_4_pressed():
 	get_tree().change_scene_to_file("res://Escenas/idiomas.tscn") 
 
 func _on_texture_button_5_pressed():     
+	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/GuiaAprendizaje.tscn") 
 
 func _on_texture_button() -> void:
