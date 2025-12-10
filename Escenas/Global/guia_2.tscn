@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://guia2scene"]
+
+[ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
+[ext_resource type="Script" path="res://Scripts/GuiaSimple.gd" id="1_rtl8m"]
+[ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="2_cnaa0"]
+[ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
+[ext_resource type="Texture2D" uid="uid://bhe6k2m5irfb7" path="res://Sprites/buttons/seguirPuntajeHover.png" id="9_6g8l0"]
+[ext_resource type="Texture2D" uid="uid://cbsgw3yum2qos" path="res://Sprites/buttons/Boton_Salir.png" id="12_vwvlu"]
+[ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="13_gi4ve"]
+
+[node name="PuntajesPuzzle" type="Node2D"]
+script = ExtResource("1_rtl8m")
+prev_scene_path = "res://Escenas/Global/guia_1.tscn"
+title_text = "Guía 2"
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_mnt6j")]
+
+[node name="Fondo_mesa_juego" type="Sprite2D" parent="."]
+position = Vector2(650, 447)
+scale = Vector2(0.214403, 0.21336)
+texture = ExtResource("2_cnaa0")
+
+[node name="TitleLabel" type="Label" parent="."]
+offset_left = 480.0
+offset_top = 200.0
+offset_right = 820.0
+offset_bottom = 260.0
+text = "Guía 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContentLabel" type="Label" parent="."]
+offset_left = 300.0
+offset_top = 300.0
+offset_right = 1000.0
+offset_bottom = 640.0
+text = "Contenido de la guía 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="RetrocederButton" type="TextureButton" parent="."]
+offset_left = 205.0
+offset_top = 743.0
+offset_right = 288.0
+offset_bottom = 818.0
+scale = Vector2(-1, 1)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_dttvj")
+texture_hover = ExtResource("9_6g8l0")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SalirButton" type="TextureButton" parent="."]
+offset_left = 1116.0
+offset_top = 78.0
+offset_right = 1198.0
+offset_bottom = 153.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_vwvlu")
+texture_hover = ExtResource("13_gi4ve")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="RetrocederButton" to="." method="_on_retroceder_button_pressed"]
+[connection signal="pressed" from="SalirButton" to="." method="_on_salir_button_pressed"]

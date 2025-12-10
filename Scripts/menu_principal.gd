@@ -133,7 +133,7 @@ func _on_texture_button_4_pressed():
 
 func _on_texture_button_5_pressed():     
 	ButtonClick.button_click()
-	get_tree().change_scene_to_file("res://Escenas/GuiaAprendizaje.tscn") 
+	get_tree().change_scene_to_file("res://Escenas/Global/guia_1.tscn") 
 
 func _on_texture_button() -> void:
 	pass # Replace with function body.
