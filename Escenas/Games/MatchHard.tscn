@@ -235,6 +235,15 @@ position = Vector2(124, 67)
 scale = Vector2(0.185, 0.161)
 texture = ExtResource("7_cap74")
 
+[node name="Box_texto_match" parent="." instance=ExtResource("7_epfks")]
+position = Vector2(49, 0)
+
+[node name="Button" parent="Box_texto_match" index="0"]
+offset_left = 759.827
+offset_top = 297.031
+offset_right = 1059.83
+offset_bottom = 362.031
+
 [node name="Box_imagen_match2" parent="." instance=ExtResource("6_t26k2")]
 position = Vector2(451, 500)
 
@@ -266,13 +275,6 @@ scale = Vector2(0.228, 0.763)
 position = Vector2(124, 99)
 scale = Vector2(0.185, 0.161)
 texture = ExtResource("7_cap74")
-
-[node name="Box_texto_match" parent="." instance=ExtResource("7_epfks")]
-position = Vector2(49, 0)
-
-[node name="Button" parent="Box_texto_match" index="0"]
-offset_left = 761.0
-offset_right = 1061.0
 
 [node name="Box_texto_match2" parent="." instance=ExtResource("7_epfks")]
 position = Vector2(49, 180)
@@ -363,8 +365,8 @@ vertical_alignment = 1
 justification_flags = 162
 
 [editable path="Box_imagen_match"]
+[editable path="Box_texto_match"]
 [editable path="Box_imagen_match2"]
 [editable path="Box_imagen_match3"]
-[editable path="Box_texto_match"]
 [editable path="Box_texto_match2"]
 [editable path="Box_texto_match3"]

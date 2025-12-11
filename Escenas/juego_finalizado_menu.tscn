@@ -138,7 +138,7 @@ texture_pressed = SubResource("ViewportTexture_nf3tg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_keplm")
+&"": SubResource("AnimationLibrary_keplm")
 }
 
 [connection signal="pressed" from="TextureRect/TextureButton2" to="." method="_on_texture_button_2_pressed"]

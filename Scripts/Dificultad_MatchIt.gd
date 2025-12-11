@@ -4,35 +4,97 @@ extends Node2D
 signal update_scene(path)
 signal update_title(new_title)
 signal set_timer()
-signal update_difficulty(new_difficulty)
-signal update_level(new_level)
+#signal update_difficulty(new_difficulty)  # No usado actualmente
+#signal update_level(new_level)  # No usado actualmente
 signal set_not_visible_image()
+
+var en: bool = false
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false   # por defecto español
+
+
+func update_language_difficulty():
+	# Fondo de “Seleccionar dificultad”
+	var bg_sprite := $ParallaxBackground/ParallaxLayer/Sprite2D
+
+	if en:
+		# Modo INGLÉS
+		bg_sprite.texture = load("res://Sprites/global/SelDificultadMatch.png")
+
+		$TextureButton.texture_normal  = load("res://Sprites/buttons/Boton_easy.png")
+		$TextureButton.texture_hover   = load("res://Sprites/buttons/boton_easy_hover.png")
+
+		$TextureButton2.texture_normal = load("res://Sprites/buttons/Boton_medium.png")
+		$TextureButton2.texture_hover  = load("res://Sprites/buttons/boton_medium_hover.png")
+		$TextureButton2.texture_disabled = $TextureButton2.texture_normal
+
+		$TextureButton3.texture_normal = load("res://Sprites/buttons/Boton_difficult.png")
+		$TextureButton3.texture_hover  = load("res://Sprites/buttons/Boton_difficult_hover.png")
+		$TextureButton3.texture_disabled = $TextureButton3.texture_normal
+	else:
+		# Modo ESPAÑOL
+		bg_sprite.texture = load("res://Sprites/global/SelDificultadMatch_es.png")
+
+		$TextureButton.texture_normal  = load("res://Sprites/buttons/Boton_easy_es.png")
+		$TextureButton.texture_hover   = load("res://Sprites/buttons/boton_easy_hover_es.png")
+
+		$TextureButton2.texture_normal = load("res://Sprites/buttons/Boton_medium_es.png")
+		$TextureButton2.texture_hover  = load("res://Sprites/buttons/boton_medium_hover_es.png")
+		$TextureButton2.texture_disabled = $TextureButton2.texture_normal
+
+		$TextureButton3.texture_normal = load("res://Sprites/buttons/Boton_difficult_es.png")
+		$TextureButton3.texture_hover  = load("res://Sprites/buttons/Boton_difficult_hover_es.png")
+		$TextureButton3.texture_disabled = $TextureButton3.texture_normal
+
+# Variables para controlar el estado de desbloqueo
+var medium_desbloqueado = false
+var hard_desbloqueado = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("set_timer")
 	emit_signal("update_scene", "menu_juegos")
 	emit_signal("update_title", "Match it")
+	en = load_language_setting()   # lee idioma guardado
+	update_language_difficulty()   # aplica texturas según idioma
 	#emit_signal("update_difficulty", "Easy")
 	#emit_signal("update_level", "1")
 	emit_signal("set_not_visible_image")
 	$TextureButton2.disabled = true
 	$TextureButton3.disabled = true
+	# Conectar señales gui_input para capturar clics incluso cuando disabled
+	$TextureButton2.gui_input.connect(_on_texture_button_2_gui_input)
+	$TextureButton3.gui_input.connect(_on_texture_button_3_gui_input)
+	# Conectar señales para cambiar el cursor cuando el mouse está encima
+	$TextureButton2.mouse_entered.connect(_on_texture_button_2_mouse_entered)
+	$TextureButton2.mouse_exited.connect(_on_texture_button_2_mouse_exited)
+	$TextureButton3.mouse_entered.connect(_on_texture_button_3_mouse_entered)
+	$TextureButton3.mouse_exited.connect(_on_texture_button_3_mouse_exited)
 	verificar_progreso(Global.rutaArchivos+"/Progress/progressMinigames.dat")
+	
 
 func actualizar_candados(progreso, minigame):
 	if(progreso[minigame]["medium"] && progreso[minigame]["firstMedium"] == false):
 		$Sprite2D.visible = false
+		medium_desbloqueado = true
 		$TextureButton2.disabled = false
 		$TextureButton2.mouse_default_cursor_shape = $TextureButton2.CURSOR_POINTING_HAND
 	if(progreso[minigame]["hard"] && progreso[minigame]["firstHard"] == false):
 		$Sprite2D3.visible=false
+		hard_desbloqueado = true
 		$TextureButton3.disabled = false
 		$TextureButton3.mouse_default_cursor_shape = $TextureButton3.CURSOR_POINTING_HAND
 	
 	if(progreso[minigame]["medium"] && progreso[minigame]["firstMedium"]):
 		$Sprite2D/AnimationPlayer.play("Unlock")
 		await $Sprite2D/AnimationPlayer.animation_finished
+		medium_desbloqueado = true
 		$TextureButton2.disabled = false
 		$TextureButton2.mouse_default_cursor_shape = $TextureButton2.CURSOR_POINTING_HAND
 		progreso[minigame]["firstMedium"] = false
@@ -41,11 +103,13 @@ func actualizar_candados(progreso, minigame):
 	elif(progreso[minigame]["hard"] && progreso[minigame]["firstHard"]):
 		$Sprite2D3/AnimationPlayer.play("Unlock")
 		await $Sprite2D3/AnimationPlayer.animation_finished
+		hard_desbloqueado = true
 		$TextureButton3.disabled = false	
 		$TextureButton3.mouse_default_cursor_shape = $TextureButton3.CURSOR_POINTING_HAND
 		progreso[minigame]["firstHard"] = false
 		actualizar_archivo(progreso, Global.rutaArchivos+"/Progress/progressMinigames.dat")
-		 
+	
+
 func actualizar_archivo(progress, path):
 	if DirAccess.remove_absolute(path) == OK:	 
 			print("Archivo existente borrado.")
@@ -95,9 +159,9 @@ func _on_btn_go_back_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")
 
-func _on_button_pressed():
-	ButtonClick.button_click()
-	get_tree().change_scene_to_file("res://Escenas/Games/UnirFacil1.tscn")
+#func _on_button_pressed():
+	#ButtonClick.button_click()
+	#get_tree().change_scene_to_file("res://Escenas/Games/UnirFacil1.tscn")
 
 func _on_texture_button_mouse_entered():
 	pass # Replace with function body.
@@ -107,12 +171,47 @@ func _on_texture_button_pressed():
 	Score.actualDifficult = Score.difficult["easy"] 
 	get_tree().change_scene_to_file("res://Escenas/Games/MatchEasy.tscn")
 
+func _on_texture_button_2_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not medium_desbloqueado:
+			var titulo = "¡Dificultad Media Bloqueada!"
+			var mensaje = "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FÁCIL de Match It.\n\n¡Sigue practicando!"
+			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
+func _on_texture_button_3_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not hard_desbloqueado:
+			var titulo = "¡Dificultad Difícil Bloqueada!"
+			var mensaje = "Para desbloquear la dificultad DIFÍCIL, primero debes completar el nivel MEDIO de Match It.\n\n¡Sigue practicando!"
+			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
 func _on_texture_button_2_pressed():
-	ButtonClick.button_click()
-	Score.actualDifficult = Score.difficult["medium"]
-	get_tree().change_scene_to_file("res://Escenas/Games/MatchMedium.tscn")
+	if medium_desbloqueado:
+		ButtonClick.button_click()
+		Score.actualDifficult = Score.difficult["medium"]
+		get_tree().change_scene_to_file("res://Escenas/Games/MatchMedium.tscn")
 
 func _on_texture_button_3_pressed():
-	ButtonClick.button_click()
-	Score.actualDifficult = Score.difficult["hard"]
-	get_tree().change_scene_to_file("res://Escenas/Games/MatchHard.tscn")
+	if hard_desbloqueado:
+		ButtonClick.button_click()
+		Score.actualDifficult = Score.difficult["hard"]
+		get_tree().change_scene_to_file("res://Escenas/Games/MatchHard.tscn")
+
+# Funciones para cambiar el cursor cuando el mouse está encima de los botones bloqueados
+func _on_texture_button_2_mouse_entered():
+	$TextureButton2.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_texture_button_2_mouse_exited():
+	if not medium_desbloqueado:
+		$TextureButton2.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	else:
+		$TextureButton2.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_texture_button_3_mouse_entered():
+	$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+func _on_texture_button_3_mouse_exited():
+	if not hard_desbloqueado:
+		$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	else:
+		$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND

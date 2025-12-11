@@ -347,7 +347,7 @@
 		  ["Before bed,", "he", "enjoys", "a tale."]
 		],
 		"hard": [
-		  ["Every night,", "he", "reads", "a story", "before", "sleeping."],
+		  ["Every night", ", he", "reads", "a story", "before", "sleeping."],
 		  ["He", "immerses", "himself", "in a story", "each night", "before sleeping."]
 		]
 	  }
@@ -444,7 +444,7 @@
 		],
 		"hard": [
 		  ["Every", "morning,", "she", "waters", "the garden", "plants."],
-		  ["In the", "morning,", "she", "waters", "the garden", "plants."]
+		  ["In the", "morning,", "she", " waters", "the garden", "plants."]
 		]
 	  }
 	},
@@ -472,7 +472,7 @@
 		],
 		"medium": [
 		  ["He", "helps", "prepare", "breakfast."],
-		  ["He", "assists in", "breakfast", "making."]
+		  ["He", "assists in", " breakfast", "making."]
 		],
 		"hard": [
 		  ["He", "helps", "prepare", "breakfast", "for", "his family."],
@@ -539,7 +539,7 @@
 		  ["He", "puts items", "in his", "backpack."]
 		],
 		"hard": [
-		  ["Before", "school, he", "organizes", "his backpack", "before", "leaving."],
+		  ["Before ", "school, he", "organizes", "his backpack", "before", "leaving."],
 		  ["He", "carefully", "arranges", "his backpack", "before", "school."]
 		]
 	  }
@@ -663,7 +663,7 @@
 		  ["He", "pays attention", "to tales."]
 		],
 		"medium": [
-		  ["He listens", "to his", "grandfather's", "stories."],
+		  ["He listens", " to his ", "grandfather's", "stories."],
 		  ["With interest,", "he hears his", "grandfather's", "tales."]
 		],
 		"hard": [
@@ -700,7 +700,7 @@
 		],
 		"hard": [
 		  ["She", "builds", "impressive", "towers with", "building", "blocks."],
-		  ["With", "building", "blocks,", "she erects", "tall towers", "gracefully."]
+		  ["With", "building", " blocks,", "she erects", "tall towers", "gracefully."]
 		]
 	  }
 	},
@@ -833,6 +833,7 @@
 		]
 	  }
 	},
+	
 	{
 	  "id": 27,
 	  "image": "LIMPIAR_HABITACION",

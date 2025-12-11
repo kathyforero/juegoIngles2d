@@ -10,6 +10,7 @@ func update_language():
 		$TextureButton3.texture_normal = load("res://Sprites/buttons/score.png")
 		$TextureButton.texture_hover = load("res://Sprites/buttons/playhover.png")
 		$TextureButton3.texture_hover = load("res://Sprites/buttons/scoreHover.png")     
+		$TextureRect.texture = load("res://Sprites/global/cuadro_principal_en.png")
 		
 func load_language_setting():
 	if FileAccess.file_exists("res://language_setting.json"):  
@@ -57,11 +58,14 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
+
+
 
 func _on_texture_button_2_pressed():
 	get_tree().quit()
+
 
 func _on_texture_button_pressed():
 	ButtonClick.button_click()
@@ -117,6 +121,8 @@ func initialize_directories():
 			print("Directorio Scores ya existe")
 	pass
 
+ 
+
 func _on_texture_button_3_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/Global/PantallaPuntajes.tscn")
@@ -124,6 +130,10 @@ func _on_texture_button_3_pressed():
 func _on_texture_button_4_pressed():     
 	#ButtonClick.button_click() 
 	get_tree().change_scene_to_file("res://Escenas/idiomas.tscn") 
+
+func _on_texture_button_5_pressed():     
+	ButtonClick.button_click()
+	get_tree().change_scene_to_file("res://Escenas/GuiaAprendizaje.tscn") 
 
 func _on_texture_button() -> void:
 	pass # Replace with function body.

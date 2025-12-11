@@ -10,6 +10,7 @@ var time_seconds = 120
 # Referencias a los nodos de la interfaz de usuario
 @onready var title = $Title  # Nodo de título del juego
 @onready var difficulty_value = $Difficulty_value  # Nodo que muestra el valor de la dificultad
+@onready var level_label = $HBoxContainer2/Level
 @onready var level_value = $HBoxContainer2/Level_value  # Nodo que muestra el nivel actual
 @onready var image = $image  # Nodo de imagen dentro del juego
 @onready var sentense = $Sentense  # Nodo de frase (que se utiliza cuando se muestra una oración)
@@ -18,7 +19,25 @@ var time_seconds = 120
 @onready var temporizador = $Temporizador  # Nodo de temporizador
 @onready var timer = $Temporizador/Timer  # Nodo de Timer que gestiona el cronómetro
 
+var en: bool = false
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false
+
 func _ready():
+	# Al inicio se ocultan ciertos elementos y se detiene el cronómetro
+	en = load_language_setting()
+	
+	if en:
+		level_label.text = "LEVEL:"
+	else:
+		level_label.text = "NIVEL:"
+	
 	# Al inicio se ocultan ciertos elementos y se detiene el cronómetro
 	word.visible = false
 	sentense.visible = false
@@ -31,17 +50,27 @@ func _ready():
 	get_parent().connect("update_difficulty", Callable(self, "_on_update_difficulty"))
 	get_parent().connect("update_level", Callable(self, "_on_update_level"))
 	get_parent().connect("set_timer", Callable(self, "_on_set_timer"))
-	get_parent().connect("set_visible_word", Callable(self, "_on_set_visible_word"))
+	#get_parent().connect("set_visible_word", Callable(self, "_on_set_visible_word"))
 
 # Función para actualizar el título del juego
 func _on_update_title(new_title):
 	title.text = new_title
 	
-# Función para actualizar el valor de la dificultad
 func _on_update_difficulty(new_difficulty):
-	difficulty_value.text = new_difficulty
-	print(new_difficulty)
-	
+	if en:
+		difficulty_value.text = new_difficulty
+	else:
+		match new_difficulty:
+			"Easy":
+				difficulty_value.text = "Fácil"
+			"Medium":
+				difficulty_value.text = "Medio"
+			"Difficult":
+				difficulty_value.text = "Difícil"
+			_:
+				difficulty_value.text = new_difficulty
+
+
 # Función para actualizar el nivel del juego
 func _on_update_level(new_level):
 	level_value.text = new_level
@@ -62,11 +91,11 @@ func _on_set_visible_sentence(new_sentence):
 	phrase_text.text = new_sentence
 	
 # Función para mostrar una palabra en el juego
-func _on_set_visible_word(new_word):
-	word.visible = true
-	phrase_text.visible = true
-	phrase_text.add_theme_font_size_override("font_size", 50)
-	phrase_text.text = new_word
+#func _on_set_visible_word(new_word):
+	#word.visible = true
+	#phrase_text.visible = true
+	#phrase_text.add_theme_font_size_override("font_size", 50)
+	#phrase_text.text = new_word
 	
 # Función que activa el cronómetro del juego
 func _on_set_timer():

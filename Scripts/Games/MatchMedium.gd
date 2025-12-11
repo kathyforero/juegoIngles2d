@@ -8,6 +8,7 @@ signal update_difficulty(new_difficulty)
 signal update_level(new_level)
 signal set_not_visible_image()
 var ejecutablePath = Global.rutaArchivos
+var arrows = {}  # key: value de la imagen, value: { line, imagen, texto }
 
 # Variables para el control del nivel, dificultad, título, rondas, y otras propiedades del juego.
 var level = 1
@@ -161,6 +162,7 @@ func handle_value_match(target_node):
 		target_node.animation_match()
 		target_node.mark_to_match()
 		$AnimationPlayer.play("correct")
+		crear_flecha(selected_image, target_node)
 	else:
 		# Si no coincide, disminuir la precisión y reproducir la animación de fallo.
 		if(precisionActual>precisionMinima):
@@ -173,6 +175,8 @@ func handle_value_match(target_node):
 
 # Método para iniciar el juego.
 func iniciar_juego():
+	# 🧹 quitar cualquier flecha que exista de estados anteriores
+	eliminar_todas_las_flechas()
 	emit_signal("update_level", str(numeroRondas)+"/5")
 	# Create a list of pairs (image, name) for shuffling
 	var image_name_pairs = []
@@ -196,6 +200,7 @@ func iniciar_juego():
 # Método para cargar una nueva ronda.
 func cargar_ronda():
 	reset_compoments()
+	eliminar_todas_las_flechas()  # 🧹 borrar líneas de la ronda anterior
 	emit_signal("update_level", str(numeroRondas) + "/5")
 	# Calculate the range of indices for the current round
 	var start_index = (numeroRondas - 1) * 3
@@ -460,3 +465,88 @@ func _actualizar_puntajes(path):
 # Método para volver a la pantalla de selección de niveles.
 func go_selection():
 	get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")
+
+# Crea una flecha entre una imagen y un texto
+func crear_flecha(imagen_box: Node2D, texto_box: Node2D) -> void:
+	# Si ya existe una flecha para este match, no crear otra
+	if arrows.has(imagen_box.value):
+		return
+
+	# Crear un Line2D
+	var line := Line2D.new()
+	line.name = "Arrow_Line_%s" % imagen_box.value
+	line.width = 5.0
+	line.default_color = Color(0.2, 0.8, 0.2, 0.6)  # verde con algo de transparencia
+	line.z_index = 10  # por delante para que se vea
+	add_child(line)
+
+	# Guardar los datos en el diccionario
+	arrows[imagen_box.value] = {
+		"line": line,
+		"imagen": imagen_box,
+		"texto": texto_box,
+	}
+
+	# Calcular la posición inicial correcta
+	actualizar_flecha(imagen_box.value)
+
+
+# Actualiza la posición de una flecha (por si algo se anima / mueve)
+func actualizar_flecha(value: String) -> void:
+	if not arrows.has(value):
+		return
+
+	var arrow_data = arrows[value]
+	var line: Line2D = arrow_data["line"]
+	var imagen_box: Node2D = arrow_data["imagen"]
+	var texto_box: Node2D = arrow_data["texto"]
+
+	if not is_instance_valid(line) or not is_instance_valid(imagen_box) or not is_instance_valid(texto_box):
+		return
+
+	# 🎯 Sprites concretos donde debe ir la línea
+	var fondo: Sprite2D = imagen_box.get_node("Button/Fondo")
+	var tabla: Sprite2D = texto_box.get_node("Button/Tabla")
+
+	if not is_instance_valid(fondo) or not is_instance_valid(tabla):
+		return
+
+	# Puntos en coordenadas GLOBALes:
+	# - derecha del Fondo (imagen)
+	# - izquierda de la Tabla (texto)
+	var start_global: Vector2 = _get_sprite_edge_global(fondo, true)   # borde derecho
+	var end_global: Vector2 = _get_sprite_edge_global(tabla, false)    # borde izquierdo
+
+	# Convertir a coordenadas LOCALES del nodo actual (MatchMedium)
+	var start_local: Vector2 = to_local(start_global)
+	var end_local: Vector2 = to_local(end_global)
+
+	line.clear_points()
+	line.add_point(start_local)
+	line.add_point(end_local)
+
+
+# Elimina todas las flechas (para cambiar de ronda / reiniciar)
+func eliminar_todas_las_flechas() -> void:
+	for value in arrows.keys():
+		var arrow_data = arrows[value]
+		if arrow_data is Dictionary and arrow_data.has("line"):
+			var line: Line2D = arrow_data["line"]
+			if is_instance_valid(line):
+				line.queue_free()
+	arrows.clear()
+
+# Devuelve la posición global del borde de un Sprite2D.
+# right = true  -> borde derecho
+# right = false -> borde izquierdo
+func _get_sprite_edge_global(sprite: Sprite2D, right: bool) -> Vector2:
+	var center: Vector2 = sprite.global_position
+
+	if sprite.texture:
+		var half_width: float = sprite.texture.get_size().x * sprite.scale.x / 2.0
+		if right:
+			return center + Vector2(half_width, 0.0)
+		else:
+			return center - Vector2(half_width, 0.0)
+
+	return center

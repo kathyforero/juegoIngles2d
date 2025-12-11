@@ -90,8 +90,6 @@ offset_left = 641.0
 offset_top = 151.0
 offset_right = 641.0
 offset_bottom = 151.0
-grow_horizontal = 2
-grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Puntaje2" type="Label" parent="."]

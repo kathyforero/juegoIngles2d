@@ -45,6 +45,10 @@ func _ready():
 	Score.perfectBonus = 100
 	_cargar_palabras_desde_banco_easy()
 
+	# 1) Pasar el tiempo correcto al HUD
+	$Box_inside_game.time_seconds = tiempoCronometro
+
+	# 2) Ahora sí inicializar el HUD
 	emit_signal("set_timer")
 	emit_signal("update_title", "Order it")
 	setDifficultTitle()
@@ -58,7 +62,8 @@ func _ready():
 	instantiatedDifuminado = true
 
 	setLetters()
-	tiempoCronometro = $Box_inside_game.time_seconds
+	# Esta línea ya no hace falta y puedes borrarla:
+	# tiempoCronometro = $Box_inside_game.time_seconds
 
 func _process(_delta):
 	if instantiated:

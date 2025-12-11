@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://dc1k87rpikrsk"]
+
+[ext_resource type="Script" uid="uid://lymrkg2pkg2s" path="res://Scripts/Global/ModalBloqueo.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://dtfvr6dmjys6b" path="res://Sprites/mini_games/Tablero_minigame.png" id="3_tablero"]
+[ext_resource type="Texture2D" uid="uid://1sj035iw8xtj" path="res://Sprites/buttons/btn_entendido_principal.png" id="4_xhwhr"]
+[ext_resource type="Texture2D" uid="uid://dq36wtcvmsnow" path="res://Sprites/buttons/btn_entendido_hover.png" id="5_ujwqs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xhwhr"]
+font_size = 48
+outline_size = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_ujwqs"]
+font_size = 24
+outline_size = 2
+
+[node name="ModalBloqueo" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Tablero" type="Sprite2D" parent="."]
+position = Vector2(648, 440)
+scale = Vector2(0.1432531, 0.16515663)
+texture = ExtResource("3_tablero")
+
+[node name="LabelTitulo" type="Label" parent="."]
+layout_mode = 0
+offset_left = 337.0
+offset_top = 250.0
+offset_right = 960.0
+offset_bottom = 350.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 48
+text = "¡Bloqueado!"
+label_settings = SubResource("LabelSettings_xhwhr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelMensaje" type="Label" parent="."]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 376.0
+offset_right = 928.0
+offset_bottom = 480.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "Completa los niveles anteriores"
+label_settings = SubResource("LabelSettings_ujwqs")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ButtonCerrar" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 520.0
+offset_right = 760.0
+offset_bottom = 592.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_xhwhr")
+texture_hover = ExtResource("5_ujwqs")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
+[connection signal="pressed" from="ButtonCerrar" to="." method="_on_button_cerrar_pressed"]

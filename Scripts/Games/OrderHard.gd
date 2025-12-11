@@ -39,11 +39,15 @@ var perfect = 100
 var valorNivel = 100
 var palabraAnterior
 
+
 func _ready():
 	Score.perfectBonus = 100
-	
 	_cargar_palabras_desde_banco_hard()
-	
+
+	# 1) Tiempo de Hard → HUD
+	$Box_inside_game.time_seconds = tiempoCronometro
+
+	# 2) Inicializar HUD
 	emit_signal("set_timer")
 	emit_signal("update_title", "Order it")
 	setDifficultTitle()
@@ -55,8 +59,11 @@ func _ready():
 	instantiatedAcaboTiempo = true
 	instanceDifuminado = difuminado.instantiate()
 	instantiatedDifuminado = true
+
 	setLetters()
-	tiempoCronometro = $Box_inside_game.time_seconds
+	# Quita esta línea:
+	# tiempoCronometro = $Box_inside_game.time_seconds
+
 
 func _process(_delta):
 	if instantiated:

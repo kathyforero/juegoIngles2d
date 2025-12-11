@@ -3,19 +3,55 @@ extends Control
 # Señal que se emite para actualizar la escena, en este caso el menú principal.
 signal update_scene(path)
 
+var en: bool = false
+# Variable para controlar si el modo random está desbloqueado
+var random_desbloqueado = false
+
 # Función que se llama cuando el nodo entra en la escena por primera vez.
 # Emite una señal para indicar que se debe mostrar el menú principal.
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false   # por defecto español
+
+
+func update_language_minigames():
+	if en:
+		# Modo inglés
+		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame.png")
+		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random.png")
+	else:
+		# Modo español
+		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame_es.png")
+		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random_es.png")
+
 func _ready():
 	emit_signal("update_scene", "menu_principal")
 	# Deshabilitamos Random y mostramos candado al inicio
+	
+	en = load_language_setting()          # lee idioma desde el JSON
+	update_language_minigames()           # cambia las texturas según idioma
+	
 	$btn_random.disabled = true
+	# NO deshabilitamos el botón, solo mostramos el candado
+	# $btn_random.disabled = true
 	$btn_random.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	$candado.visible = true
+	# Conectar señal gui_input para capturar clics incluso cuando disabled
+	$btn_random.gui_input.connect(_on_btn_random_gui_input)
+	# Conectar señales para cambiar el cursor cuando el mouse está encima
+	$btn_random.mouse_entered.connect(_on_btn_random_mouse_entered)
+	$btn_random.mouse_exited.connect(_on_btn_random_mouse_exited)
 	verificar_progreso(Global.rutaArchivos + "/Progress/progressMinigames.dat")
 	
 func actualizar_candados(progreso):
 	# Solo desbloqueamos Random si se cumplen los requisitos
 	if progreso["puzzle"]["hard"] and progreso["match"]["hard"] and progreso["order"]["hard"]:
+		random_desbloqueado = true
 		
 		# Solo reproducir animación si firstUnlock es true
 		if $candado.visible and progreso["random"]["firstUnlock"]:
@@ -30,9 +66,13 @@ func actualizar_candados(progreso):
 			# Ya fue desbloqueado antes, solo ocultamos candado si sigue visible
 			$candado.visible = false
 
-		# Habilitamos el botón Random siempre que se cumplan los requisitos
+		# Habilitamos el botón y el cursor de mano
 		$btn_random.disabled = false
 		$btn_random.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	else:
+		random_desbloqueado = false
+
+
 		
 func verificar_progreso(path):
 	if FileAccess.file_exists(path):  
@@ -100,9 +140,27 @@ func _on_btn_order_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/Dificultad_OrderIt.tscn")
 
+# Función que se ejecuta cuando se hace clic en el botón random (incluso si está deshabilitado)
+func _on_btn_random_gui_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not random_desbloqueado:
+			var titulo = "¡Modo Random Bloqueado!"
+			var mensaje = "Completa todos los niveles DIFÍCILES de los tres juegos para desbloquearlo."
+			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+
+# Función que se ejecuta cuando el mouse entra sobre el botón random
+func _on_btn_random_mouse_entered():
+	$btn_random.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
+# Función que se ejecuta cuando el mouse sale del botón random
+func _on_btn_random_mouse_exited():
+	if not random_desbloqueado:
+		$btn_random.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	else:
+		$btn_random.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
 # Función que se ejecuta cuando el botón del modo random es presionado.
-# Reproduce el sonido de clic y cambia la escena al nivel de dificultad de 'Order It'.
 func _on_btn_random_pressed():
-	ButtonClick.button_click()
-	#await get_tree().create_timer(0.05).timeout
-	DificultadRandom.load_next_random_level()
+	if random_desbloqueado:
+		ButtonClick.button_click()
+		DificultadRandom.load_next_random_level()

@@ -268,8 +268,10 @@ texture = ExtResource("7_3c08c")
 position = Vector2(49, 0)
 
 [node name="Button" parent="Box_texto_match" index="0"]
-offset_left = 761.0
-offset_right = 1061.0
+offset_left = 759.827
+offset_top = 297.031
+offset_right = 1059.83
+offset_bottom = 362.031
 
 [node name="Box_texto_match2" parent="." instance=ExtResource("6_xfe5o")]
 position = Vector2(49, 180)
