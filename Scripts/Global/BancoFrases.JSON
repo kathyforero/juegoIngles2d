@@ -6,11 +6,11 @@
 	  "esp": {
 		"easy": [
 		  "Él juega fútbol muy bien",
-		  "Él patea muy fuerte"
+		  "Él patea la pelota muy fuerte"
 		],
 		"medium": [
-		  "Él juega al fútbol muy bien con pasion",
-		  "Él juega al fútbol con pasión y fuerza"
+		  "Él juega al fútbol muy bien con pasión",
+		  "Él juega al fútbol con pasión y energía"
 		],
 		"hard": [
 		  "Él juega al fútbol con sus amigos en el parque grande",
@@ -27,8 +27,8 @@
 		  ["He plays", "football", "with passion", "and energy"]
 		],
 		"hard": [
-		  ["He plays", "football with", "his friends", "in park", "runs fast", "scores goal"],
-		  ["He runs", "very fast", "kicks ball", "and scores", "with joy", "big goal"]
+		  ["He plays", "football with", "his friends", "in the", "big", "park"],
+		  ["He runs", "fast", "and scores", "a goal", "with great", "enthusiasm"]
 		]
 	  }
 	},
@@ -41,8 +41,8 @@
 		  "Él lee la hoja"
 		],
 		"medium": [
-		  "Yo leo el libro todos los dias en casa",
-		  "Yo leo la pagina todos los dias en casa"
+		  "Yo leo el libro todos los días en casa",
+		  "Yo leo la página todos los días en casa"
 		],
 		"hard": [
 		  "Yo leo un libro interesante en la biblioteca con calma",
@@ -56,11 +56,11 @@
 		],
 		"medium": [
 		  ["I read", "the book", "every day", "at home"],
-		  ["I read", "the page", "every day", "at house"]
+		  ["I read", "the page", "every day", "at home"]
 		],
 		"hard": [
 		  ["I read", "a book", "in library", "with calm", "it teaches", "many things"],
-		  ["The story", "is fun", "and exciting", "I learn", "new things", "every day"]
+		  ["The story", "is thrilling", "and it", "teaches me", "a lot of", "things"]
 		]
 	  }
 	},
@@ -87,12 +87,12 @@
 		  ["She", "cleans", "the house"]
 		],
 		"medium": [
-		  ["She sweeps", "the floor", "with force", "and broom"],
-		  ["She sweeps", "the floor", "living room", "and kitchen"]
+		  ["She", "sweeps", "the floor", "with strength"],
+		  ["She sweeps", "the floor of", "the living room", "and the kitchen"]
 		],
 		"hard": [ 
-		  ["She sweeps", "the floor", "in house", "with broom", "very clean", "everywhere"],
-		  ["She starts", "in living", "room and", "cleans dining", "room after", "very tidy"]
+		  ["She sweeps", "the floor", "with strength", "in the whole", "house", "every day"],
+		  ["She first", "cleans the", "living room", "and then", "the dinning room", "with care"]
 		]
 	  }
 	},
@@ -105,7 +105,7 @@
 		  "Nosotros cantamos juntos"
 		],
 		"medium": [
-		  "Ellos cantan una canción alegre",
+		  "Ellos cantan una canción alegre en coro",
 		  "Ellos cantan una canción juntos en el coro"
 		],
 		"hard": [
@@ -119,12 +119,12 @@
 		  ["We", "sing", "together"]
 		],
 		"medium": [
-		  ["They sing", "a song", "with joy", "in chorus"],
-		  ["They sing", "a song", "together happy", "in choir"]
+		  ["They sing", "a happy", "song", "in chorus"],
+		  ["They sing", "a song", "together", "in the choir"]
 		],
 		"hard": [
-		  ["They sing", "a song", "at school", "in afternoon", "everyone", "sings along"],
-		  ["The music", "is great", "and happy", "they sing", "with joy", "all together"]
+		  ["They sing", "a happy", "song", "at school", "by", "afternoon"],
+		  ["The music", "is fun", "and everybody", "sings", "with a lot of", "energy"]
 		]
 	  }
 	},
@@ -141,7 +141,7 @@
 		  "Él trabaja en su computadora en casa y oficina"
 		],
 		"hard": [
-		  "Él trabaja en su computadora para terminar un gran proyecto",
+		  "Él trabaja en su computadora por horas para terminar un gran proyecto",
 		  "Escribe códigos importantes con paciencia y concentración"
 		]
 	  },
@@ -151,12 +151,12 @@
 		  ["He works", "at the", "office"]
 		],
 		"medium": [
-		  ["He works", "on computer", "all day", "at home"],
-		  ["He works", "on computer", "in house", "and office"]
+		  ["He works", "on his computer", "all day", "at home"],
+		  ["He works", "on his computer", "at home", "and the office"]
 		],
 		"hard": [
-		  ["He works", "on computer", "all day", "writing code", "to complete", "big project"],
-		  ["He writes", "new code", "and solves", "big problems", "works hard", "very focused"]
+		  ["He works", "on his computer", "for hours", "to finish", "a big", "project"],
+		  ["He writes", "important", "codes", "with", "patience and", "concentration"]
 		]
 	  }
 	},
@@ -174,7 +174,7 @@
 		],
 		"hard": [
 		  "Te gusta jugar golf con tus amigos en el parque los sábados",
-		  "Practicas los tiros y disfrutas competir con los demás"
+		  "Practicas tus tiros y disfrutas competir con los demás"
 		]
 	  },
 	  "eng": {
@@ -183,12 +183,12 @@
 		  ["He loves", "to play", "golf"]
 		],
 		"medium": [
-		  ["You like", "playing golf", "in park", "on weekend"],
-		  ["You like", "playing golf", "in family", "on Sundays"]
+		  ["You like", "to play", "golf in the", "park"],
+		  ["You like", "to play golf", "on weekends", "as a family"]
 		],
 		"hard": [
-		  ["You play", "golf with", "your friends", "in park", "on weekend", "have fun"],
-		  ["You", "practice", "your swings", "and compete", "with others", "on Saturday"]
+		  ["You like", "to play golf", "with your", "friends", "in the park", "on Saturdays"],
+		  ["You", "practice", "your shots", "and enjoy", "competing", "with others"]
 		] 
 	  }
 	},
@@ -215,8 +215,8 @@
 		  ["He plays", "with", "his dog"]
 		],
 		"medium": [
-		  ["I play", "with dog", "in yard", "every day"],
-		  ["I play", "with dog", "in garden", "each afternoon"]
+		  ["I play", "with my", "dog", "happily"],
+		  ["I play", "with my dog", "in the garden", "each afternoon"]
 		],
 		"hard": [
 		  ["I play", "with dog", "in garden", "after school", "throw ball", "he fetches"],
