@@ -1,17 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://guia2scene"]
+[gd_scene load_steps=11 format=3 uid="uid://guia2scene"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
-[ext_resource type="Script" path="res://Scripts/GuiaSimple.gd" id="1_rtl8m"]
+[ext_resource type="Script" uid="uid://swwtyh0720oh" path="res://Scripts/GuiaSimple.gd" id="1_rtl8m"]
 [ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="2_cnaa0"]
+[ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="8_0eotb"]
 [ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
 [ext_resource type="Texture2D" uid="uid://bhe6k2m5irfb7" path="res://Sprites/buttons/seguirPuntajeHover.png" id="9_6g8l0"]
 [ext_resource type="Texture2D" uid="uid://cbsgw3yum2qos" path="res://Sprites/buttons/Boton_Salir.png" id="12_vwvlu"]
 [ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="13_gi4ve"]
+[ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="15_minecraft"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("15_minecraft")
+font_size = 59
 
 [node name="PuntajesPuzzle" type="Node2D"]
 script = ExtResource("1_rtl8m")
 prev_scene_path = "res://Escenas/Global/guia_1.tscn"
-title_text = "Guía 2"
+title_text = "Vocabulario"
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_mnt6j")]
 
@@ -19,15 +25,6 @@ title_text = "Guía 2"
 position = Vector2(650, 447)
 scale = Vector2(0.214403, 0.21336)
 texture = ExtResource("2_cnaa0")
-
-[node name="TitleLabel" type="Label" parent="."]
-offset_left = 480.0
-offset_top = 200.0
-offset_right = 820.0
-offset_bottom = 260.0
-text = "Guía 2"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ContentLabel" type="Label" parent="."]
 offset_left = 300.0
@@ -61,6 +58,21 @@ texture_normal = ExtResource("12_vwvlu")
 texture_hover = ExtResource("13_gi4ve")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="LetreroVacio" type="Sprite2D" parent="."]
+position = Vector2(640, 78)
+scale = Vector2(0.16013072, 0.10693642)
+texture = ExtResource("8_0eotb")
+
+[node name="TitleLabel2" type="Label" parent="."]
+offset_left = 472.0
+offset_top = 32.0
+offset_right = 806.0
+offset_bottom = 120.0
+text = "Vocabulario"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="RetrocederButton" to="." method="_on_retroceder_button_pressed"]
 [connection signal="pressed" from="SalirButton" to="." method="_on_salir_button_pressed"]
