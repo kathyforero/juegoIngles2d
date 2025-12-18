@@ -376,7 +376,7 @@ func cambiar_opacidad_flechas(opacidad: float):
 			if is_instance_valid(line):
 				var current_color = line.default_color
 				line.default_color = Color(current_color.r, current_color.g, current_color.b, opacidad)
-
+		
 # Método que ejecuta la animación de victoria.
 func animation_win():
 	cambiar_opacidad_flechas(0.4)  # Reducir opacidad a 25% durante la animación

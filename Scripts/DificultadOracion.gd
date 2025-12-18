@@ -188,7 +188,7 @@ func _on_texture_button_3_pressed():
 	if hard_desbloqueado:
 		ButtonClick.button_click()
 		Score.actualDifficult = Score.difficult["hard"]
-		get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel3.tscn")
+		get_tree().change_scene_to_file("res://Escenas/Games/FrasesNivel3.tscn") 
 
 # Funciones para cambiar el cursor cuando el mouse está encima de los botones bloqueados
 func _on_texture_button_2_mouse_entered():
