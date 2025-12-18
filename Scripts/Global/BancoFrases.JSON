@@ -678,7 +678,7 @@
 	  "esp": {
 		"easy": [
 		  "Ella construye torres.",
-		  "Ella edifica torres de bloques."
+		  "Ella construye torres de bloques."
 		],
 		"medium": [
 		  "Ella construye torres con bloques.",
@@ -691,16 +691,16 @@
 	  },
 	  "eng": {
 		"easy": [
-		  ["She", "builds", "towers."],
-		  ["She", "constructs", "towers."]
+		  ["She", "builds", "towers"],
+		  ["She", "constructs", "towers of blocks"]
 		],
 		"medium": [
-		  ["She", "builds", "towers", "with blocks."],
-		  ["Using blocks,", "she", "raises", "towers."]
+		  ["She", "builds", "towers", "with blocks"],
+		  ["Using blocks", "she", "raises", "towers"]
 		],
 		"hard": [
-		  ["She", "builds", "impressive", "towers with", "building", "blocks."],
-		  ["With", "building", " blocks,", "she erects", "tall towers", "gracefully."]
+		  ["She", "builds", "impressive", "towers with", "building", "blocks"],
+		  ["With", "building", " blocks,", "she erects", "tall", "towers"]
 		]
 	  }
 	},
@@ -723,16 +723,16 @@
 	  },
 	  "eng": {
 		"easy": [
-		  ["He", "washes", "the dishes."],
-		  ["He", "cleans", "the dishes."]
+		  ["He", "washes", "the dishes"],
+		  ["He", "cleans", "the dishes"]
 		],
 		"medium": [
-		  ["He", "helps", "wash", "the dishes."],
+		  ["He", "helps", "to wash", "the dishes."],
 		  ["He", "assists", "in", "dishwashing."]
 		],
 		"hard": [
-		  ["After", "dinner,", "he helps", "wash", "the", "dishes."],
-		  ["He", "contributes", "to", "washing", "the dishes", "after dinner."]
+		  ["After", "dinner", "he helps", "to wash", "the", "dishes"],
+		  ["He", "contributes", "to", "washing", "the dishes", "after dinner"]
 		]
 	  }
 	},
@@ -742,11 +742,11 @@
 	  "esp": {
 		"easy": [
 		  "Ella investiga planetas.",
-		  "Ella explora información sobre planetas."
+		  "Ella explora los planetas."
 		],
 		"medium": [
 		  "Ella estudia los planetas.",
-		  "Ella investiga sobre los planetas."
+		  "Ella investiga los planetas."
 		],
 		"hard": [
 		  "Para su proyecto escolar, ella investiga sobre los planetas.",
@@ -755,16 +755,16 @@
 	  },
 	  "eng": {
 		"easy": [
-		  ["She", "researches", "planets."],
-		  ["She", "explores", "planets."]
+		  ["She", "researches", "planets"],
+		  ["She", "explores", "the planets"]
 		],
 		"medium": [
-		  ["She", "studies", "the", "planets."],
-		  ["She", "investigates", "the", "planets."]
+		  ["She", "studies", "the", "planets"],
+		  ["She", "investigates", "the", "planets"]
 		],
 		"hard": [
-		  ["For her", "school", "project, she", "researches", "the planets", "diligently."],
-		  ["She", "gathers", "data", "on", "planets for", "her project."]
+		  ["For her", "school", "project", "she researches", "about", "the planets"],
+		  ["She", "gathers", "data", "about", "planets for her", "school project."]
 		] 
 	  }
 	},
@@ -781,22 +781,22 @@
 		  "Ellos entonan canciones con mensajes educativos."
 		],
 		"hard": [
-		  "Durante el recreo, ellos cantan canciones educativas.",
+		  "Durante el recreo, ellos cantan canciones educativas felizmente.",
 		  "Ellos interpretan canciones educativas en el recreo."
 		]
 	  },
 	  "eng": {
 		"easy": [
-		  ["They", "sing", "songs."],
-		  ["They", "perform", "melodies."]
+		  ["They", "sing", "songs"],
+		  ["They", "perform", "melodies"]
 		],
 		"medium": [
-		  ["They", "sing", "educational", "songs."],
-		  ["They", "chant", "educational", "songs."]
+		  ["They", "sing", "educational", "songs"],
+		  ["They", "chant", "songs with", "educational messages"]
 		],
 		"hard": [
-		  ["During", "recess,", "they sing", "educational", "songs", "joyfully."],
-		  ["They", "perform", "educational", "songs", "at", "recess."]
+		  ["During", "recess", "they sing", "educational", "songs", "joyfully"],
+		  ["They", "perform", "educational", "songs", "at", "recess"]
 		]
 	  }
 	}
