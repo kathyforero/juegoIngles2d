@@ -120,14 +120,21 @@ func _on_set_visible_word(new_word):
 
 #Funciones para manejar el cronómetro
 func _on_set_timer():
+	if Score.practice_mode:
+		# En modo práctica no hay límite de tiempo
+		temporizador.visible = false   # si quieres, también puedes dejarlo visible con "∞"
+		return
 	temporizador.visible = true
 	timer.start()
 
 func _on_timer_timeout():
+	if Score.practice_mode:
+		# No contamos tiempo ni disparamos lose()
+		return
+
 	if time_seconds > 0:
 		time_seconds -= 1
 	else:
-		#get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")
 		get_parent().lose()
 	temporizador.text = str(time_seconds)
 
