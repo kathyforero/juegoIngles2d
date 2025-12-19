@@ -1,0 +1,71 @@
+{
+	"categories": {
+		"Animales 1": [
+			"Armadillo",
+			"Castor",
+			"Guepardo",
+			"Dingo",
+			"Emú",
+			"Gacela",
+			"Erizo",
+			"Ibex",
+			"Chacal"
+		],
+		"Depredadores": [
+			"Guepardo",
+			"Chacal",
+			"Dingo",
+			"Ocelote",
+			"Gacela"
+		],
+		"Fauna Exótica": [
+			"Garza",
+			"Pájaro\ncarpintero",
+			"Mariposa\nturquesa",
+			"Ardilla",
+			"Ardilla cucú",
+			"Perezoso",
+			"Loro cabeza\nroja",
+			"Iguana",
+			"Mono aullador"
+		],
+		"Actividades": [
+			"Jugar",
+			"Cantar",
+			"Dibujar",
+			"Pasear perro",
+			"Pescar",
+			"Fútbol",
+			"Barrer"
+		],
+		"Acciones": [
+			"Cocinar",
+			"Lavar",
+			"Escuchar clase",
+			"Leer",
+			"Enseñar",
+			"Pescar",
+			"Regar",
+			"Jugar"
+		],
+		"Escuela": [
+			"Mochila",
+			"Leer",
+			"Escuchar clase",
+			"Palabras",
+			"Hoja",
+			"Universo"
+		],
+		"Objetos": [
+			"Casa",
+			"Calle",
+			"Ciudad",
+			"Ventana",
+			"Mesa",
+			"Playa",
+			"Persona",
+			"Papel",
+			"Miel"
+		]
+	}
+}
