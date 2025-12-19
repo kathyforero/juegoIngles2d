@@ -93,37 +93,39 @@ func _process(_delta):
 		and $Cadenas/Pieza2.correct
 	)
 
-	# 🟣 MODO PRÁCTICA: ronda infinita
+	# 🟣 MODO PRÁCTICA: rondas infinitas, sin victory()
 	if Score.practice_mode:
 		if todas_correctas and !ganoRonda:
 			ganoRonda = true
 			numeroRondas += 1
-			_continuar_juego()  # la función que ya tengas para empezar la siguiente ronda
+			rondaWin()  # misma animación de ronda ganada, pero sin final de juego
 		return
 
-	# 🟢 MODO NORMAL
+	# 🟢 MODO NORMAL (como estaba antes)
 	if todas_correctas and numeroRondas == rondas and !gano:
 		gano = true
 		victory()
 	elif todas_correctas and numeroRondas < rondas and !ganoRonda and !gano:
 		ganoRonda = true
 		numeroRondas += 1
-		_continuar_juego()
+		if numeroRondas < rondas:
+			rondaWin()
 
 #Se invoca al empezar una nueva ronda
 func _empezar_ronda():		
 	indiceNivel += 1
 	var indiceAl = randi_range(0, indicesImages.size()-1)
 	indiceImagen = indicesImages[indiceAl]
-	indicesImages.remove_at(indiceAl)
-	print(str(indiceImagen))
-	indiceCadena = randi_range(0, cadenas[indiceImagen].size()-1)
-	print(str(indiceCadena))
-	emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena])
-	emit_signal("update_level", str(indiceNivel+1)+"/"+str(rondas))
-	emit_signal("uptate_imagen_game", "puzzle/"+images[indiceImagen])
-	update_boxes(indiceCadena)
-	ganoRonda=false
+	if !Score.practice_mode:
+		indicesImages.remove_at(indiceAl)
+		print(str(indiceImagen))
+		indiceCadena = randi_range(0, cadenas[indiceImagen].size()-1)
+		print(str(indiceCadena))
+		emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena])
+		emit_signal("update_level", str(indiceNivel+1)+"/"+str(rondas))
+		emit_signal("uptate_imagen_game", "puzzle/"+images[indiceImagen])
+		update_boxes(indiceCadena)
+		ganoRonda=false
 	
 
 #Reinicia los objetos al empezar una ronda
