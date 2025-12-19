@@ -38,6 +38,14 @@ func _ready():
 		level_label.text = "LEVEL:"
 	else:
 		level_label.text = "NIVEL:"
+
+	if Score.practice_mode:
+		level_label.visible = false
+		level_value.visible = false
+	else:
+		level_label.visible = true
+		level_value.visible = true
+
 	word.visible = false
 	sentense.visible = false
 	phrase_text.visible = false
@@ -71,6 +79,8 @@ func _on_update_difficulty(new_difficulty):
 	
 # Función para actualizar el nivel del juego
 func _on_update_level(new_level):
+	if Score.practice_mode:
+		return   # no actualizamos nada en modo práctica
 	level_value.text = new_level
 	
 # Función para actualizar la imagen del juego
