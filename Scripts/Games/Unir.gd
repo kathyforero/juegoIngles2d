@@ -1,5 +1,7 @@
 extends Node2D
 
+var interaction_locked: bool = false
+
 # Señales que se emiten para actualizar diferentes aspectos de la escena, título, dificultad, nivel y visibilidad de las imágenes.
 signal update_scene(path)
 signal update_title(new_title)
@@ -135,18 +137,31 @@ func assign_images_and_names():
 		animals.erase(selected_key)  # Remove from the pool
 
 func _process(_delta):
-	if(instantiated):
-		# Verificar si se ha ganado una ronda o si se ha completado el juego.
-		if(box_texto_match.is_matched() and box_texto_match_2.is_matched() and
-		box_texto_match_3.is_matched() and numeroRondas == rondas+1 and !gano):
-			gano = true
-			victory()  # Llamar al método de victoria si se completaron todas las rondas.
-		elif (box_texto_match.is_matched() and box_texto_match_2.is_matched() and
-		 box_texto_match_3.is_matched() and numeroRondas < rondas+1 and !ganoRonda and !gano):
+	if !instantiated:
+		return
+
+	# 🟣 MODO PRÁCTICA: sin final, solo rondas una tras otra
+	if Score.practice_mode:
+		if (box_texto_match.is_matched()
+			and box_texto_match_2.is_matched()
+			and box_texto_match_3.is_matched()
+			and !ganoRonda):
 			ganoRonda = true
-			numeroRondas+=1  # Incrementar el número de rondas.
-			if(numeroRondas <= rondas):
-				ronda_win()
+			numeroRondas += 1
+			ronda_win()   # prepara la siguiente ronda
+		return
+
+	# 🟢 MODO NORMAL (igual que antes)
+	if(box_texto_match.is_matched() and box_texto_match_2.is_matched() and
+		box_texto_match_3.is_matched() and numeroRondas == rondas+1 and !gano):
+		gano = true
+		victory()
+	elif (box_texto_match.is_matched() and box_texto_match_2.is_matched() and
+		box_texto_match_3.is_matched() and numeroRondas < rondas+1 and !ganoRonda and !gano):
+		ganoRonda = true
+		numeroRondas += 1
+		if numeroRondas <= rondas:
+			ronda_win()
 
 # Método para establecer el texto de dificultad
 func setDifficultTitle():
@@ -160,34 +175,66 @@ func setDifficultTitle():
 
 # Método para manejar la imagen seleccionada.
 func handle_value_selected(node):
-	if(selected_image and not node == selected_image):
+	# Si estamos mostrando check / X, ignorar clicks
+	if interaction_locked:
+		return
+
+	if selected_image and node != selected_image:
 		selected_image.fondo_clic.visible = false  # Ocultar la selección anterior.
+
 	selected_image = node  # Asignar la nueva selección.
 	
 # Método para manejar el emparejamiento de valores.
 func handle_value_match(target_node):
+	# Si estamos en pausa de feedback, no aceptar más emparejamientos
+	if interaction_locked:
+		return
+
 	if !selected_image:
 		target_node.fondo_clic.visible = false  # Si no hay imagen seleccionada, no hacer nada.
 		return
+
+	interaction_locked = true  # 🔒 bloquear interacción
+
+	# Pausar el cronómetro mientras mostramos el check/X
+	$Box_inside_game.timer.stop()
+
 	if selected_image.value == target_node.target:
-		# Si el valor coincide, marcar como bloqueado y reproducir la animación de acierto.
+		# ✅ Emparejamiento correcto
+		if precisionActual < 100:
+			precisionActual += 5
+
 		selected_image.blocked = true
 		target_node.blocked = true
 		selected_image.animation_match()
 		target_node.animation_match()
 		target_node.mark_to_match()
-		$AnimationPlayer.play("correct")
-		# Crear flecha entre la imagen y el texto
+
+		# 👉 AQUÍ dibujas la línea verde
 		crear_flecha(selected_image, target_node)
+
+		$AnimationPlayer.play("correct")
 	else:
-		# Si no coincide, disminuir la precisión y reproducir la animación de fallo.
-		if(precisionActual>precisionMinima):
+		# ❌ Emparejamiento incorrecto
+		if precisionActual > precisionMinima:
 			precisionActual -= 10
 		selected_image.animation_no_match()
 		target_node.animation_no_match()
 		selected_image.fondo_clic.visible = false
 		$AnimationPlayer.play("incorrect")
+
+	# ⏱ Esperar 1 segundo para que se vea bien la animación
+	await get_tree().create_timer(1.0).timeout
+
+	# Limpiar selección después del feedback
 	selected_image = null
+
+	# Reanudar timer solo si seguimos en esta escena
+	if is_inside_tree():
+		$Box_inside_game.timer.start()
+
+	interaction_locked = false  # 🔓 desbloquear interacción
+
 
 # Método para iniciar el juego.
 func iniciar_juego():

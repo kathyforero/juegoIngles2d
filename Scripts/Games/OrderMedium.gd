@@ -63,20 +63,29 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if(instantiated):
-		# Check all 5 letters for completion
+	if !instantiated:
+		return
+
+	# 🟣 MODO PRÁCTICA: no hay final, solo rondas infinitas
+	if Score.practice_mode:
 		if ($Letras/Letter.correct and $Letras/Letter2.correct and
-		 $Letras/Letter3.correct and $Letras/Letter4.correct and
-		 $Letras/Letter5.correct and rondaActual==rondas and !gano):
-			gano = true
-			victory()
-		elif ($Letras/Letter.correct and $Letras/Letter2.correct and
-		 $Letras/Letter3.correct and $Letras/Letter4.correct and
-		 $Letras/Letter5.correct and rondaActual<rondas and !gano):
-			gano = true  # Temporal para evitar múltiples llamadas
+			$Letras/Letter3.correct and $Letras/Letter4.correct):
 			await nuevaRonda()
-			gano = false  # Resetear para la siguiente ronda
-	pass
+		return
+
+	# 🟢 MODO NORMAL (igual que antes)
+	if ($Letras/Letter.correct and $Letras/Letter2.correct and
+		$Letras/Letter3.correct and $Letras/Letter4.correct and
+		rondaActual == rondas and !gano):
+		gano = true
+		victory()
+
+	if ($Letras/Letter.correct and $Letras/Letter2.correct and
+		$Letras/Letter3.correct and $Letras/Letter4.correct):
+		if rondaActual < rondas:
+			await nuevaRonda()
+		else:
+			gano = true
 	
 func setDifficultTitle():
 	match Score.actualDifficult:

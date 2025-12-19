@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqusekucbcyxy"]
+
+[ext_resource type="Script" uid="uid://bqsgdnxjlhm4w" path="res://Scripts/Global/pause_menu.gd" id="1_0wknf"]
+[ext_resource type="Texture2D" uid="uid://c223cjx8lrdmg" path="res://Sprites/global/letreroTiempoAcabado.png" id="1_vsgij"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="2_og6mb"]
+[ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="3_h4nb4"]
+[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="4_uy2jd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xdunq"]
+font = ExtResource("3_h4nb4")
+font_size = 28
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0wknf")
+
+[node name="FondoOscuro" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="PanelOpciones" type="TextureRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -251.5
+offset_top = -122.0
+offset_right = 248.5
+offset_bottom = 178.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vsgij")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 541.0
+offset_top = 379.0
+offset_right = 725.0
+offset_bottom = 407.0
+text = "P A U S A D O"
+label_settings = SubResource("LabelSettings_xdunq")
+
+[node name="btn_continuar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 419.0
+offset_right = 741.0
+offset_bottom = 490.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_uy2jd")
+theme_override_font_sizes/font_size = 22
+text = "Continuar"
+icon = ExtResource("2_og6mb")
+flat = true
+autowrap_mode = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="btn_menu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 497.0
+offset_right = 741.0
+offset_bottom = 568.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_uy2jd")
+theme_override_font_sizes/font_size = 19
+text = "Volver al menú"
+icon = ExtResource("2_og6mb")
+flat = true
+icon_alignment = 1
+expand_icon = true

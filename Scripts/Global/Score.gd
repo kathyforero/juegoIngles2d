@@ -15,6 +15,9 @@ const difficult = {
 }
 var actualDifficult = difficult["easy"]
 # Called when the node enters the scene tree for the first time.
+
+var practice_mode: bool = false
+
 func _ready():
 	PlayerScore = OrderItScore + PuzzleScore + MatchItScore
 	pass # Replace with function body.

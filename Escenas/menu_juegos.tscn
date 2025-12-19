@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cu1nuxh8st3ux"]
+[gd_scene load_steps=22 format=3 uid="uid://cu1nuxh8st3ux"]
 
 [ext_resource type="Script" uid="uid://cxc5bgurkkjxn" path="res://Scripts/menu_juegos1.gd" id="1_8om4q"]
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_ae3ik"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="11_qllet"]
 [ext_resource type="Texture2D" uid="uid://cpgtso7quhpj8" path="res://Sprites/pngtree-padlocks-or-lock-open-and-closed-icons-isolated-transparant-png-image_5213443.png" id="14_ov08e"]
 [ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="15_1jjh1"]
+[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="17_rym7l"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="18_rk57w"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -118,7 +120,7 @@ scale = Vector2(0.219223, 0.219223)
 texture = ExtResource("3_prnin")
 
 [node name="Letrero" type="Sprite2D" parent="."]
-position = Vector2(632, 192)
+position = Vector2(632.00006, 171)
 scale = Vector2(0.219223, 0.219223)
 texture = ExtResource("4_41r5y")
 
@@ -168,7 +170,7 @@ position = Vector2(592.652, 1339.13)
 texture = ExtResource("10_yd6ht")
 
 [node name="btn_random" type="TextureButton" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 514.0
 offset_top = 733.0
 offset_right = 703.0
@@ -190,6 +192,7 @@ offset_right = 1175.64
 offset_bottom = 42.32
 
 [node name="btn_go_back" parent="." instance=ExtResource("11_qllet")]
+layout_mode = 0
 offset_top = 58.0
 offset_bottom = 98.0
 
@@ -206,8 +209,44 @@ libraries = {
 script = ExtResource("15_1jjh1")
 
 [node name="ModalBloqueo" parent="." instance=ExtResource("1_modal")]
+layout_mode = 1
+
+[node name="btn_practice_on" type="Button" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 211.0
+offset_right = 753.0
+offset_bottom = 287.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
+theme_override_fonts/font = ExtResource("17_rym7l")
+theme_override_font_sizes/font_size = 19
+text = "Modo Práctica Libre"
+icon = ExtResource("18_rk57w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="btn_practice_off" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 507.0
+offset_top = 211.0
+offset_right = 753.0
+offset_bottom = 287.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
+theme_override_fonts/font = ExtResource("17_rym7l")
+theme_override_font_sizes/font_size = 19
+text = "Modo Normal"
+icon = ExtResource("18_rk57w")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="pressed" from="Hbox_botones_juegos/btn_puzzle" to="." method="_on_btn_puzzle_pressed"]
 [connection signal="pressed" from="Hbox_botones_juegos/btn_match" to="." method="_on_btn_match_pressed"]
 [connection signal="pressed" from="Hbox_botones_juegos/btn_order" to="." method="_on_btn_order_pressed"]
 [connection signal="pressed" from="btn_random" to="." method="_on_btn_random_pressed"]
+[connection signal="pressed" from="btn_practice_on" to="." method="_on_btn_practice_on_pressed"]
+[connection signal="pressed" from="btn_practice_off" to="." method="_on_btn_practice_off_pressed"]

@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="9_kohdt"]
 [ext_resource type="Texture2D" uid="uid://c1brivjy218qn" path="res://Sprites/buttons/Boton_Ayuda.png" id="10_n6w3y"]
 [ext_resource type="Texture2D" uid="uid://ddjtd8r6fmliv" path="res://Sprites/buttons/Boton_pregunta_hover.png" id="11_yqk0i"]
-[ext_resource type="Texture2D" uid="uid://b0ngeledb26bf" path="res://Sprites/buttons/Boton_Opciones.png" id="12_f3duk"]
-[ext_resource type="Texture2D" uid="uid://bnak4eajterau" path="res://Sprites/buttons/Boton_Opcioens_hover.png" id="13_qfipd"]
+[ext_resource type="Texture2D" uid="uid://b5p8q5ry1lufv" path="res://Sprites/buttons/Boton_Pausa.png" id="13_n538i"]
+[ext_resource type="Texture2D" uid="uid://d1buktrfgtvgx" path="res://Sprites/buttons/Boton_Pausa_hover.png" id="14_wx1m4"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="14_x8jx6"]
 
 [node name="Box_inside_game" type="Node2D"]
@@ -174,17 +174,6 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_n6w3y")
 texture_hover = ExtResource("11_yqk0i")
 
-[node name="btn_levels" type="TextureButton" parent="btns_inside_box_game"]
-layout_mode = 0
-offset_left = 188.0
-offset_top = -267.0
-offset_right = 484.0
-offset_bottom = 4.0
-scale = Vector2(0.22, 0.22)
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("12_f3duk")
-texture_hover = ExtResource("13_qfipd")
-
 [node name="btn_sound" parent="btns_inside_box_game" instance=ExtResource("14_x8jx6")]
 layout_mode = 1
 offset_left = 188.0
@@ -193,7 +182,18 @@ offset_right = 242.824
 offset_bottom = -373.76
 mouse_default_cursor_shape = 2
 
+[node name="btn_pausa" type="TextureButton" parent="btns_inside_box_game"]
+layout_mode = 0
+offset_left = 188.0
+offset_top = -267.0
+offset_right = 484.0
+offset_bottom = 4.0
+scale = Vector2(0.22, 0.22)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("13_n538i")
+texture_hover = ExtResource("14_wx1m4")
+
 [connection signal="timeout" from="Temporizador/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="btns_inside_box_game/btn_home" to="." method="_on_btn_home_pressed"]
 [connection signal="pressed" from="btns_inside_box_game/btn_instructions" to="." method="_on_btn_instructions_pressed"]
-[connection signal="pressed" from="btns_inside_box_game/btn_levels" to="." method="_on_btn_levels_pressed"]
+[connection signal="pressed" from="btns_inside_box_game/btn_pausa" to="." method="_on_btn_pausa_pressed"]

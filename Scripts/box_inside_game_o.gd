@@ -16,6 +16,9 @@ var time_seconds = 120
 @onready var phrase_text = $phrase_text
 @onready var temporizador = $Temporizador
 @onready var timer = $Temporizador/Timer
+var pausa_menu_scene := preload("res://Escenas/Global/pause_menu.tscn")
+@onready var pause_button = $btns_inside_box_game/btn_pausa
+@onready var cronometro = $Cronometro
 
 var en: bool = false
 
@@ -34,6 +37,20 @@ func _ready():
 		level_label.text = "LEVEL:"
 	else:
 		level_label.text = "NIVEL:"
+
+	if Score.practice_mode:
+		if en:
+			level_label.text = "Practice"
+		else:
+			level_label.text = "Práctica"
+		cronometro.visible = false
+		level_value.visible = false
+		pause_button.visible = false
+	else:
+		level_label.visible = true
+		level_value.visible = true
+		pause_button.visible = true
+	
 	word.visible = false
 	sentense.visible = false
 	phrase_text.visible = false
@@ -66,6 +83,8 @@ func _on_update_difficulty(new_difficulty):
 				difficulty_value.text = new_difficulty
 	
 func _on_update_level(new_level):
+	if Score.practice_mode:
+		return   # no actualizamos nada en modo práctica
 	level_value.text = new_level
 	
 func _on_uptate_imagen_game(new_image):
@@ -88,14 +107,21 @@ func _on_set_visible_word(new_word):
 	phrase_text.text = new_word
 	
 func _on_set_timer():
+	if Score.practice_mode:
+		# En modo práctica no hay límite de tiempo
+		temporizador.visible = false   # si quieres, también puedes dejarlo visible con "∞"
+		return
 	temporizador.visible = true
 	timer.start()
 
 func _on_timer_timeout():
+	if Score.practice_mode:
+		# No contamos tiempo ni disparamos lose()
+		return
+
 	if time_seconds > 0:
 		time_seconds -= 1
 	else:
-		#get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")
 		get_parent().lose()
 	temporizador.text = str(time_seconds)
 
@@ -117,3 +143,17 @@ func _on_btn_levels_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/DificultadPalabra1.tscn")
 	pass # Replace with function body.
+
+
+func _on_btn_pausa_pressed() -> void:
+	ButtonClick.button_click()
+
+	# Evitar abrir muchas veces el menú
+	for child in get_children():
+		if child is CanvasLayer and child.get_child_count() > 0 and child.get_child(0) is Control and child.get_child(0).name == "PausaMenu":
+			return  # Ya hay uno
+
+	var pausa_instance = pausa_menu_scene.instantiate()
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(pausa_instance)
+	add_child(canvas_layer)

@@ -13,9 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://c1brivjy218qn" path="res://Sprites/buttons/Boton_Ayuda.png" id="8_b0hq3"]
 [ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="9_5gw4h"]
 [ext_resource type="Texture2D" uid="uid://ddjtd8r6fmliv" path="res://Sprites/buttons/Boton_pregunta_hover.png" id="9_me665"]
-[ext_resource type="Texture2D" uid="uid://b0ngeledb26bf" path="res://Sprites/buttons/Boton_Opciones.png" id="10_bygvl"]
-[ext_resource type="Texture2D" uid="uid://bnak4eajterau" path="res://Sprites/buttons/Boton_Opcioens_hover.png" id="11_gsky3"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="12_hkn4r"]
+[ext_resource type="Texture2D" uid="uid://b5p8q5ry1lufv" path="res://Sprites/buttons/Boton_Pausa.png" id="14_hpn8n"]
+[ext_resource type="Texture2D" uid="uid://d1buktrfgtvgx" path="res://Sprites/buttons/Boton_Pausa_hover.png" id="15_qm6f4"]
 
 [node name="Box_inside_game" type="Node2D"]
 position = Vector2(944, 48)
@@ -177,7 +177,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_b0hq3")
 texture_hover = ExtResource("9_me665")
 
-[node name="btn_help" type="TextureButton" parent="btns_inside_box_game"]
+[node name="btn_pausa" type="TextureButton" parent="btns_inside_box_game"]
 layout_mode = 0
 offset_left = 188.0
 offset_top = -267.0
@@ -185,8 +185,8 @@ offset_right = 484.0
 offset_bottom = 4.0
 scale = Vector2(0.22, 0.22)
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("10_bygvl")
-texture_hover = ExtResource("11_gsky3")
+texture_normal = ExtResource("14_hpn8n")
+texture_hover = ExtResource("15_qm6f4")
 
 [node name="btn_sound" parent="btns_inside_box_game" instance=ExtResource("12_hkn4r")]
 layout_mode = 1
@@ -199,4 +199,4 @@ mouse_default_cursor_shape = 2
 [connection signal="timeout" from="Temporizador/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="btns_inside_box_game/btn_home" to="." method="_on_btn_home_pressed"]
 [connection signal="pressed" from="btns_inside_box_game/btn_instructions" to="." method="_on_btn_instructions_pressed"]
-[connection signal="pressed" from="btns_inside_box_game/btn_help" to="." method="_on_btn_help_pressed"]
+[connection signal="pressed" from="btns_inside_box_game/btn_pausa" to="." method="_on_btn_pausa_pressed"]

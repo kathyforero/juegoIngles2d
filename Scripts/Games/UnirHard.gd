@@ -135,18 +135,31 @@ func assign_images_and_names():
 		animals.erase(selected_key)  # Remove from the pool
 
 func _process(_delta):
-	if(instantiated):
-		# Verificar si se ha ganado una ronda o si se ha completado el juego.
-		if(box_texto_match.is_matched() and box_texto_match_2.is_matched() and
-		box_texto_match_3.is_matched() and numeroRondas == rondas+1 and !gano):
-			gano = true
-			victory()  # Llamar al método de victoria si se completaron todas las rondas.
-		elif (box_texto_match.is_matched() and box_texto_match_2.is_matched() and
-		 box_texto_match_3.is_matched() and numeroRondas < rondas+1 and !ganoRonda and !gano):
+	if !instantiated:
+		return
+
+	# 🟣 MODO PRÁCTICA: sin final, solo rondas una tras otra
+	if Score.practice_mode:
+		if (box_texto_match.is_matched()
+			and box_texto_match_2.is_matched()
+			and box_texto_match_3.is_matched()
+			and !ganoRonda):
 			ganoRonda = true
-			numeroRondas+=1  # Incrementar el número de rondas.
-			if(numeroRondas <= rondas):
-				ronda_win()
+			numeroRondas += 1
+			ronda_win()   # prepara la siguiente ronda
+		return
+
+	# 🟢 MODO NORMAL (igual que antes)
+	if(box_texto_match.is_matched() and box_texto_match_2.is_matched() and
+		box_texto_match_3.is_matched() and numeroRondas == rondas+1 and !gano):
+		gano = true
+		victory()
+	elif (box_texto_match.is_matched() and box_texto_match_2.is_matched() and
+		box_texto_match_3.is_matched() and numeroRondas < rondas+1 and !ganoRonda and !gano):
+		ganoRonda = true
+		numeroRondas += 1
+		if numeroRondas <= rondas:
+			ronda_win()
 
 # Método para establecer el texto de dificultad
 func setDifficultTitle():

@@ -3,6 +3,7 @@ extends Node2D
 # Rutas de las imágenes del juego
 const PATH_IMAGE_GAME = "res://Sprites/images_games/"
 const EXTENTION_IMAGE_GAME = ".png"
+var pausa_menu_scene := preload("res://Escenas/Global/pause_menu.tscn")
 
 # Tiempo inicial para el cronómetro (en segundos)
 var time_seconds = 120
@@ -18,6 +19,8 @@ var time_seconds = 120
 @onready var phrase_text = $phrase_text  # Nodo que muestra texto
 @onready var temporizador = $Temporizador  # Nodo de temporizador
 @onready var timer = $Temporizador/Timer  # Nodo de Timer que gestiona el cronómetro
+@onready var pause_button = $btns_inside_box_game/btn_pausa
+@onready var cronometro = $Cronometro
 
 var en: bool = false
 
@@ -37,6 +40,20 @@ func _ready():
 		level_label.text = "LEVEL:"
 	else:
 		level_label.text = "NIVEL:"
+
+	if Score.practice_mode:
+		if en:
+			level_label.text = "Practice"
+		else:
+			level_label.text = "Práctica"
+		cronometro.visible = false
+		level_value.visible = false
+		pause_button.visible = false
+	else:
+		level_label.visible = true
+		level_value.visible = true
+		pause_button.visible = true
+
 	word.visible = false
 	sentense.visible = false
 	phrase_text.visible = false
@@ -70,6 +87,8 @@ func _on_update_difficulty(new_difficulty):
 	
 # Función para actualizar el nivel del juego
 func _on_update_level(new_level):
+	if Score.practice_mode:
+		return   # no actualizamos nada en modo práctica
 	level_value.text = new_level
 	
 # Función para actualizar la imagen del juego
@@ -96,15 +115,22 @@ func _on_set_visible_word(new_word):
 	
 # Función que activa el cronómetro del juego
 func _on_set_timer():
+	if Score.practice_mode:
+		# En modo práctica no hay límite de tiempo
+		temporizador.visible = false   # si quieres, también puedes dejarlo visible con "∞"
+		return
 	temporizador.visible = true
 	timer.start()
 
-# Función que se ejecuta cuando el cronómetro llega a su fin
 func _on_timer_timeout():
+	if Score.practice_mode:
+		# No contamos tiempo ni disparamos lose()
+		return
+
 	if time_seconds > 0:
 		time_seconds -= 1
 	else:
-		get_parent().lose()  # Si el tiempo se acaba, se llama a la función perder
+		get_parent().lose()
 	temporizador.text = str(time_seconds)
 
 # Función que se ejecuta al presionar el botón de inicio (btn_home)
@@ -125,3 +151,31 @@ func _on_btn_instructions_pressed():
 		padre._dar_pista()
 	else:
 		print("No se encontró la función en el nodo padre.")
+
+
+func _on_btn_pause_pressed() -> void:
+	ButtonClick.button_click()
+
+	# Evitar abrir muchas veces el menú
+	for child in get_children():
+		if child is CanvasLayer and child.get_child_count() > 0 and child.get_child(0) is Control and child.get_child(0).name == "PausaMenu":
+			return  # Ya hay uno
+
+	var pausa_instance = pausa_menu_scene.instantiate()
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(pausa_instance)
+	add_child(canvas_layer)
+
+
+func _on_btn_pausa_pressed() -> void:
+	ButtonClick.button_click()
+
+	# Evitar abrir muchas veces el menú
+	for child in get_children():
+		if child is CanvasLayer and child.get_child_count() > 0 and child.get_child(0) is Control and child.get_child(0).name == "PausaMenu":
+			return  # Ya hay uno
+
+	var pausa_instance = pausa_menu_scene.instantiate()
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(pausa_instance)
+	add_child(canvas_layer)

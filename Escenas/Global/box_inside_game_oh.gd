@@ -2,6 +2,7 @@ extends Node2D
 
 const PATH_IMAGE_GAME = "res://Sprites/images_games/"
 const EXTENTION_IMAGE_GAME = ".png"
+var pausa_menu_scene := preload("res://Escenas/Global/pause_menu.tscn")
 
 var time_seconds = 120
 
@@ -90,3 +91,16 @@ func _on_btn_levels_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/DificultadPalabra1.tscn")
 	pass # Replace with function body.
+
+func _on_btn_pausa_pressed() -> void:
+	ButtonClick.button_click()
+
+	# Evitar abrir muchas veces el menú
+	for child in get_children():
+		if child is CanvasLayer and child.get_child_count() > 0 and child.get_child(0) is Control and child.get_child(0).name == "PausaMenu":
+			return  # Ya hay uno
+
+	var pausa_instance = pausa_menu_scene.instantiate()
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(pausa_instance)
+	add_child(canvas_layer)
