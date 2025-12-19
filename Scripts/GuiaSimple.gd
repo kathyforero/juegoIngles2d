@@ -1,42 +1,42 @@
 extends Node2D
 
 const SUBJECTS := [
-	"El nino",
-	"La nina",
-	"El estudiante",
-	"La maestra",
-	"El medico",
-	"La familia",
-	"El equipo",
-	"Mi amiga",
-	"El cientifico",
-	"La exploradora"
+	"The boy",
+	"The girl",
+	"The student",
+	"The teacher",
+	"The doctor",
+	"The family",
+	"The team",
+	"My friend",
+	"The scientist",
+	"The explorer"
 ]
 
 const VERBS := [
-	"corre",
-	"salta",
-	"lee",
-	"escribe",
-	"juega",
-	"baila",
-	"canta",
-	"conduce",
-	"explora",
-	"observa"
+	"runs",
+	"jumps",
+	"reads",
+	"writes",
+	"plays",
+	"dances",
+	"sings",
+	"drives",
+	"explores",
+	"observes"
 ]
 
 const PREDICATES := [
-	"en el parque",
-	"en la escuela",
-	"en casa",
-	"en el laboratorio",
-	"en el museo",
-	"en la ciudad",
-	"en el escenario",
-	"en el jardin",
-	"en la biblioteca",
-	"en la playa"
+	"in the park",
+	"at school",
+	"at home",
+	"in the laboratory",
+	"in the museum",
+	"in the city",
+	"on the stage",
+	"in the garden",
+	"in the library",
+	"on the beach"
 ]
 
 const MAX_CARDS := 9
@@ -149,6 +149,8 @@ const CARD_PRESSED_TEXTURE := preload("res://Sprites/global/cards_pressed.png")
 @export var title_text: String = ""
 @export var content_text: String = ""
 
+var en := false
+
 @onready var title_label: Label = $TitleLabel if has_node("TitleLabel") else null
 @onready var content_label: Label = $ContentLabel if has_node("ContentLabel") else null
 @onready var next_button: TextureButton = $SiguienteButton if has_node("SiguienteButton") else null
@@ -158,9 +160,39 @@ const CARD_PRESSED_TEXTURE := preload("res://Sprites/global/cards_pressed.png")
 @onready var subject_label: Label = $Sujeto_txt if has_node("Sujeto_txt") else null
 @onready var verb_label: Label = $Verbo_txt if has_node("Verbo_txt") else null
 @onready var predicate_label: Label = $Predicado_txt if has_node("Predicado_txt") else null
+@onready var description_label: Label = $Label4 if has_node("Label4") else null
+@onready var subject_title_label: Label = $Sujeto if has_node("Sujeto") else null
+@onready var verb_title_label: Label = $Verbo if has_node("Verbo") else null
+@onready var predicate_title_label: Label = $Predicado if has_node("Predicado") else null
+@onready var generate_label: Label = $Boton if has_node("Boton") else null
+
+func load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return data["english"]
+	return false
+
+func _update_language_texts():
+	var spanish_description := "La sintaxis es el orden de las palabras: QUIEN + HACE QUE + QUE\nEjemplo: \"Ella juega baloncesto\"\nElla (quien) -> Juega (que) -> Baloncesto (que)"
+	var english_description := "Syntax is the order of words: WHO + DOES WHAT + WHAT\nExample: \"She plays basketball\"\nShe (who) -> plays (does what) -> basketball (what)"
+	if title_label:
+		title_label.text = "Syntax" if en else "Sintaxis"
+	if description_label:
+		description_label.text = english_description if en else spanish_description
+	if subject_title_label:
+		subject_title_label.text = "Subject" if en else "Sujeto"
+	if verb_title_label:
+		verb_title_label.text = "Verb" if en else "Verbo"
+	if predicate_title_label:
+		predicate_title_label.text = "Predicate" if en else "Predicado"
+	if generate_label:
+		generate_label.text = "Generate" if en else "Generar"
 
 func _ready():
 	rng.randomize()
+	en = load_language_setting()
 	_load_card_labels()
 	if title_label:
 		title_label.text = title_text if title_text != "" else title_label.text
@@ -176,6 +208,7 @@ func _ready():
 	if subject_label and verb_label and predicate_label:
 		_generate_sentence()
 	_setup_category_system()
+	_update_language_texts()
 
 func _on_siguiente_button_pressed():
 	ButtonClick.button_click()

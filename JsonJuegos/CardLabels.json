@@ -2,70 +2,70 @@
 	"categories": {
 		"Animales 1": [
 			"Armadillo",
-			"Castor",
-			"Guepardo",
+			"Beaver",
+			"Cheetah",
 			"Dingo",
-			"Emú",
-			"Gacela",
-			"Erizo",
+			"Emu",
+			"Gazelle",
+			"Hedgehog",
 			"Ibex",
-			"Chacal"
+			"Jackal"
 		],
 		"Depredadores": [
-			"Guepardo",
-			"Chacal",
+			"Cheetah",
+			"Jackal",
 			"Dingo",
-			"Ocelote",
-			"Gacela"
+			"Ocelot",
+			"Gazelle"
 		],
 		"Fauna Exótica": [
-			"Garza",
-			"Pájaro\ncarpintero",
-			"Mariposa\nturquesa",
-			"Ardilla",
-			"Ardilla cucú",
-			"Perezoso",
-			"Loro cabeza\nroja",
+			"Heron",
+			"Woodpecker",
+			"Turquoise\nButterfly",
+			"Squirrel",
+			"Squirrel cuckoo",
+			"Sloth",
+			"Red-crowned\nparrot",
 			"Iguana",
-			"Mono aullador"
+			"Howler monkey"
 		],
 		"Actividades": [
-			"Jugar",
-			"Cantar",
-			"Dibujar",
-			"Pasear perro",
-			"Pescar",
-			"Fútbol",
-			"Barrer"
+			"Play",
+			"Sing",
+			"Draw",
+			"Walk the dog",
+			"Fish",
+			"Soccer",
+			"Sweep"
 		],
 		"Acciones": [
-			"Cocinar",
-			"Lavar",
-			"Escuchar clase",
-			"Leer",
-			"Enseñar",
-			"Pescar",
-			"Regar",
-			"Jugar"
+			"Cook",
+			"Wash",
+			"Listen to class",
+			"Read",
+			"Teach",
+			"Fish",
+			"Water",
+			"Play"
 		],
 		"Escuela": [
-			"Mochila",
-			"Leer",
-			"Escuchar clase",
-			"Palabras",
-			"Hoja",
-			"Universo"
+			"Backpack",
+			"Read",
+			"Listen to class",
+			"Words",
+			"Sheet",
+			"Universe"
 		],
 		"Objetos": [
-			"Casa",
-			"Calle",
-			"Ciudad",
-			"Ventana",
-			"Mesa",
-			"Playa",
-			"Persona",
-			"Papel",
-			"Miel"
+			"House",
+			"Street",
+			"City",
+			"Window",
+			"Table",
+			"Beach",
+			"Person",
+			"Paper",
+			"Honey"
 		]
 	}
 }
