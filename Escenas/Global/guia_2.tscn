@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://guia2scene"]
+[gd_scene load_steps=14 format=3 uid="uid://guia2scene"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
 [ext_resource type="Script" uid="uid://swwtyh0720oh" path="res://Scripts/GuiaSimple.gd" id="1_rtl8m"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="8_0eotb"]
 [ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
 [ext_resource type="Texture2D" uid="uid://bhe6k2m5irfb7" path="res://Sprites/buttons/seguirPuntajeHover.png" id="9_6g8l0"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="10_hjplg"]
+[ext_resource type="Texture2D" uid="uid://cal0kv5cdy5h2" path="res://Sprites/buttons/btnVacioHover.png" id="11_lt6of"]
+[ext_resource type="Texture2D" uid="uid://cyed4m8hysw2a" path="res://Sprites/global/cards.png" id="12_u8dqx"]
 [ext_resource type="Texture2D" uid="uid://cbsgw3yum2qos" path="res://Sprites/buttons/Boton_Salir.png" id="12_vwvlu"]
 [ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="13_gi4ve"]
 [ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="15_minecraft"]
@@ -25,16 +28,6 @@ title_text = "Vocabulario"
 position = Vector2(650, 447)
 scale = Vector2(0.214403, 0.21336)
 texture = ExtResource("2_cnaa0")
-
-[node name="ContentLabel" type="Label" parent="."]
-offset_left = 300.0
-offset_top = 300.0
-offset_right = 1000.0
-offset_bottom = 640.0
-text = "Contenido de la guía 2"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
 
 [node name="RetrocederButton" type="TextureButton" parent="."]
 offset_left = 205.0
@@ -73,6 +66,113 @@ text = "Vocabulario"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Categoria1" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 168.0
+offset_right = 320.0
+offset_bottom = 232.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Categoria2" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 248.0
+offset_right = 320.0
+offset_bottom = 312.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Categoria3" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 328.0
+offset_right = 320.0
+offset_bottom = 392.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Categoria4" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 408.0
+offset_right = 320.0
+offset_bottom = 472.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Categoria5" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 488.0
+offset_right = 320.0
+offset_bottom = 552.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Categoria6" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 568.0
+offset_right = 320.0
+offset_bottom = 632.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Categoria7" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 648.0
+offset_right = 320.0
+offset_bottom = 712.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Card1" type="TextureButton" parent="."]
+offset_left = 368.0
+offset_top = 168.0
+offset_right = 616.0
+offset_bottom = 384.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_u8dqx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Card2" type="TextureButton" parent="."]
+offset_left = 664.0
+offset_top = 168.0
+offset_right = 912.0
+offset_bottom = 384.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_u8dqx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Card3" type="TextureButton" parent="."]
+offset_left = 952.0
+offset_top = 168.0
+offset_right = 1200.0
+offset_bottom = 384.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_u8dqx")
+ignore_texture_size = true
+stretch_mode = 0
 
 [connection signal="pressed" from="RetrocederButton" to="." method="_on_retroceder_button_pressed"]
 [connection signal="pressed" from="SalirButton" to="." method="_on_salir_button_pressed"]
