@@ -81,35 +81,59 @@ func setDifficultTitle():
 		
 #Verifica si el jugador ha ganado la ronda o el juego
 func _process(_delta):
-	if(instantiated):
-		if ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and
-			$Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and $Cadenas/Pieza4.correct and $Cadenas/Pieza5.correct and numeroRondas == rondas and !gano):
-			gano = true
-			victory()
-		elif ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and 
-			$Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and $Cadenas/Pieza4.correct and $Cadenas/Pieza5.correct and numeroRondas < rondas and !ganoRonda and !gano):
+	if !instantiated:
+		return
+
+	var todas_correctas := (
+		$Cadenas/Pieza0.correct
+		and $Cadenas/Pieza1.correct
+		and $Cadenas/Pieza2.correct
+		and $Cadenas/Pieza3.correct
+		and $Cadenas/Pieza4.correct
+		and $Cadenas/Pieza5.correct
+	)
+
+	# 🟣 MODO PRÁCTICA: rondas infinitas, sin victory()
+	if Score.practice_mode:
+		if todas_correctas and !ganoRonda and !gano:
 			ganoRonda = true
 			numeroRondas += 1
-			if(numeroRondas < rondas):
-				rondaWin() 
-			
+			if numeroRondas <= rondas:  # por si acaso lo usas en otra lógica
+				rondaWin()
+		return
+
+	# 🟢 MODO NORMAL (como lo tenías)
+	if todas_correctas and numeroRondas == rondas and !gano:
+		gano = true
+		victory()
+	elif todas_correctas and numeroRondas < rondas and !ganoRonda and !gano:
+		ganoRonda = true
+		numeroRondas += 1
+		if numeroRondas < rondas:
+			rondaWin()
+
 	pass
 
 #Se invoca al empezar una nueva ronda
-func _empezar_ronda():		
+func _empezar_ronda():
 	indiceNivel += 1
-	var indiceAl = randi_range(0, indicesImages.size()-1)
+	var indiceAl = randi_range(0, indicesImages.size() - 1)
 	indiceImagen = indicesImages[indiceAl]
-	indicesImages.remove_at(indiceAl)
-	print(str(indiceImagen)) 
-	indiceCadena = randi_range(0, cadenas[indiceImagen].size()-1)
-	print(str(indiceCadena)) 
-	emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena]) 
+
+	# Igual que en easy y medium:
+	# solo removemos la imagen cuando NO es práctica
+	if !Score.practice_mode:
+		indicesImages.remove_at(indiceAl)
+
+	print(str(indiceImagen))
+	indiceCadena = randi_range(0, cadenas[indiceImagen].size() - 1)
+	print(str(indiceCadena))
+	emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena])
 	print(palabrasEsp[indiceImagen][indiceCadena])
-	emit_signal("update_level", str(indiceNivel+1)+"/"+str(rondas))
-	emit_signal("uptate_imagen_game", "puzzle/"+images[indiceImagen])
+	emit_signal("update_level", str(indiceNivel + 1) + "/" + str(rondas))
+	emit_signal("uptate_imagen_game", "puzzle/" + images[indiceImagen])
 	update_boxes(indiceCadena)
-	ganoRonda = false 
+	ganoRonda = false
 	
 
 #Reinicia los objetos al empezar una ronda
