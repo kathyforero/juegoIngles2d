@@ -87,7 +87,7 @@ func _process(_delta):
 	if !instantiated:
 		return
 
-	var todas_correctas := (
+	var todas_correctas = (
 		$Cadenas/Pieza0.correct
 		and $Cadenas/Pieza1.correct
 		and $Cadenas/Pieza2.correct

@@ -7,6 +7,11 @@ var en: bool = false
 # Variable para controlar si el modo random está desbloqueado
 var random_desbloqueado = false
 
+@onready var btn_random       = $btn_random      # botón de modo random
+@onready var candado          = $candado         # sprite de candado
+@onready var btn_practice_on  = $btn_practice_on # activar práctica
+@onready var btn_practice_off = $btn_practice_off # volver a modo normal
+
 # Función que se llama cuando el nodo entra en la escena por primera vez.
 # Emite una señal para indicar que se debe mostrar el menú principal.
 
@@ -24,17 +29,31 @@ func update_language_minigames():
 		# Modo inglés
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame.png")
 		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random.png")
+		btn_practice_on.text = "Free Practice Mode"
+		btn_practice_off.text = "Normal Mode"
 	else:
 		# Modo español
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame_es.png")
 		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random_es.png")
+		btn_practice_on.text = "Modo Práctica Libre"
+		btn_practice_off.text = "Modo Normal"
 
 func _ready():
 	emit_signal("update_scene", "menu_principal")
 	# Deshabilitamos Random y mostramos candado al inicio
 	
+	btn_practice_on.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	btn_practice_off.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
 	en = load_language_setting()          # lee idioma desde el JSON
 	update_language_minigames()           # cambia las texturas según idioma
+	
+	# Siempre arrancamos en modo NORMAL
+	Score.practice_mode = false
+	
+	# Estado inicial de los botones de práctica
+	btn_practice_on.visible = true
+	btn_practice_off.visible = false
 	
 	$btn_random.disabled = true
 	# NO deshabilitamos el botón, solo mostramos el candado
@@ -164,3 +183,33 @@ func _on_btn_random_pressed():
 	if random_desbloqueado:
 		ButtonClick.button_click()
 		DificultadRandom.load_next_random_level()
+
+
+func _on_btn_practice_on_pressed():
+	ButtonClick.button_click()
+
+	Score.practice_mode = true
+
+	# En modo práctica NO se muestra Random ni su candado
+	btn_random.visible = false
+	candado.visible = false
+
+	# Cambiamos la UI de los botones de modo
+	btn_practice_on.visible = false
+	btn_practice_off.visible = true
+
+
+func _on_btn_practice_off_pressed():
+	ButtonClick.button_click()
+
+	Score.practice_mode = false
+
+	# Volvemos a mostrar Random y candado;
+	# verificar_progreso decide si está bloqueado o no.
+	btn_random.visible = true
+	candado.visible = true
+
+	btn_practice_on.visible = true
+	btn_practice_off.visible = false
+
+	verificar_progreso(Global.rutaArchivos + "/Progress/progressMinigames.dat")

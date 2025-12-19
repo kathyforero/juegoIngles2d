@@ -20,7 +20,8 @@ var time_seconds = 120
 @onready var phrase_text = $phrase_text
 @onready var temporizador = $Temporizador
 @onready var timer = $Temporizador/Timer
-@onready var pause_button = $btn_pausa
+@onready var pause_button = $btns_inside_box_game/btn_pausa
+@onready var cronometro = $Cronometro
 
 var en: bool = false
 
@@ -42,7 +43,11 @@ func _ready():
 		level_label.text = "NIVEL:"
 
 	if Score.practice_mode:
-		level_label.visible = false
+		if en:
+			level_label.text = "Practice"
+		else:
+			level_label.text = "Práctica"
+		cronometro.visible = false
 		level_value.visible = false
 		pause_button.visible = false
 	else:
