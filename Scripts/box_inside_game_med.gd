@@ -19,6 +19,7 @@ var time_seconds = 90
 @onready var phrase_text = $phrase_text  # Nodo que muestra texto
 @onready var temporizador = $Temporizador  # Nodo de temporizador
 @onready var timer = $Temporizador/Timer  # Nodo de Timer que gestiona el cronómetro
+@onready var pause_button = $btn_pausa
 
 var en: bool = false
 
@@ -42,9 +43,11 @@ func _ready():
 	if Score.practice_mode:
 		level_label.visible = false
 		level_value.visible = false
+		pause_button.visible = false
 	else:
 		level_label.visible = true
 		level_value.visible = true
+		pause_button.visible = true
 
 	word.visible = false
 	sentense.visible = false
