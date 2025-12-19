@@ -114,18 +114,22 @@ func _process(_delta):
 #Se invoca al empezar una nueva ronda
 func _empezar_ronda():		
 	indiceNivel += 1
-	var indiceAl = randi_range(0, indicesImages.size()-1)
+	var indiceAl = randi_range(0, indicesImages.size() - 1)
 	indiceImagen = indicesImages[indiceAl]
+
+	# En modo normal, consumimos la imagen para no repetirla
+	# En modo práctica, NO la removemos para poder reutilizarla
 	if !Score.practice_mode:
 		indicesImages.remove_at(indiceAl)
-		print(str(indiceImagen))
-		indiceCadena = randi_range(0, cadenas[indiceImagen].size()-1)
-		print(str(indiceCadena))
-		emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena])
-		emit_signal("update_level", str(indiceNivel+1)+"/"+str(rondas))
-		emit_signal("uptate_imagen_game", "puzzle/"+images[indiceImagen])
-		update_boxes(indiceCadena)
-		ganoRonda=false
+
+	print(str(indiceImagen))
+	indiceCadena = randi_range(0, cadenas[indiceImagen].size() - 1)
+	print(str(indiceCadena))
+	emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena])
+	emit_signal("update_level", str(indiceNivel + 1) + "/" + str(rondas))
+	emit_signal("uptate_imagen_game", "puzzle/" + images[indiceImagen])
+	update_boxes(indiceCadena)
+	ganoRonda = false
 	
 
 #Reinicia los objetos al empezar una ronda
