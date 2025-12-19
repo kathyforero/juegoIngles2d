@@ -39,6 +39,13 @@ func _ready():
 		level_label.text = "LEVEL:"
 	else:
 		level_label.text = "NIVEL:"
+
+	if Score.practice_mode:
+		level_label.visible = false
+		level_value.visible = false
+	else:
+		level_label.visible = true
+		level_value.visible = true
 	
 	word.visible = false
 	sentense.visible = false
@@ -73,7 +80,9 @@ func _on_update_difficulty(new_difficulty):
 				difficulty_value.text = new_difficulty
 	
 func _on_update_level(new_level):
-		level_value.text = new_level
+	if Score.practice_mode:
+			return   # no actualizamos nada en modo práctica
+	level_value.text = new_level
 	
 
 #Función para actualziar la imagen de las frases, y escalarla correctamente
