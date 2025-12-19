@@ -81,18 +81,34 @@ func setDifficultTitle():
 		
 #Verifica si el jugador ha ganado la ronda o el juego
 func _process(_delta):
-	if(instantiated):
-		if ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and
-			$Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and numeroRondas == rondas and !gano):
-			gano = true
-			victory()
-		elif ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and
-			$Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and numeroRondas < rondas and !ganoRonda and !gano):
+	if !instantiated:
+		return
+
+	var todas_correctas := (
+		$Cadenas/Pieza0.correct
+		and $Cadenas/Pieza1.correct
+		and $Cadenas/Pieza2.correct
+		and $Cadenas/Pieza3.correct
+	)
+
+	# 🟣 MODO PRÁCTICA: rondas infinitas, sin victory()
+	if Score.practice_mode:
+		if todas_correctas and !ganoRonda and !gano:
 			ganoRonda = true
 			numeroRondas += 1
-			if(numeroRondas < rondas):
-				rondaWin() 
-			
+			rondaWin()  # misma anim de ronda ganada
+		return
+
+	# 🟢 MODO NORMAL (lo que ya hacía antes)
+	if todas_correctas and numeroRondas == rondas and !gano:
+		gano = true
+		victory()
+	elif todas_correctas and numeroRondas < rondas and !ganoRonda and !gano:
+		ganoRonda = true
+		numeroRondas += 1
+		if numeroRondas < rondas:
+			rondaWin()
+
 	pass
 
 #Se invoca al empezar una nueva ronda
