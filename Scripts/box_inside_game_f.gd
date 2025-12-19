@@ -3,6 +3,7 @@ extends Node2D
 #Ruta y extension para las imagenes
 const PATH_IMAGE_GAME = "res://Sprites/images_games/"
 const EXTENTION_IMAGE_GAME = ".png"
+var pausa_menu_scene := preload("res://Escenas/Global/pause_menu.tscn")
 
 #Tiempo del cronómetro
 var time_seconds = 120
@@ -139,3 +140,17 @@ func _on_btn_instructions_pressed():
 func _on_btn_help_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/DificultadOracion1.tscn")
+
+
+func _on_btn_pausa_pressed() -> void:
+	ButtonClick.button_click()
+
+	# Evitar abrir muchas veces el menú
+	for child in get_children():
+		if child is CanvasLayer and child.get_child_count() > 0 and child.get_child(0) is Control and child.get_child(0).name == "PausaMenu":
+			return  # Ya hay uno
+
+	var pausa_instance = pausa_menu_scene.instantiate()
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(pausa_instance)
+	add_child(canvas_layer)

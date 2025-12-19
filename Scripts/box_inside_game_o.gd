@@ -16,6 +16,7 @@ var time_seconds = 120
 @onready var phrase_text = $phrase_text
 @onready var temporizador = $Temporizador
 @onready var timer = $Temporizador/Timer
+var pausa_menu_scene := preload("res://Escenas/Global/pause_menu.tscn")
 
 var en: bool = false
 
@@ -117,3 +118,17 @@ func _on_btn_levels_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/DificultadPalabra1.tscn")
 	pass # Replace with function body.
+
+
+func _on_btn_pausa_pressed() -> void:
+	ButtonClick.button_click()
+
+	# Evitar abrir muchas veces el menú
+	for child in get_children():
+		if child is CanvasLayer and child.get_child_count() > 0 and child.get_child(0) is Control and child.get_child(0).name == "PausaMenu":
+			return  # Ya hay uno
+
+	var pausa_instance = pausa_menu_scene.instantiate()
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(pausa_instance)
+	add_child(canvas_layer)
