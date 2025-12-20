@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://guia2scene"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
-[ext_resource type="Script" uid="uid://swwtyh0720oh" path="res://Scripts/GuiaSimple.gd" id="1_rtl8m"]
+[ext_resource type="Script" uid="uid://swwtyh0720oh" path="res://Scripts/Guia.gd" id="1_rtl8m"]
 [ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="2_cnaa0"]
 [ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="8_0eotb"]
 [ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
