@@ -1,71 +1,220 @@
 {
-	"categories": {
-		"Animales 1": [
-			"Armadillo",
-			"Beaver",
-			"Cheetah",
-			"Dingo",
-			"Emu",
-			"Gazelle",
-			"Hedgehog",
-			"Ibex",
-			"Jackal"
-		],
-		"Depredadores": [
-			"Cheetah",
-			"Jackal",
-			"Dingo",
-			"Ocelot",
-			"Gazelle"
-		],
-		"Fauna Exótica": [
-			"Heron",
-			"Woodpecker",
-			"Turquoise\nButterfly",
-			"Squirrel",
-			"Squirrel cuckoo",
-			"Sloth",
-			"Red-crowned\nparrot",
-			"Iguana",
-			"Howler monkey"
-		],
-		"Actividades": [
-			"Play",
-			"Sing",
-			"Draw",
-			"Walk the dog",
-			"Fish",
-			"Soccer",
-			"Sweep"
-		],
-		"Acciones": [
-			"Cook",
-			"Wash",
-			"Listen to class",
-			"Read",
-			"Teach",
-			"Fish",
-			"Water",
-			"Play"
-		],
-		"Escuela": [
-			"Backpack",
-			"Read",
-			"Listen to class",
-			"Words",
-			"Sheet",
-			"Universe"
-		],
-		"Objetos": [
-			"House",
-			"Street",
-			"City",
-			"Window",
-			"Table",
-			"Beach",
-			"Person",
-			"Paper",
-			"Honey"
-		]
-	}
+    "categories": [
+        {
+            "label": "Animales",
+            "label_en": "Animals",
+            "sprites": [
+                "res://Sprites/images_games/match/easy/Iguana.png",
+                "res://Sprites/images_games/match/easy/Squirrel.png",
+                "res://Sprites/images_games/match/easy/Woodpecker.png",
+                "res://Sprites/images_games/match/easy/Ant-eater.png",
+                "res://Sprites/images_games/match/easy/Baltimore oriole.png",
+                "res://Sprites/images_games/match/easy/Cricket.png",
+                "res://Sprites/images_games/match/easy/Gray-backed Hawk.png",
+                "res://Sprites/images_games/match/easy/Great white heron.png",
+                "res://Sprites/images_games/match/easy/Howler monkey.png",
+                "res://Sprites/images_games/match/easy/Red-crowned parrot.png",
+                "res://Sprites/images_games/match/easy/Sloth.png",
+                "res://Sprites/images_games/match/easy/Turquoise Butterfly.png",
+                "res://Sprites/images_games/match/medium/Armadillo.png",
+                "res://Sprites/images_games/match/medium/Beaver.png",
+                "res://Sprites/images_games/match/medium/Cheetah.png",
+                "res://Sprites/images_games/match/medium/Dingo.png",
+                "res://Sprites/images_games/match/medium/Emu.png",
+                "res://Sprites/images_games/match/medium/Gazelle.png",
+                "res://Sprites/images_games/match/medium/Hedgehog.png",
+                "res://Sprites/images_games/match/medium/Ibex.png",
+                "res://Sprites/images_games/match/medium/Jackal.png",
+                "res://Sprites/images_games/match/medium/Kookaburra.png",
+                "res://Sprites/images_games/match/medium/Meerkat.png",
+                "res://Sprites/images_games/match/medium/Narwhal.png",
+                "res://Sprites/images_games/match/medium/Ocelot.png",
+                "res://Sprites/images_games/match/medium/Pangolin.png",
+                "res://Sprites/images_games/match/medium/Quokka.png",
+                "res://Sprites/images_games/match/hard/Aye-aye.png",
+                "res://Sprites/images_games/match/hard/Blobfish.png",
+                "res://Sprites/images_games/match/hard/Capybara.png",
+                "res://Sprites/images_games/match/hard/Dhole.png",
+                "res://Sprites/images_games/match/hard/Fossa.png",
+                "res://Sprites/images_games/match/hard/Gerenuk.png",
+                "res://Sprites/images_games/match/hard/Hoatzin.png",
+                "res://Sprites/images_games/match/hard/Indian Star Tortoise.png",
+                "res://Sprites/images_games/match/hard/Jerboa.png",
+                "res://Sprites/images_games/match/hard/Kiwi.png",
+                "res://Sprites/images_games/match/hard/Markhor.png",
+                "res://Sprites/images_games/match/hard/Okapi.png",
+                "res://Sprites/images_games/match/hard/Platypus.png",
+                "res://Sprites/images_games/match/hard/Quagga.png",
+                "res://Sprites/images_games/match/hard/Saiga.png",
+                "res://Sprites/images_games/match/hard/Takin.png",
+                "res://Sprites/images_games/match/hard/Vaquita.png",
+                "res://Sprites/images_games/match/hard/Yeti Crab.png"
+            ],
+            "cards": [
+                "Iguana:\nIguana",
+                "Squirrel:\nArdilla",
+                "Woodpecker:\nPajaro\ncarpintero",
+                "Ant-eater:\nOso\nhormiguero",
+                "Baltimore\noriole:\nTordo de\nBaltimore",
+                "Cricket:\nGrillo",
+                "Gray-backed\nHawk:\nHalcon\nespalda gris",
+                "Great white\nheron:\nGarza blanca",
+                "Howler\nmonkey:\nMono\naullador",
+                "Red-crowned\nparrot:\nLoro corona\nroja",
+                "Sloth:\nPerezoso",
+                "Turquoise\nButterfly:\nMariposa\nturquesa",
+                "Armadillo:\nArmadillo",
+                "Beaver:\nCastor",
+                "Cheetah:\nGuepardo",
+                "Dingo:\nDingo",
+                "Emu:\nEmu",
+                "Gazelle:\nGacela",
+                "Hedgehog:\nErizo",
+                "Ibex:\nIbice",
+                "Jackal:\nChacal",
+                "Kookaburra:\nMartin\npescador",
+                "Meerkat:\nSuricata",
+                "Narwhal:\nNarval",
+                "Ocelot:\nOcelote",
+                "Pangolin:\nPangolin",
+                "Quokka:\nQuokka",
+                "Aye-aye:\nAye-aye",
+                "Blobfish:\nPez gota",
+                "Capybara:\nCapibara",
+                "Dhole:\nCuon",
+                "Fossa:\nFosa",
+                "Gerenuk:\nGerenuk",
+                "Hoatzin:\nHoatzin",
+                "Indian\nStar\nTortoise:\nTortuga\nestrella\nindia",
+                "Jerboa:\nJerbo",
+                "Kiwi:\nKiwi",
+                "Markhor:\nMarkhor",
+                "Okapi:\nOkapi",
+                "Platypus:\nOrnitorrinco",
+                "Quagga:\nQuagga",
+                "Saiga:\nSaiga",
+                "Takin:\nTakin",
+                "Vaquita:\nVaquita",
+                "Yeti\nCrab:\nCangrejo\nyeti"
+            ]
+        },
+        {
+            "label": "Sustantivos",
+            "label_en": "Nouns",
+            "sprites": [
+                "res://Sprites/images_games/puzzle/MOCHILA.png",
+                "res://Sprites/images_games/puzzle/PALABRAS.png",
+                "res://Sprites/images_games/puzzle/leehoja.png",
+                "res://Sprites/images_games/puzzle/UNIVERSO.png",
+                "res://Sprites/images_games/order/Hard/retrato-pequena-familia-disfrutando-atardecer-pixel-art_1250486-2734.jpg",
+                "res://Sprites/images_games/order/Medium/icono-hombre-sonriente-fondo-blanco_1270124-12992-removebg-preview.png",
+                "res://Sprites/images_games/order/Ave.png",
+                "res://Sprites/images_games/puzzle/mates.png"
+            ],
+            "cards": [
+                "Backpack:\nMochila",
+                "Words:\nPalabras",
+                "Sheet:\nHoja",
+                "Universe:\nUniverso",
+                "Family:\nFamilia",
+                "Person:\nPersona",
+                "Bird:\nAve",
+                "Math:\nMatematicas"
+            ]
+        },
+        {
+            "label": "Objetos",
+            "label_en": "Objects",
+            "sprites": [
+                "res://Sprites/images_games/order/Medium/barrio-edificios-arquitectura-forma-casa-png_53876-801494-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/collaborepix-no-aplica-medicamentos-origen-animal-ni-productos-origen-animal_1038602-1077-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/ChatGPT_Image_15_ago_2025__10_38_09-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/papel-viejo-estilo-pixel-art_505135-75-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/ilustracion-pixel-art-miel-pixelada-miel-icono-miel-pixelado-pixel-art_1038602-219-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/sweet-pixel-icons-vintage-8-260nw-2403636237-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/1601.m00.i104.n024.S.c12.286495379_Flame_with_smoke_animation_frames_in_pixel_art_style-removebg-preview.png",
+                "res://Sprites/images_games/puzzle/futbol1.png",
+                "res://Sprites/images_games/puzzle/compu.png",
+                "res://Sprites/images_games/puzzle/JUGUETES.png"
+            ],
+            "cards": [
+                "House:\nCasa",
+                "Books:\nLibros",
+                "Table:\nMesa",
+                "Paper:\nPapel",
+                "Honey:\nMiel",
+                "Candy:\nDulce",
+                "Flame:\nLlama",
+                "Ball:\nPelota",
+                "Computer:\nComputadora",
+                "Toys:\nJuguetes"
+            ]
+        },
+        {
+            "label": "Lugares",
+            "label_en": "Places",
+            "sprites": [
+                "res://Sprites/images_games/order/Hard/cartel-coche-bicicleta-ciudad-fondo_1307601-5798.jpg",
+                "res://Sprites/images_games/order/Hard/dia-mundial-ciudades_1263326-73349-removebg-preview.png",
+                "res://Sprites/images_games/order/Hard/escena-pixeles-graficos-8-bits-persona-paseando-perro-parque_23-2151120932.jpg",
+                "res://Sprites/images_games/order/Hard/paisaje-jardin-pixelado_24640-16720-removebg-preview.png",
+                "res://Sprites/images_games/order/Hard/pixel-8-bits-icono-edificio-escuela-ilustracion-vectorial-activos-juego-e-iconos-web_614713-1266-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/7246619-removebg-preview.png",
+                "res://Sprites/images_games/order/Medium/ilustracion-paisaje-fluvial-estilo-pixel-art_23-2151793114.jpg",
+                "res://Sprites/images_games/order/Hard/ilustracion-vectorial-computadora-oficina-ilustracion-vectoria-computacion-oficina_912214-32500-removebg-preview.png"
+            ],
+            "cards": [
+                "Street:\nCalle",
+                "City:\nCiudad",
+                "Park:\nParque",
+                "Garden:\nJardin",
+                "School:\nEscuela",
+                "Beach:\nPlaya",
+                "River:\nRio",
+                "Office:\nOficina"
+            ]
+        },
+        {
+            "label": "Verbos",
+            "label_en": "Verbs",
+            "sprites": [
+                "res://Sprites/images_games/puzzle/JUGAR.png",
+                "res://Sprites/images_games/puzzle/CANTAR.png",
+                "res://Sprites/images_games/puzzle/DIBUJAR.png",
+                "res://Sprites/images_games/puzzle/COCINAR.png",
+                "res://Sprites/images_games/puzzle/LAVAR.png",
+                "res://Sprites/images_games/puzzle/LEER_LIBRO.png",
+                "res://Sprites/images_games/puzzle/PLANTAS.png",
+                "res://Sprites/images_games/puzzle/GUITARRA.png",
+                "res://Sprites/images_games/puzzle/pasea.png",
+                "res://Sprites/images_games/puzzle/pesca.png"
+            ],
+            "cards": [
+                "Play:\nJugar",
+                "Sing:\nCantar",
+                "Draw:\nDibujar",
+                "Cook:\nCocinar",
+                "Wash:\nLavar",
+                "Read:\nLeer",
+                "Water:\nRegar",
+                "Play guitar:\nTocar",
+                "Walk:\nCaminar",
+                "Fish:\nPescar"
+            ]
+        },
+        {
+            "label": "Deportes",
+            "label_en": "Sports",
+            "sprites": [
+                "res://Sprites/images_games/puzzle/futbol1.png",
+                "res://Sprites/images_games/puzzle/golf.png",
+                "res://Sprites/images_games/puzzle/pesca.png"
+            ],
+            "cards": [
+                "Soccer:\nFutbol",
+                "Golf:\nGolf",
+                "Fishing:\nPesca"
+            ]
+        }
+    ]
 }

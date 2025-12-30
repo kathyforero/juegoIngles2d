@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://guia2scene"]
+[gd_scene load_steps=24 format=3 uid="uid://guia2scene"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
-[ext_resource type="Script" uid="uid://swwtyh0720oh" path="res://Scripts/Guia.gd" id="1_rtl8m"]
+[ext_resource type="Script" uid="uid://cfhi485tgf86w" path="res://Scripts/Guia.gd" id="1_rtl8m"]
 [ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="2_cnaa0"]
 [ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="8_0eotb"]
 [ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
@@ -10,12 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://cal0kv5cdy5h2" path="res://Sprites/buttons/btnVacioHover.png" id="11_lt6of"]
 [ext_resource type="Theme" uid="uid://s5bs26vdrwjc" path="res://styles/UnirFacil1_Style_Words.tres" id="12_h5syi"]
 [ext_resource type="Texture2D" uid="uid://cyed4m8hysw2a" path="res://Sprites/global/cards.png" id="12_u8dqx"]
-[ext_resource type="Texture2D" uid="uid://cbsgw3yum2qos" path="res://Sprites/buttons/Boton_Salir.png" id="12_vwvlu"]
-[ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="13_gi4ve"]
 [ext_resource type="Texture2D" uid="uid://c5yah80hhi6ul" path="res://Sprites/images_games/match/medium/Armadillo.png" id="13_lt6of"]
+[ext_resource type="Texture2D" uid="uid://cbsgw3yum2qos" path="res://Sprites/buttons/Boton_Salir.png" id="15_h5syi"]
 [ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="15_minecraft"]
 [ext_resource type="Texture2D" uid="uid://cjoj2sel4ofxt" path="res://Sprites/images_games/match/medium/Beaver.png" id="16_beaver"]
+[ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="16_xcv02"]
 [ext_resource type="Texture2D" uid="uid://j8w3k0ybpaeq" path="res://Sprites/images_games/match/medium/Cheetah.png" id="17_cheetah"]
+[ext_resource type="Texture2D" uid="uid://bc13t6d3p7tbq" path="res://Sprites/buttons/Boton_retroceder.png" id="17_t5rqe"]
+[ext_resource type="Texture2D" uid="uid://ewo5odynxt57" path="res://Sprites/buttons/Boton_retroceder_hover.png" id="18_8usni"]
+[ext_resource type="Texture2D" uid="uid://0ak4dr5dr8w1" path="res://Sprites/buttons/Boton_Avanzar.png" id="19_q4w0n"]
+[ext_resource type="Texture2D" uid="uid://cj7nywu0p3qwe" path="res://Sprites/buttons/Boton_Avanzar_Hover.png" id="20_w4x0p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font = ExtResource("15_minecraft")
@@ -26,6 +30,9 @@ font_size = 26
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_q4w0n"]
+font_size = 31
+
 [node name="PuntajesPuzzle" type="Node2D"]
 script = ExtResource("1_rtl8m")
 prev_scene_path = "res://Escenas/Global/guia_1.tscn"
@@ -34,15 +41,15 @@ title_text = "Vocabulario"
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_mnt6j")]
 
 [node name="Fondo_mesa_juego" type="Sprite2D" parent="."]
-position = Vector2(650, 447)
-scale = Vector2(0.214403, 0.21336)
+position = Vector2(640.00006, 465)
+scale = Vector2(0.214403, 0.22760801)
 texture = ExtResource("2_cnaa0")
 
 [node name="RetrocederButton" type="TextureButton" parent="."]
-offset_left = 205.0
-offset_top = 743.0
-offset_right = 288.0
-offset_bottom = 818.0
+offset_left = 160.0
+offset_top = 49.0
+offset_right = 243.0
+offset_bottom = 124.0
 scale = Vector2(-1, 1)
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_dttvj")
@@ -56,21 +63,19 @@ offset_top = 78.0
 offset_right = 1198.0
 offset_bottom = 153.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("12_vwvlu")
-texture_hover = ExtResource("13_gi4ve")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="LetreroVacio" type="Sprite2D" parent="."]
-position = Vector2(640, 78)
+position = Vector2(640, 61)
 scale = Vector2(0.16013072, 0.10693642)
 texture = ExtResource("8_0eotb")
 
 [node name="TitleLabel2" type="Label" parent="."]
 offset_left = 472.0
-offset_top = 32.0
-offset_right = 806.0
-offset_bottom = 120.0
+offset_top = 15.0
+offset_right = 815.0
+offset_bottom = 103.0
 text = "Vocabulario"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
@@ -78,9 +83,9 @@ vertical_alignment = 1
 
 [node name="Categoria1" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 168.0
+offset_top = 144.0
 offset_right = 320.0
-offset_bottom = 232.0
+offset_bottom = 208.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -103,9 +108,9 @@ vertical_alignment = 1
 
 [node name="Categoria2" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 248.0
+offset_top = 224.0
 offset_right = 320.0
-offset_bottom = 312.0
+offset_bottom = 288.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -128,9 +133,9 @@ vertical_alignment = 1
 
 [node name="Categoria3" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 328.0
+offset_top = 304.0
 offset_right = 320.0
-offset_bottom = 392.0
+offset_bottom = 368.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -153,9 +158,9 @@ vertical_alignment = 1
 
 [node name="Categoria4" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 408.0
+offset_top = 384.0
 offset_right = 320.0
-offset_bottom = 472.0
+offset_bottom = 448.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -178,9 +183,9 @@ vertical_alignment = 1
 
 [node name="Categoria5" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 488.0
+offset_top = 464.0
 offset_right = 320.0
-offset_bottom = 552.0
+offset_bottom = 528.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -203,9 +208,9 @@ vertical_alignment = 1
 
 [node name="Categoria6" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 568.0
+offset_top = 544.0
 offset_right = 320.0
-offset_bottom = 632.0
+offset_bottom = 608.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -228,9 +233,9 @@ vertical_alignment = 1
 
 [node name="Categoria7" type="TextureButton" parent="."]
 offset_left = 72.0
-offset_top = 648.0
+offset_top = 624.0
 offset_right = 320.0
-offset_bottom = 712.0
+offset_bottom = 688.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("10_hjplg")
 texture_hover = ExtResource("11_lt6of")
@@ -253,9 +258,9 @@ vertical_alignment = 1
 
 [node name="Card1" type="TextureButton" parent="."]
 offset_left = 368.0
-offset_top = 168.0
+offset_top = 141.0
 offset_right = 616.0
-offset_bottom = 384.0
+offset_bottom = 357.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -283,9 +288,9 @@ vertical_alignment = 1
 
 [node name="Card2" type="TextureButton" parent="."]
 offset_left = 664.0
-offset_top = 168.0
+offset_top = 141.0
 offset_right = 912.0
-offset_bottom = 384.0
+offset_bottom = 357.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -313,9 +318,9 @@ vertical_alignment = 1
 
 [node name="Card3" type="TextureButton" parent="."]
 offset_left = 952.0
-offset_top = 168.0
+offset_top = 141.0
 offset_right = 1200.0
-offset_bottom = 384.0
+offset_bottom = 357.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -343,9 +348,9 @@ vertical_alignment = 1
 
 [node name="Card4" type="TextureButton" parent="."]
 offset_left = 368.0
-offset_top = 400.0
+offset_top = 373.0
 offset_right = 616.0
-offset_bottom = 616.0
+offset_bottom = 589.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -373,9 +378,9 @@ vertical_alignment = 1
 
 [node name="Card5" type="TextureButton" parent="."]
 offset_left = 664.0
-offset_top = 400.0
+offset_top = 373.0
 offset_right = 912.0
-offset_bottom = 616.0
+offset_bottom = 589.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -403,9 +408,9 @@ vertical_alignment = 1
 
 [node name="Card6" type="TextureButton" parent="."]
 offset_left = 952.0
-offset_top = 400.0
+offset_top = 373.0
 offset_right = 1200.0
-offset_bottom = 616.0
+offset_bottom = 589.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -433,9 +438,9 @@ vertical_alignment = 1
 
 [node name="Card7" type="TextureButton" parent="."]
 offset_left = 368.0
-offset_top = 633.0
+offset_top = 606.0
 offset_right = 616.0
-offset_bottom = 849.0
+offset_bottom = 822.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -463,9 +468,9 @@ vertical_alignment = 1
 
 [node name="Card8" type="TextureButton" parent="."]
 offset_left = 664.0
-offset_top = 633.0
+offset_top = 606.0
 offset_right = 912.0
-offset_bottom = 849.0
+offset_bottom = 822.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -493,9 +498,9 @@ vertical_alignment = 1
 
 [node name="Card9" type="TextureButton" parent="."]
 offset_left = 952.0
-offset_top = 633.0
+offset_top = 606.0
 offset_right = 1200.0
-offset_bottom = 849.0
+offset_bottom = 822.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_u8dqx")
 ignore_texture_size = true
@@ -521,5 +526,52 @@ label_settings = SubResource("LabelSettings_xcv02")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SalirButton2" type="TextureButton" parent="."]
+offset_left = 1116.0
+offset_top = 45.0
+offset_right = 1198.0
+offset_bottom = 120.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("15_h5syi")
+texture_hover = ExtResource("16_xcv02")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Retroceder" type="TextureButton" parent="."]
+offset_left = 664.0
+offset_top = 830.0
+offset_right = 720.0
+offset_bottom = 881.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("17_t5rqe")
+texture_hover = ExtResource("18_8usni")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PaginaLabel" type="Label" parent="."]
+offset_left = 720.0
+offset_top = 831.0
+offset_right = 856.0
+offset_bottom = 881.0
+theme = ExtResource("12_h5syi")
+text = "1 / 1"
+label_settings = SubResource("LabelSettings_q4w0n")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Avanzar" type="TextureButton" parent="."]
+offset_left = 856.0
+offset_top = 831.0
+offset_right = 912.0
+offset_bottom = 882.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("19_q4w0n")
+texture_hover = ExtResource("20_w4x0p")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="RetrocederButton" to="." method="_on_retroceder_button_pressed"]
 [connection signal="pressed" from="SalirButton" to="." method="_on_salir_button_pressed"]
+[connection signal="pressed" from="SalirButton2" to="." method="_on_salir_button_pressed"]
+[connection signal="pressed" from="Retroceder" to="." method="_on_pagination_prev_pressed"]
+[connection signal="pressed" from="Avanzar" to="." method="_on_pagination_next_pressed"]

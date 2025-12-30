@@ -41,107 +41,20 @@ const PREDICATES := [
 
 const MAX_CARDS := 9
 
-const CATEGORY_DEFINITIONS := [
-	{
-		"label": "Animales 1",
-		"sprites": [
-			"res://Sprites/images_games/match/medium/Armadillo.png",
-			"res://Sprites/images_games/match/medium/Beaver.png",
-			"res://Sprites/images_games/match/medium/Cheetah.png",
-			"res://Sprites/images_games/match/medium/Dingo.png",
-			"res://Sprites/images_games/match/medium/Emu.png",
-			"res://Sprites/images_games/match/medium/Gazelle.png",
-			"res://Sprites/images_games/match/medium/Hedgehog.png",
-			"res://Sprites/images_games/match/medium/Ibex.png",
-			"res://Sprites/images_games/match/medium/Jackal.png"
-		]
-	},
-	{
-		"label": "Depredadores",
-		"sprites": [
-			"res://Sprites/images_games/match/medium/Cheetah.png",
-			"res://Sprites/images_games/match/medium/Jackal.png",
-			"res://Sprites/images_games/match/medium/Dingo.png",
-			"res://Sprites/images_games/match/medium/Ocelot.png",
-			"res://Sprites/images_games/match/medium/Gazelle.png"
-		]
-	},
-	{
-		"label": "Fauna Exótica",
-		"sprites": [
-			"res://Sprites/images_games/match/easy/Yellow crowned Night Heron.png",
-			"res://Sprites/images_games/match/easy/Woodpecker.png",
-			"res://Sprites/images_games/match/easy/Turquoise Butterfly.png",
-			"res://Sprites/images_games/match/easy/Squirrel.png",
-			"res://Sprites/images_games/match/easy/Squirrel cuckoo.png",
-			"res://Sprites/images_games/match/easy/Sloth.png",
-			"res://Sprites/images_games/match/easy/Red-crowned parrot.png",
-			"res://Sprites/images_games/match/easy/Iguana.png",
-			"res://Sprites/images_games/match/easy/Howler monkey.png"
-		]
-	},
-	{
-		"label": "Actividades",
-		"sprites": [
-			"res://Sprites/images_games/puzzle/JUGAR.png",
-			"res://Sprites/images_games/puzzle/CANTAR.png",
-			"res://Sprites/images_games/puzzle/DIBUJAR.png",
-			"res://Sprites/images_games/puzzle/PASEAR_PERRO.png",
-			"res://Sprites/images_games/puzzle/PESCA.png",
-			"res://Sprites/images_games/puzzle/futbol1.png",
-			"res://Sprites/images_games/puzzle/barre.png"
-		]
-	},
-	{
-		"label": "Acciones",
-		"sprites": [
-			"res://Sprites/images_games/puzzle/COCINAR.png",
-			"res://Sprites/images_games/puzzle/LAVAR.png",
-			"res://Sprites/images_games/puzzle/CLASE.png",
-			"res://Sprites/images_games/puzzle/LEER_LIBRO.png",
-			"res://Sprites/images_games/puzzle/mates.png",
-			"res://Sprites/images_games/puzzle/pesca.png",
-			"res://Sprites/images_games/puzzle/PLANTAS.png",
-			"res://Sprites/images_games/puzzle/JUGAR.png"
-		]
-	},
-	{
-		"label": "Escuela",
-		"sprites": [
-			"res://Sprites/images_games/puzzle/MOCHILA.png",
-			"res://Sprites/images_games/puzzle/LEER_LIBRO.png",
-			"res://Sprites/images_games/puzzle/CLASE.png",
-			"res://Sprites/images_games/puzzle/PALABRAS.png",
-			"res://Sprites/images_games/puzzle/leehoja.png",
-			"res://Sprites/images_games/puzzle/UNIVERSO.png"
-		]
-	},
-	{
-		"label": "Objetos",
-		"sprites": [
-			"res://Sprites/images_games/order/Medium/barrio-edificios-arquitectura-forma-casa-png_53876-801494-removebg-preview.png",
-			"res://Sprites/images_games/order/Hard/cartel-coche-bicicleta-ciudad-fondo_1307601-5798.jpg",
-			"res://Sprites/images_games/order/Hard/dia-mundial-ciudades_1263326-73349-removebg-preview.png",
-			"res://Sprites/images_games/order/Hard/ventana-pixelada-escena-flores_603843-977.jpg",
-			"res://Sprites/images_games/order/Medium/ChatGPT_Image_15_ago_2025__10_38_09-removebg-preview.png",
-			"res://Sprites/images_games/order/Medium/7246619-removebg-preview.png",
-			"res://Sprites/images_games/order/Medium/icono-hombre-sonriente-fondo-blanco_1270124-12992-removebg-preview.png",
-			"res://Sprites/images_games/order/Medium/papel-viejo-estilo-pixel-art_505135-75-removebg-preview.png",
-			"res://Sprites/images_games/order/Medium/ilustracion-pixel-art-miel-pixelada-miel-icono-miel-pixelado-pixel-art_1038602-219-removebg-preview.png"
-		]
-	}
-]
+const CATEGORY_DATA_PATH := "res://JsonJuegos/CardLabels.json"
+const FALLBACK_CATEGORY_DEFINITIONS := []
+var category_definitions := FALLBACK_CATEGORY_DEFINITIONS.duplicate()
 
 var rng := RandomNumberGenerator.new()
 var card_defaults := {}
 var category_button_defaults := {}
 var selected_category_index := -1
-var card_label_texts_by_category := {}
 var current_card_label_texts := []
 var last_pressed_card := -1
 var card_texture_defaults := {}
+var current_category_page := 0
+var current_category_pages := 1
 
-const CARD_LABELS_PATH := "res://JsonJuegos/CardLabels.json"
 const CARD_PRESSED_TEXTURE := preload("res://Sprites/global/cards_pressed.png")
 
 @export var next_scene_path: String = ""
@@ -152,6 +65,7 @@ const CARD_PRESSED_TEXTURE := preload("res://Sprites/global/cards_pressed.png")
 var en := false
 
 @onready var title_label: Label = $TitleLabel if has_node("TitleLabel") else null
+@onready var title_label_2: Label = $TitleLabel2 if has_node("TitleLabel2") else null
 @onready var content_label: Label = $ContentLabel if has_node("ContentLabel") else null
 @onready var next_button: TextureButton = $SiguienteButton if has_node("SiguienteButton") else null
 @onready var prev_button: TextureButton = $RetrocederButton if has_node("RetrocederButton") else null
@@ -165,6 +79,9 @@ var en := false
 @onready var verb_title_label: Label = $Verbo if has_node("Verbo") else null
 @onready var predicate_title_label: Label = $Predicado if has_node("Predicado") else null
 @onready var generate_label: Label = $Boton if has_node("Boton") else null
+@onready var pagination_prev_button: TextureButton = $Retroceder if has_node("Retroceder") else null
+@onready var pagination_next_button: TextureButton = $Avanzar if has_node("Avanzar") else null
+@onready var pagination_page_label: Label = $PaginaLabel if has_node("PaginaLabel") else null
 
 func load_language_setting() -> bool:
 	if FileAccess.file_exists("res://language_setting.json"):
@@ -175,12 +92,14 @@ func load_language_setting() -> bool:
 	return false
 
 func _update_language_texts():
-	var spanish_description := "La sintaxis es el orden de las palabras: QUIEN + HACE QUE + QUE\nEjemplo: \"Ella juega baloncesto\"\nElla (quien) -> Juega (que) -> Baloncesto (que)"
-	var english_description := "Syntax is the order of words: WHO + DOES WHAT + WHAT\nExample: \"She plays basketball\"\nShe (who) -> plays (does what) -> basketball (what)"
+	var spanish_description := "La sintaxis es el orden de las palabras:\nQUIEN + HACE QUE + QUE\nEjemplo: \"Ella juega baloncesto\"\nElla (quien) -> Juega (que) -> Baloncesto (que)"
 	if title_label:
 		title_label.text = "Syntax" if en else "Sintaxis"
+	if title_label_2:
+		title_label_2.text = "Vocabulary" if en else "Vocabulario"
 	if description_label:
-		description_label.text = english_description if en else spanish_description
+		# Always keep the guide explanation in Spanish so it never translates.
+		description_label.text = spanish_description
 	if subject_title_label:
 		subject_title_label.text = "Subject" if en else "Sujeto"
 	if verb_title_label:
@@ -208,6 +127,7 @@ func _ready():
 	if subject_label and verb_label and predicate_label:
 		_generate_sentence()
 	_setup_category_system()
+	_init_pagination_controls()
 	_update_language_texts()
 
 func _on_siguiente_button_pressed():
@@ -239,21 +159,28 @@ func _rand_index(list):
 	return rng.randi_range(0, max(list.size() - 1, 0))
 
 func _load_card_labels():
-	var file = FileAccess.open(CARD_LABELS_PATH, FileAccess.READ)
+	var file = FileAccess.open(CATEGORY_DATA_PATH, FileAccess.READ)
 	if not file:
+		category_definitions = FALLBACK_CATEGORY_DEFINITIONS.duplicate()
 		return
 	var content = file.get_as_text()
 	var json = JSON.new()
 	if json.parse(content) != OK:
+		category_definitions = FALLBACK_CATEGORY_DEFINITIONS.duplicate()
 		return
 	var data = json.get_data()
 	if typeof(data) != TYPE_DICTIONARY:
+		category_definitions = FALLBACK_CATEGORY_DEFINITIONS.duplicate()
 		return
-	var categories = data.get("categories", null)
-	if categories and typeof(categories) == TYPE_DICTIONARY:
-		card_label_texts_by_category = categories.duplicate()
+	var raw_categories = data.get("categories", null)
+	if raw_categories and typeof(raw_categories) == TYPE_ARRAY:
+		category_definitions = raw_categories.duplicate()
+	else:
+		category_definitions = FALLBACK_CATEGORY_DEFINITIONS.duplicate()
 
 func _setup_category_system():
+	if category_definitions.size() == 0:
+		category_definitions = FALLBACK_CATEGORY_DEFINITIONS.duplicate()
 	if not _has_category_buttons():
 		return
 	_record_card_defaults()
@@ -262,22 +189,61 @@ func _setup_category_system():
 	_update_category_tags()
 	_apply_category(0)
 
+func _init_pagination_controls():
+	var prev_handler = Callable(self, "_on_pagination_prev_pressed")
+	if pagination_prev_button and not pagination_prev_button.is_connected("pressed", prev_handler):
+		pagination_prev_button.connect("pressed", prev_handler)
+	var next_handler = Callable(self, "_on_pagination_next_pressed")
+	if pagination_next_button and not pagination_next_button.is_connected("pressed", next_handler):
+		pagination_next_button.connect("pressed", next_handler)
+	_update_pagination_buttons()
+
+func _update_pagination_buttons():
+	var show_navigation = current_category_pages > 1
+	if pagination_prev_button:
+		pagination_prev_button.visible = show_navigation
+		pagination_prev_button.disabled = current_category_page <= 0
+	if pagination_next_button:
+		pagination_next_button.visible = show_navigation
+		pagination_next_button.disabled = current_category_page >= current_category_pages - 1
+	if pagination_page_label:
+		pagination_page_label.visible = current_category_pages > 0
+		if current_category_pages > 0:
+			pagination_page_label.text = "%d / %d" % [current_category_page + 1, current_category_pages]
+		else:
+			pagination_page_label.text = ""
+
+func _on_pagination_prev_pressed():
+	if current_category_page <= 0:
+		return
+	current_category_page -= 1
+	_refresh_current_category_page()
+
+func _on_pagination_next_pressed():
+	if current_category_page >= current_category_pages - 1:
+		return
+	current_category_page += 1
+	_refresh_current_category_page()
+
 func _has_category_buttons() -> bool:
-	for i in range(1, CATEGORY_DEFINITIONS.size() + 1):
-		if has_node("Categoria%d" % i):
-			return true
-	return false
+	return has_node("Categoria1")
 
 func _init_category_buttons():
-	for i in range(CATEGORY_DEFINITIONS.size()):
-		var button_name = "Categoria%d" % (i + 1)
+	var index := 0
+	while true:
+		var button_name = "Categoria%d" % (index + 1)
 		if not has_node(button_name):
-			continue
+			break
 		var button = get_node(button_name)
 		category_button_defaults[button_name] = button.texture_normal
-		var handler = Callable(self, "_on_category_pressed").bind(i)
-		if not button.is_connected("pressed", handler):
-			button.connect("pressed", handler)
+		if index < category_definitions.size():
+			button.disabled = false
+			var handler = Callable(self, "_on_category_pressed").bind(index)
+			if not button.is_connected("pressed", handler):
+				button.connect("pressed", handler)
+		else:
+			button.disabled = true
+		index += 1
 
 func _init_card_interactions():
 	for i in range(1, MAX_CARDS + 1):
@@ -288,64 +254,97 @@ func _init_card_interactions():
 			card_texture_defaults[card.name] = card.texture_normal
 		if CARD_PRESSED_TEXTURE:
 			card.texture_pressed = CARD_PRESSED_TEXTURE
+		var sprite = _get_card_sprite(i)
+		if sprite:
+			sprite.visible = false
+		var label = _get_card_label(i)
+		if label:
+			label.visible = false
 		var handler = Callable(self, "_on_card_pressed").bind(i)
 		if not card.is_connected("pressed", handler):
 			card.connect("pressed", handler)
 
 func _update_category_tags():
-	for i in range(CATEGORY_DEFINITIONS.size()):
-		var button_name = "Categoria%d" % (i + 1)
+	var index := 0
+	while true:
+		var button_name = "Categoria%d" % (index + 1)
 		if not has_node(button_name):
-			continue
+			break
 		var button = get_node(button_name)
 		if not button.has_node("Tag1"):
+			index += 1
 			continue
 		var label = button.get_node("Tag1")
 		if label and label is Label:
-			label.text = CATEGORY_DEFINITIONS[i]["label"]
+			if index < category_definitions.size():
+				label.text = _get_category_label(category_definitions[index])
+			else:
+				label.text = ""
+		index += 1
 
 func _on_category_pressed(index):
 	_apply_category(index)
 
 func _apply_category(index):
-	if index < 0 or index >= CATEGORY_DEFINITIONS.size():
+	if index < 0 or index >= category_definitions.size():
 		return
-	_update_category_selection(index)
+	selected_category_index = index
+	current_category_page = 0
 	last_pressed_card = -1
-	var definitions = CATEGORY_DEFINITIONS[index]["sprites"]
-	var visible_count = min(definitions.size(), MAX_CARDS)
-	current_card_label_texts = []
-	for i in range(MAX_CARDS):
-		current_card_label_texts.append("")
-	for card_index in range(1, MAX_CARDS + 1):
-		var sprite = _get_card_sprite(card_index)
-		var card_node = _get_card_node(card_index)
-		var label = _get_card_label(card_index)
-		if card_index <= visible_count:
-			if not sprite:
-				if card_node:
-					card_node.visible = false
-				if label:
-					label.visible = false
-				continue
-			if card_node:
-				card_node.visible = true
-			var path_index = card_index - 1
-			var texture_path = definitions[path_index]
-			sprite.texture = load(texture_path)
-			current_card_label_texts[card_index - 1] = _label_for_category_label(index, path_index, texture_path)
-			sprite.visible = true
-			if label:
-				label.visible = false
-			_set_card_pressed_state(card_index, false)
-			_match_card_image(sprite, card_index)
-		else:
-			if card_node:
-				card_node.visible = false
-			if label:
-				label.visible = false
-			_set_card_pressed_state(card_index, false)
+	_update_category_selection(index)
+	_refresh_current_category_page()
 
+func _get_category_definition(index):
+	if index < 0 or index >= category_definitions.size():
+		return null
+	return category_definitions[index]
+
+func _refresh_current_category_page():
+	var entry = _get_category_definition(selected_category_index)
+	if not entry:
+		return
+	var sprites = entry.get("sprites", [])
+	var cards = entry.get("cards", [])
+	var total_entries = max(sprites.size(), cards.size())
+	current_category_pages = max(1, int((total_entries + MAX_CARDS - 1) / MAX_CARDS)) if total_entries > 0 else 1
+	current_category_page = clamp(current_category_page, 0, current_category_pages - 1)
+	var page_start = current_category_page * MAX_CARDS
+	current_card_label_texts.clear()
+	for card_index in range(1, MAX_CARDS + 1):
+		var entry_index = page_start + card_index - 1
+		var sprite = _get_card_sprite(card_index)
+		var label = _get_card_label(card_index)
+		var entry_text = ""
+		var texture_path = ""
+		if entry_index < total_entries:
+			_set_card_visibility(card_index, true)
+			if entry_index < sprites.size():
+				texture_path = sprites[entry_index]
+			if entry_index < cards.size():
+				entry_text = cards[entry_index]
+			if entry_text == "" and texture_path != "":
+				entry_text = _derive_label_from_path(texture_path)
+			current_card_label_texts.append(entry_text)
+			if sprite:
+				sprite.visible = true
+				if texture_path != "":
+					sprite.texture = load(texture_path)
+				else:
+					sprite.texture = null
+				_match_card_image(sprite, card_index)
+			if label:
+				label.text = entry_text
+				label.visible = false
+			_set_card_pressed_state(card_index, false)
+		else:
+			_set_card_visibility(card_index, false)
+			if sprite:
+				sprite.visible = false
+			if label:
+				label.visible = false
+			current_card_label_texts.append("")
+			_set_card_pressed_state(card_index, false)
+	_update_pagination_buttons()
 func _on_card_pressed(card_index):
 	if last_pressed_card != -1 and last_pressed_card != card_index:
 		_restore_card(last_pressed_card)
@@ -454,13 +453,6 @@ func _restore_card(card_index):
 		label.visible = false
 	_set_card_pressed_state(card_index, false)
 
-func _label_for_category_label(category_index, sprite_index, sprite_path):
-	var category_name = CATEGORY_DEFINITIONS[category_index]["label"] if category_index >= 0 and category_index < CATEGORY_DEFINITIONS.size() else ""
-	var text_list = card_label_texts_by_category.get(category_name, null)
-	if text_list and typeof(text_list) == TYPE_ARRAY and sprite_index < text_list.size():
-		return text_list[sprite_index]
-	return _derive_label_from_path(sprite_path)
-
 func _derive_label_from_path(sprite_path):
 	var name = sprite_path.get_file().get_basename()
 	name = name.replace("_", " ").replace("-", " ")
@@ -468,10 +460,11 @@ func _derive_label_from_path(sprite_path):
 
 func _update_category_selection(index):
 	selected_category_index = index
-	for i in range(CATEGORY_DEFINITIONS.size()):
+	var i := 0
+	while true:
 		var button_name = "Categoria%d" % (i + 1)
 		if not has_node(button_name):
-			continue
+			break
 		var button = get_node(button_name)
 		var default_normal = category_button_defaults.get(button_name, null)
 		if i == index:
@@ -479,3 +472,9 @@ func _update_category_selection(index):
 				button.texture_normal = button.texture_hover
 		elif default_normal:
 			button.texture_normal = default_normal
+		i += 1
+
+func _get_category_label(entry: Dictionary) -> String:
+	if en and entry.has("label_en"):
+		return entry.get("label_en", "")
+	return entry.get("label", "")
