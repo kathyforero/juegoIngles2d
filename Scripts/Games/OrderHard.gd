@@ -34,6 +34,7 @@ var palabras = {
 @export var palabraES = "Escuela"
 var instantiated = false
 var gano = false
+var rondaEnTransicion = false
 var letters
 var rondas = 4
 var rondaActual = 1
@@ -64,24 +65,29 @@ func _process(_delta):
 	if !instantiated:
 		return
 
+	if rondaEnTransicion:
+		return
+
+	var todas_correctas = ($Letras/Letter.correct and $Letras/Letter2.correct and
+		$Letras/Letter3.correct and $Letras/Letter4.correct)
+
 	# 🟣 MODO PRÁCTICA: no hay final, solo rondas infinitas
 	if Score.practice_mode:
-		if ($Letras/Letter.correct and $Letras/Letter2.correct and
-			$Letras/Letter3.correct and $Letras/Letter4.correct):
+		if todas_correctas:
+			rondaEnTransicion = true
 			await nuevaRonda()
+			rondaEnTransicion = false
 		return
 
 	# 🟢 MODO NORMAL (igual que antes)
-	if ($Letras/Letter.correct and $Letras/Letter2.correct and
-		$Letras/Letter3.correct and $Letras/Letter4.correct and
-		rondaActual == rondas and !gano):
-		gano = true
-		victory()
-
-	if ($Letras/Letter.correct and $Letras/Letter2.correct and
-		$Letras/Letter3.correct and $Letras/Letter4.correct):
-		if rondaActual < rondas:
+	if todas_correctas:
+		if rondaActual == rondas and !gano:
+			gano = true
+			victory()
+		elif rondaActual < rondas:
+			rondaEnTransicion = true
 			await nuevaRonda()
+			rondaEnTransicion = false
 		else:
 			gano = true
 	
