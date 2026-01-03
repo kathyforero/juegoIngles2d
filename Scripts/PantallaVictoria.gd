@@ -1,6 +1,7 @@
 extends Node2D
 
 var en: bool = false
+var pantalla_obtencion_logro = preload("res://Escenas/Global/PantallaObtencionLogro.tscn")
 
 func load_language_setting() -> bool:
 	if FileAccess.file_exists("res://language_setting.json"):
@@ -40,4 +41,11 @@ func _process(_delta):
 
 func _on_button_continue_pressed():
 	ButtonClick.button_click()
+	if Score.has_pending_achievement():
+		var logro_instance = pantalla_obtencion_logro.instantiate()
+		var canvas_layer = CanvasLayer.new()
+		canvas_layer.add_child(logro_instance)
+		get_tree().current_scene.add_child(canvas_layer)
+		queue_free()
+		return
 	get_tree().change_scene_to_file("res://Escenas/PuntajeScreen.tscn")

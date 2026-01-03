@@ -139,6 +139,9 @@ func victory():
 	Score.newScore = valorNivel
 	Score.fastBonus = velocidad
 	Score.LatestGame = Score.Games.OrderIt
+	var time_spent = max(0.0, float(tiempoCronometro) - $Box_inside_game.time_seconds)
+	var is_perfect = Score.perfectBonus >= 100
+	Score.register_minigame_victory("order", Score.actualDifficult, time_spent, is_perfect)
 	_actualizar_puntajes(ejecutablePath+"/Scores/puntajesOrder.dat")
 	actualizar_progreso(ejecutablePath+"/Progress/progressMinigames.dat")
 	instance.position = Vector2(1000,0)

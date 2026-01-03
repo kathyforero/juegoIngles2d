@@ -364,6 +364,9 @@ func victory():
 	Score.fastBonus = velocidad
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
+	var time_spent = max(0.0, float(tiempoCronometro) - $Box_inside_game.time_seconds)
+	var is_perfect = precisionActual >= 100
+	Score.register_minigame_victory("puzzle", Score.actualDifficult, time_spent, is_perfect)
 	await get_tree().create_timer(0.05).timeout
 
 	# Obtener el orden correcto de la oración
