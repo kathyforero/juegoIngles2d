@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="11_qllet"]
 [ext_resource type="Texture2D" uid="uid://cpgtso7quhpj8" path="res://Sprites/pngtree-padlocks-or-lock-open-and-closed-icons-isolated-transparant-png-image_5213443.png" id="14_ov08e"]
 [ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="15_1jjh1"]
-[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="17_rym7l"]
-[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="18_rk57w"]
+[ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="17_rym7l"]
+[ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="18_rk57w"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -171,16 +171,16 @@ texture = ExtResource("10_yd6ht")
 
 [node name="btn_random" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 514.0
-offset_top = 733.0
-offset_right = 703.0
-offset_bottom = 815.0
+offset_left = 226.0
+offset_top = 699.0
+offset_right = 665.0
+offset_bottom = 848.0
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 mouse_default_cursor_shape = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="btn_random"]
-position = Vector2(107, 41)
+position = Vector2(219, 74)
 scale = Vector2(0.163003, 0.18)
 texture = ExtResource("11_ov08e")
 
@@ -199,7 +199,7 @@ offset_right = 88.0
 offset_bottom = 82.0
 
 [node name="candado" type="Sprite2D" parent="."]
-position = Vector2(601, 752)
+position = Vector2(425, 759)
 scale = Vector2(0.678863, 0.678863)
 texture = ExtResource("14_ov08e")
 hframes = 2
@@ -215,15 +215,18 @@ layout_mode = 1
 
 [node name="btn_practice_on" type="Button" parent="."]
 layout_mode = 0
-offset_left = 507.0
-offset_top = 211.0
-offset_right = 753.0
-offset_bottom = 287.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
+offset_left = 672.0
+offset_top = 687.0
+offset_right = 1050.0
+offset_bottom = 859.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/h_separation = 4
 theme_override_fonts/font = ExtResource("17_rym7l")
-theme_override_font_sizes/font_size = 19
-text = "Modo Práctica Libre"
+theme_override_font_sizes/font_size = 34
+text = "MODO
+PRÁCTICA
+LIBRE
+"
 icon = ExtResource("18_rk57w")
 flat = true
 icon_alignment = 1
@@ -232,15 +235,15 @@ expand_icon = true
 [node name="btn_practice_off" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 507.0
-offset_top = 211.0
-offset_right = 753.0
-offset_bottom = 287.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
+offset_left = 472.0
+offset_top = 693.0
+offset_right = 847.0
+offset_bottom = 859.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("17_rym7l")
-theme_override_font_sizes/font_size = 19
-text = "Modo Normal"
+theme_override_font_sizes/font_size = 43
+text = "MODO
+NORMAL"
 icon = ExtResource("18_rk57w")
 flat = true
 icon_alignment = 1

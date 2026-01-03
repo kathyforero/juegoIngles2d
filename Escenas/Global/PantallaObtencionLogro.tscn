@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyj5cvw00apx4"]
+
+[ext_resource type="Script" uid="uid://bqsgdnxjlhm4w" path="res://Scripts/Global/pause_menu.gd" id="1_dv0jw"]
+[ext_resource type="Texture2D" uid="uid://b3mp1enjmn2c7" path="res://Sprites/buttons/LogroPerfect.png" id="2_dv0jw"]
+[ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="3_a5vby"]
+[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="4_yg866"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="5_pmptf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xdunq"]
+font = ExtResource("3_a5vby")
+font_size = 28
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ObtencionLogro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dv0jw")
+
+[node name="FondoOscuro" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="PanelOpciones" type="TextureRect" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.5
+offset_top = -288.0
+offset_right = 138.5
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dv0jw")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 544.0
+offset_right = 718.0
+offset_bottom = 634.0
+text = "¡Felicidades!
+Bla bla bla
+Bla bla bla"
+label_settings = SubResource("LabelSettings_xdunq")
+horizontal_alignment = 1
+
+[node name="btn_continuar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 641.0
+offset_right = 734.0
+offset_bottom = 712.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_yg866")
+theme_override_font_sizes/font_size = 22
+text = "Continuar"
+icon = ExtResource("5_pmptf")
+flat = true
+autowrap_mode = 2
+icon_alignment = 1
+expand_icon = true

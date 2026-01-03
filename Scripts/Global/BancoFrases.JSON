@@ -74,7 +74,7 @@
 		],
 		"medium": [
 		  "Ella barre el piso con fuerza",
-		  "Ella barre el piso de la sala y la cocina"
+		  "Ella barre el piso de la cocina"
 		],
 		"hard": [
 		  "Ella barre el piso con fuerza en toda la casa cada día",
@@ -88,11 +88,11 @@
 		],
 		"medium": [
 		  ["She", "sweeps", "the floor", "with strength"],
-		  ["She sweeps", "the floor of", "the living room", "and the kitchen"]
+		  ["She", "sweeps", "the kitchen's", "floor"]
 		],
 		"hard": [ 
 		  ["She sweeps", "the floor", "with strength", "in the whole", "house", "every day"],
-		  ["She first", "cleans the", "living room", "and then", "the dinning room", "with care"]
+		  ["She first", "cleans the", "living room", "and then the", "dinning room", "with care"]
 		]
 	  }
 	},
@@ -151,11 +151,11 @@
 		  ["He works", "at the", "office"]
 		],
 		"medium": [
-		  ["He works", "on his computer", "all day", "at home"],
-		  ["He works", "on his computer", "at home", "and the office"]
+		  ["He works on", "his computer", "all day", "at home"],
+		  ["He works on", "his computer", "at home and", "at the office"]
 		],
 		"hard": [
-		  ["He works", "on his computer", "for hours", "to finish", "a big", "project"],
+		  ["He works on", "his computer", "for hours", "to finish", "a big", "project"],
 		  ["He writes", "important", "codes", "with", "patience and", "concentration"]
 		]
 	  }
@@ -202,7 +202,7 @@
 		],
 		"medium": [
 		  "Yo juego con mi perro felizmente",
-		  "Yo juego con mi perro en el jardín cada tarde"
+		  "Yo juego con mi perro en el jardín cada noche"
 		],
 		"hard": [
 		  "Yo juego con mi perro felizmente en el jardín después de clase",
@@ -216,7 +216,7 @@
 		],
 		"medium": [
 		  ["I play", "with my", "dog", "happily"],
-		  ["I play", "with my dog", "in the garden", "each afternoon"]
+		  ["I play", "with my dog", "in the garden", "each night"]
 		],
 		"hard": [
 		  ["I play", "with my", "dog", "happily", "in the garden", "after class"],
@@ -247,7 +247,7 @@
 		  ["He is", "teaching", "math"]
 		],
 		"medium": [
-		  ["Mario", "teaches", "math", "with enthusiasm"],
+		  ["Mario", "teaches", "math with", "enthusiasm"],
 		  ["Mario", "teaches math", "to students", "each day"]
 		],
 		"hard": [
@@ -334,7 +334,7 @@
 		],
 		"hard": [
 		  "Cada noche, él lee un cuento antes de dormir.",
-		  "Él se sumerge en un cuento cada noche antes de dormir."
+		  "Él se sumerge en un cuento cada noche para dormir."
 		]
 	  },
 	  "eng": {
@@ -348,7 +348,7 @@
 		],
 		"hard": [
 		  ["Every night", "he", "reads", "a story", "before", "sleeping"],
-		  ["He", "immerses", "himself", "in a story", "each night", "before sleeping"]
+		  ["He", "immerses", "himself", "in a story", "each night", "to sleep"]
 		]
 	  }
 	},
@@ -536,7 +536,7 @@
 		],
 		"medium": [
 		  ["He", "tidies", "his", "backpack"],
-		  ["He", "accomodates", "the items", "in his backpack"]
+		  ["He", "accomodates", "the items in", "his backpack"]
 		],
 		"hard": [
 		  ["Before ", "school", "he organizes", "his backpack", "before", "leaving"],
@@ -554,7 +554,7 @@
 		],
 		"medium": [
 		  "Ella dibuja y colorea en su cuaderno.",
-		  "En su cuaderno, ella hace dibujos y los colorea."
+		  "En su cuaderno, ella dibuja y colorea."
 		],
 		"hard": [
 		  "Ella utiliza su cuaderno de arte para dibujar y colorear maravillosamente.",
@@ -567,8 +567,8 @@
 		  ["She", "colors", "her drawings"]
 		],
 		"medium": [
-		  ["She", "draws and colors", "in", "her notebook"],
-		  ["In her notebook", "she", "makes drawings", "and colors them"]
+		  ["She", "draws and", "colors in", "her notebook"],
+		  ["In her", "notebook", "she draws", "and colors"]
 		],
 		"hard": [
 		  ["She uses her", "art notebook,", "to draw", "and", "color", "wonderfully"],
@@ -692,7 +692,7 @@
 	  "eng": {
 		"easy": [
 		  ["She", "builds", "towers"],
-		  ["She", "constructs", "towers of blocks"]
+		  ["She", "constructs", "block towers"]
 		],
 		"medium": [
 		  ["She", "builds", "towers", "with blocks"],
@@ -778,7 +778,7 @@
 		],
 		"medium": [
 		  "Ellos cantan canciones educativas.",
-		  "Ellos entonan canciones con mensajes educativos."
+		  "Ellos entonan canciones educativas."
 		],
 		"hard": [
 		  "Durante el recreo, ellos cantan canciones educativas felizmente.",
@@ -792,7 +792,7 @@
 		],
 		"medium": [
 		  ["They", "sing", "educational", "songs"],
-		  ["They", "chant", "songs with", "educational messages"]
+		  ["They", "chant", "educational", "songs"]
 		],
 		"hard": [
 		  ["During", "recess", "they sing", "educational", "songs", "joyfully"],

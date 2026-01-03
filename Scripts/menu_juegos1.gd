@@ -29,14 +29,20 @@ func update_language_minigames():
 		# Modo inglés
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame.png")
 		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random.png")
-		btn_practice_on.text = "Free Practice Mode"
-		btn_practice_off.text = "Normal Mode"
+		btn_practice_on.text = "FREE
+		PRACTICE
+		MODE"
+		btn_practice_off.text = "NORMAL
+		MODE"
 	else:
 		# Modo español
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame_es.png")
 		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random_es.png")
-		btn_practice_on.text = "Modo Práctica Libre"
-		btn_practice_off.text = "Modo Normal"
+		btn_practice_on.text = "MODO
+		PRÁCTICA
+		LIBRE"
+		btn_practice_off.text = "MODO
+		NORMAL"
 
 func _ready():
 	emit_signal("update_scene", "menu_principal")
