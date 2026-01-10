@@ -12,7 +12,7 @@ config_version=5
 
 config/name="JuegoIngles2D Merge"
 run/main_scene="res://Escenas/menu_principal.tscn"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://Sprites/icon.svg"
 
 [audio]
@@ -29,6 +29,7 @@ DificultadRandom="*res://Scripts/Dificultad_Random.gd"
 BancoPuzzle="*res://Scripts/Global/Banco_Puzzle.gd"
 BancoOrderIt="*res://Scripts/Global/Banco_OrderIt.gd"
 BancoMatchIt="*res://Scripts/Global/Banco_MatchIt.gd"
+SceneRouter="*res://Scripts/scene_router.gd"
 
 [display]
 

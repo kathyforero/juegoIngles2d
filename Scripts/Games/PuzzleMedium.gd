@@ -13,6 +13,8 @@ signal update_phrase()
   
 #Precarga de modales de victoria y tiempo culminado
 var pantallaVictoria = preload("res://Escenas/PantallaVictoria.tscn")
+var pantallaTimeAttackFin = preload("res://Escenas/PantallaTimeAttackFin.tscn")
+
 var pantallaAcaboTiempo = preload("res://Escenas/NivelFinalizado.tscn")
 var difuminado = preload("res://Piezas/ColorRectDifuminado.tscn")
 var instance
@@ -47,13 +49,57 @@ var estadoInicialPiezas = []
 var rondas = 5
 var numeroRondas = 0
 var precisionMinima = 20
-var precisionActual = 100
+
+var _precisionActual: int = 100
+
+var precisionActual: int:
+	get:
+		return _precisionActual
+	set(value):
+		_precisionActual = value
+		if _is_time_attack:
+			_ta_update_live_score()
+			
 var velocidad = 20
 var valorNivel = 100 
 var tiempoCronometro = 110
+
+# --- TIME ATTACK (Contrarreloj) ---
+var _is_time_attack: bool = false
+var _ta_finished: bool = false
+
+var _is_practice: bool = false
+
+var _ta_live_score_last: int = 0
+
+func _ta_update_live_score(force_delta_zero: bool = false) -> void:
+	if not _is_time_attack:
+		return
+
+	var new_score := Score.calc_time_attack_score(
+		Score.levels_completed,
+		Score.time_attack_seconds,
+		int(precisionActual)
+	)
+
+	var delta := 0 if force_delta_zero else (new_score - _ta_live_score_last)
+	_ta_live_score_last = new_score
+
+	if $Box_inside_game and $Box_inside_game.has_method("set_time_attack_score"):
+		$Box_inside_game.set_time_attack_score(new_score, delta)
  
 # Muestra instrucciones, actualiza titulos e instancia variables. Empieza ronda
 func _ready():
+	_is_time_attack = (Score.current_mode == Score.Mode.TIME_ATTACK)
+	_is_practice = (Score.current_mode == Score.Mode.PRACTICE)
+	_ta_finished = false
+
+	# Si venimos desde Time Attack Config, el tiempo se toma de Score.time_attack_seconds
+	if _is_time_attack:
+		tiempoCronometro = int(Score.time_attack_seconds)
+		Score.levels_completed = 0
+		Score.fastBonus = 0
+
 	for i in range(BancoPuzzle.exercises.size()):
 		indicesImages.append(i)
 		
@@ -69,7 +115,9 @@ func _ready():
 	$Box_inside_game.time_seconds = tiempoCronometro
 	
 	# 2) Arrancar timer y UI
-	emit_signal("set_timer")
+	if not _is_practice:
+		emit_signal("set_timer")
+
 	emit_signal("update_title", "Puzzle")
 	setDifficultTitle()
 	
@@ -78,6 +126,9 @@ func _ready():
 		estadoInicialPiezas.append({"position": pieza.position})
 	
 	_empezar_ronda()
+	if _is_time_attack:
+		_ta_update_live_score(true)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func setDifficultTitle():
@@ -92,6 +143,25 @@ func setDifficultTitle():
 #Verifica si el jugador ha ganado la ronda o el juego
 func _process(_delta):
 	if(instantiated):
+		# --- TIME ATTACK: loop infinito de niveles hasta que se acabe el tiempo ---
+		if _is_time_attack:
+			if _ta_finished:
+				return
+			if ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and $Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and !ganoRonda):
+				ganoRonda = true
+				Score.levels_completed += 1
+				emit_signal("update_level", str(Score.levels_completed))
+				_ta_update_live_score()
+				rondaWin_time_attack()
+			return
+		
+		# --- PRACTICE: loop infinito sin victory, sin records ---
+		if _is_practice:
+			if ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and $Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and !ganoRonda):
+				ganoRonda = true
+				rondaWin_time_attack()
+			return
+
 		if ($Cadenas/Pieza0.correct and $Cadenas/Pieza1.correct and
 			$Cadenas/Pieza2.correct and $Cadenas/Pieza3.correct and numeroRondas == rondas and !gano):
 			gano = true
@@ -108,6 +178,10 @@ func _process(_delta):
 #Se invoca al empezar una nueva ronda
 func _empezar_ronda():		
 	indiceNivel += 1
+	# Recargar banco de imágenes si ya no alcanza (útil en Time Attack)
+	if indicesImages.size() <= 0:
+		for i in range(BancoPuzzle.exercises.size()):
+			indicesImages.append(i)
 	var indiceAl = randi_range(0, indicesImages.size()-1)
 	indiceImagen = indicesImages[indiceAl]
 	indicesImages.remove_at(indiceAl)
@@ -116,7 +190,10 @@ func _empezar_ronda():
 	print(str(indiceCadena)) 
 	emit_signal("set_visible_sentence", palabrasEsp[indiceImagen][indiceCadena]) 
 	print(palabrasEsp[indiceImagen][indiceCadena])
-	emit_signal("update_level", str(indiceNivel+1)+"/"+str(rondas))
+	if _is_time_attack:
+		emit_signal("update_level", str(Score.levels_completed))
+	else:
+		emit_signal("update_level", str(indiceNivel+1)+"/"+str(rondas))
 	emit_signal("uptate_imagen_game", images[indiceImagen])
 	update_boxes(indiceCadena)
 	ganoRonda = false 
@@ -133,6 +210,8 @@ func _reiniciar_componentes():
 		piezaBox._reiniciar_variables()
 		x+=1
 	_animacion_retorno()
+	if _is_time_attack and _ta_finished:
+		return
 	_empezar_ronda()
 
 #Quita los colores de correcto de las piezas con una animación
@@ -143,14 +222,18 @@ func _animacion_retorno():
 	
 #Da pista tomando en cuenta las píezas que no han sido puestas
 func _dar_pista():
-	if pistas_restantes <= 0:
-		hints_label.text = "No hints remaining!"
-		hints_panel.visible = true
-		get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
-		return
+	if not _is_practice:
+		if pistas_restantes <= 0:
+			hints_label.text = "No hints remaining!"
+			hints_panel.visible = true
+			get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
+			return
 
-	pistas_restantes -= 1
-	hints_label.text = str(pistas_restantes) + " Hints Remaining"
+		pistas_restantes -= 1
+		hints_label.text = str(pistas_restantes) + " Hints Remaining"
+	else:
+		hints_label.text = "∞ Hints"
+
 	hints_panel.visible = true
 	get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
 
@@ -293,6 +376,60 @@ func _actualizar_puntajes(path):
 	Score.is_new_best = is_new_record
 
 #Guarda los puntajes en el archivo
+
+func _actualizar_puntajes_time_attack(path:String, totalActual:int) -> void:
+	var is_new_record := false
+	var diff_key := "medium" # este script es MEDIUM
+
+	var puntajes: Dictionary = {}
+
+	if FileAccess.file_exists(path):
+		var file = FileAccess.open(path, FileAccess.READ)
+		puntajes = file.get_var()
+		file.close()
+	else:
+		# Si no existe, creamos el formato base clásico para no romper nada
+		puntajes = {
+			"easy": {"velocidad": 0, "precision": 0, "niveles": 0, "best_score": 0, "name": "---"},
+			"medium": {"velocidad": 0, "precision": 0, "niveles": 0, "best_score": 0, "name": "---"},
+			"hard": {"velocidad": 0, "precision": 0, "niveles": 0, "best_score": 0, "name": "---"}
+		}
+
+	# Asegurar rama time_attack
+	if not puntajes.has("time_attack"):
+		puntajes["time_attack"] = {}
+
+	for diff in ["easy", "medium", "hard"]:
+		if not puntajes["time_attack"].has(diff):
+			puntajes["time_attack"][diff] = {
+				"best_score": 0,
+				"name": "---",
+				"levels": 0,
+				"seconds": 0,
+				"precision": 0
+			}
+
+	var reg = puntajes["time_attack"][diff_key]
+	var best_prev := int(reg.get("best_score", 0))
+
+	if totalActual >= best_prev:
+		is_new_record = true
+		var nombre_guardado = str(reg.get("name", "---"))
+		puntajes["time_attack"][diff_key] = {
+			"best_score": totalActual,
+			"name": nombre_guardado,
+			"levels": int(Score.levels_completed),
+			"seconds": int(Score.time_attack_seconds),
+			"precision": int(precisionActual)
+		}
+
+		var filew = FileAccess.open(path, FileAccess.WRITE)
+		filew.store_var(puntajes)
+		filew.close()
+
+	Score.latest_total_score = totalActual
+	Score.is_new_best = is_new_record
+
 func _guardar_puntajes(content, path):
 	var file = FileAccess.open(path ,FileAccess.WRITE)
 	file.store_var(content)
@@ -329,7 +466,65 @@ func actualizar_progreso(path):
 				print("Error al intentar borrar el archivo PROGRESO.")
 		
 #Se invoca cuando el jugador gana
+func finish_time_attack() -> void:
+	if not _is_time_attack:
+		return
+	if _ta_finished:
+		return
+	_ta_finished = true
+
+	# Parar timer HUD para evitar dobles llamadas
+	$Box_inside_game.timer.stop()
+	$Box_inside_game/btns_inside_box_game/btn_instructions.disabled = true
+
+	# Score: niveles completados + tiempo escogido (base) + precisión (bonus)
+	Score.LatestGame = Score.Games.Puzzle
+	Score.fastBonus = 0
+
+	var precision_bonus := int(precisionActual)
+	if Score.levels_completed <= 0:
+		precision_bonus = 0
+		precisionActual = 0
+
+	Score.perfectBonus = precision_bonus
+
+	var total := Score.calc_time_attack_score(Score.levels_completed, Score.time_attack_seconds, precision_bonus)
+	var base := total - precision_bonus
+	if base < 0:
+		base = 0
+
+	Score.newScore = base
+	Score.latest_total_score = total
+
+	# Guardado por modo/dificultad (Time Attack)
+	_actualizar_puntajes_time_attack(ejecutablePath + "/Scores/puntajesPuzzle.dat", total)
+
+	instance = pantallaTimeAttackFin.instantiate()
+	# Mostrar overlay de victoria (mismo estilo)
+	_show_victory_overlay()
+
+
+func _show_victory_overlay() -> void:
+	instance.position = Vector2(1000,0)
+	$AnimationPlayer.play("Gana")
+	await $AnimationPlayer.animation_finished
+
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(instanceDifuminado)
+	var canvas_layer1 = CanvasLayer.new()
+	canvas_layer1.add_child(instance)
+	add_child(canvas_layer)
+	add_child(canvas_layer1)
+	$AudioStreamPlayer2D.play()
+	while(instance.position.x > 0):
+		await get_tree().create_timer(0.000000001).timeout
+		instance.position.x-=50
+
+
 func victory():
+	if _is_practice:
+		return
+
 	instance.position = Vector2(1000,0)
 	$Box_inside_game.timer.stop()
 	_actualizar_velocidad()
@@ -341,17 +536,25 @@ func victory():
 	Score.fastBonus = velocidad
 	Score.perfectBonus = precisionActual
 	Score.LatestGame = Score.Games.Puzzle
+	var time_spent = max(0.0, float(tiempoCronometro) - float($Box_inside_game.time_seconds))
+	var is_perfect := int(precisionActual) >= 100
+	Score.register_minigame_victory("puzzle", Score.actualDifficult, time_spent, is_perfect, false)
+
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	for i in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[i]
+		for j in range(4):
+			var pieza = $Cadenas.get_node("Pieza" + str(j))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				if i < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.05).timeout
+				break
 
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	var pieza3 = get_node("Cadenas/Pieza3")   
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado() 
-	await pieza3._animacion_finalizado() 
+	$AnimationPlayer.seek(1.2, true) # salta directo al tramo del "pop"
 	await $AnimationPlayer.animation_finished
+
 	$AudioStreamPlayer2D.play()
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.add_child(instanceDifuminado)
@@ -365,6 +568,9 @@ func victory():
 
 #Se invoca cuando se acaba el tiempo
 func lose():
+	if _is_practice:
+		return
+
 	$Box_inside_game.timer.stop()
 	get_tree().paused = true
 	instanceAcaboTiempo.nombreEscenaDificultad = "Dificultad_Puzzle.tscn"
@@ -380,17 +586,47 @@ func lose():
 		instanceAcaboTiempo.position.x-=50
 
 #Se invoca cada vez que se gana una ronda
+func rondaWin_time_attack():
+	# 1) PAUSA SOLO durante la animación
+	if not _is_practice:
+		$Box_inside_game.timer.stop()
+
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	for i in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[i]
+		for j in range(4):
+			var pieza = $Cadenas.get_node("Pieza" + str(j))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				if i < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.05).timeout
+				break
+	
+	$AnimationPlayer.play("Gana")
+	$AnimationPlayer.seek(1.2, true) # salta directo al tramo del "pop"
+	await $AnimationPlayer.animation_finished
+	# 2) REANUDA si todavía seguimos en TA
+	if not _ta_finished and not _is_practice:
+		$Box_inside_game.timer.start()
+	await _reiniciar_componentes()
+	ganoRonda = false
+	
 func rondaWin():
 	$Box_inside_game.timer.stop()
+
+	var ordenCorrecto = cadenasOrdenadas[indiceImagen][indiceCadena]
+	for i in range(ordenCorrecto.size()):
+		var palabra = ordenCorrecto[i]
+		for j in range(4):
+			var pieza = $Cadenas.get_node("Pieza" + str(j))
+			if pieza.correct and (pieza.target_letter == palabra or pieza.letter == palabra):
+				await pieza._animacion_finalizado()
+				if i < ordenCorrecto.size() - 1:
+					await get_tree().create_timer(0.05).timeout
+				break
+				
 	$AnimationPlayer.play("Gana")
-	var pieza0 = get_node("Cadenas/Pieza0")
-	var pieza1 = get_node("Cadenas/Pieza1")
-	var pieza2 = get_node("Cadenas/Pieza2")
-	var pieza3 = get_node("Cadenas/Pieza3") 
-	await pieza0._animacion_finalizado()
-	await pieza1._animacion_finalizado()
-	await pieza2._animacion_finalizado()
-	await pieza3._animacion_finalizado() 
+	$AnimationPlayer.seek(1.2, true) # salta directo al tramo del "pop"
 	await $AnimationPlayer.animation_finished
 	await _reiniciar_componentes()
 	$Box_inside_game.timer.start()

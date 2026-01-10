@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwpl3b47m1h8q"]
+[gd_scene load_steps=18 format=3 uid="uid://bwpl3b47m1h8q"]
 
 [ext_resource type="Script" uid="uid://bkrxuirr4wpoe" path="res://Scripts/menu_principal.gd" id="1_jn68a"]
 [ext_resource type="PackedScene" uid="uid://c6vh7gkg27w0a" path="res://Escenas/parallax_backgroundMenu.tscn" id="1_u1tl3"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://d1kt63n1oatll" path="res://Scripts/Buttons/JugarButton.gd" id="6_u18oc"]
 [ext_resource type="Texture2D" uid="uid://bgjwu474b2sm5" path="res://Sprites/buttons/btn_jugar_principal_hover.png" id="7_4bx0k"]
 [ext_resource type="Texture2D" uid="uid://1j7ys5sxfofk" path="res://Sprites/buttons/LenguajeBoton.png" id="7_r82gn"]
+[ext_resource type="Texture2D" uid="uid://7ogkxv85g881" path="res://Sprites/buttons/Boton_logros.png" id="8_vho2a"]
+[ext_resource type="Texture2D" uid="uid://drv3n6ls3wi2x" path="res://Sprites/buttons/Boton_logros_hover.png" id="9_65y5l"]
 [ext_resource type="Texture2D" uid="uid://bxp6e6bchd8wr" path="res://Sprites/buttons/botonPuntajes.png" id="11_1ahhs"]
 [ext_resource type="Texture2D" uid="uid://r0dn38lkavun" path="res://Sprites/buttons/botonPuntajesHover.png" id="12_667qk"]
 [ext_resource type="Script" uid="uid://cjlpexi054ebs" path="res://DebugLeerDat.gd" id="13_c8vt5"]
@@ -69,6 +71,18 @@ texture_normal = ExtResource("7_r82gn")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="TextureButton6" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1164.0
+offset_top = 298.0
+offset_right = 1230.0
+offset_bottom = 359.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_vho2a")
+texture_hover = ExtResource("9_65y5l")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 272.0
@@ -109,6 +123,7 @@ script = ExtResource("13_c8vt5")
 
 [connection signal="pressed" from="TextureButton2" to="." method="_on_texture_button_2_pressed"]
 [connection signal="pressed" from="TextureButton4" to="." method="_on_texture_button_4_pressed"]
+[connection signal="pressed" from="TextureButton6" to="." method="_on_texture_button_6_pressed"]
 [connection signal="mouse_entered" from="TextureButton" to="." method="_on_texture_button_mouse_entered"]
 [connection signal="mouse_exited" from="TextureButton" to="." method="_on_texture_button_mouse_exited"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

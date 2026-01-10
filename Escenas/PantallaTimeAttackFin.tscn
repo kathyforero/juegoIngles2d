@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh04e3ff5qr0"]
+
+[ext_resource type="Script" uid="uid://d1xnhh0g22tdp" path="res://Scripts/PantallaTimeAttackFin.gd" id="1_j07kx"]
+[ext_resource type="Texture2D" uid="uid://ccts7ok7r1xkk" path="res://Sprites/Tablero congratulation.png" id="2_ne2xb"]
+[ext_resource type="Texture2D" uid="uid://btk1xkyf2fyr8" path="res://Sprites/buttons/Boton_Next.png" id="3_j6hih"]
+[ext_resource type="Texture2D" uid="uid://bebjrx4n2i7j0" path="res://Sprites/reloj.png" id="4_j07kx"]
+[ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="5_o27ew"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2wn5k"]
+font = ExtResource("5_o27ew")
+font_size = 40
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PantallaTimeAttackFin" type="Node2D"]
+script = ExtResource("1_j07kx")
+metadata/_edit_horizontal_guides_ = [452.0]
+
+[node name="Marco" type="Sprite2D" parent="."]
+position = Vector2(640.206, 464.125)
+scale = Vector2(0.326901, 0.326901)
+texture = ExtResource("2_ne2xb")
+
+[node name="BtnNext" type="Button" parent="."]
+offset_left = 627.0
+offset_top = 516.0
+offset_right = 906.0
+offset_bottom = 649.0
+mouse_default_cursor_shape = 2
+icon = ExtResource("3_j6hih")
+flat = true
+expand_icon = true
+
+[node name="Trofeo" type="Sprite2D" parent="."]
+position = Vector2(416, 452.00003)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("4_j07kx")
+
+[node name="TitleLabel" type="Label" parent="."]
+offset_left = 522.0
+offset_top = 262.0
+offset_right = 1063.0
+offset_bottom = 376.0
+text = "Title label"
+label_settings = SubResource("LabelSettings_2wn5k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="."]
+offset_left = 522.0
+offset_top = 389.0
+offset_right = 1063.0
+offset_bottom = 503.0
+text = "Stats label"
+label_settings = SubResource("LabelSettings_2wn5k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RecordLabel" type="Label" parent="."]
+visible = false
+offset_left = 515.0
+offset_top = 416.0
+offset_right = 1056.0
+offset_bottom = 530.0
+text = "Record label"
+label_settings = SubResource("LabelSettings_2wn5k")
+horizontal_alignment = 1
+vertical_alignment = 1

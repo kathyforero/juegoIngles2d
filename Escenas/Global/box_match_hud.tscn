@@ -7,13 +7,13 @@
 [ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="6_xqjxm"]
 [ext_resource type="Texture2D" uid="uid://b4fkf3jss7us" path="res://Sprites/buttons/btn_salir_hover.png" id="7_3cmuo"]
 [ext_resource type="Texture2D" uid="uid://c1brivjy218qn" path="res://Sprites/buttons/Boton_Ayuda.png" id="7_ilqu5"]
-[ext_resource type="Texture2D" uid="uid://b0ngeledb26bf" path="res://Sprites/buttons/Boton_Opciones.png" id="8_ibp7w"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="8_pfb31"]
 [ext_resource type="Texture2D" uid="uid://ddjtd8r6fmliv" path="res://Sprites/buttons/Boton_pregunta_hover.png" id="9_8lxe5"]
 [ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="10_b6g8m"]
 [ext_resource type="Texture2D" uid="uid://dmiccrmd0y8jt" path="res://Sprites/global/Tabla.png" id="11_2rioo"]
-[ext_resource type="Texture2D" uid="uid://bnak4eajterau" path="res://Sprites/buttons/Boton_Opcioens_hover.png" id="11_8o3ok"]
 [ext_resource type="Texture2D" uid="uid://ddyoiesqe5ai1" path="res://Sprites/global/Imagen_juego_vacio.png" id="12_5yipq"]
+[ext_resource type="Texture2D" uid="uid://b5p8q5ry1lufv" path="res://Sprites/buttons/Boton_Pausa.png" id="12_ho6r5"]
+[ext_resource type="Texture2D" uid="uid://d1buktrfgtvgx" path="res://Sprites/buttons/Boton_Pausa_hover.png" id="13_8gg0o"]
 
 [node name="Box_inside_game" type="Node2D"]
 position = Vector2(944, 48)
@@ -173,7 +173,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("7_ilqu5")
 texture_hover = ExtResource("9_8lxe5")
 
-[node name="btn_help" type="TextureButton" parent="btns_inside_box_game"]
+[node name="btn_pausa" type="TextureButton" parent="btns_inside_box_game"]
 layout_mode = 0
 offset_left = 188.0
 offset_top = -267.0
@@ -181,8 +181,8 @@ offset_right = 484.0
 offset_bottom = 4.0
 scale = Vector2(0.22, 0.22)
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("8_ibp7w")
-texture_hover = ExtResource("11_8o3ok")
+texture_normal = ExtResource("12_ho6r5")
+texture_hover = ExtResource("13_8gg0o")
 
 [node name="btn_sound" parent="btns_inside_box_game" instance=ExtResource("8_pfb31")]
 layout_mode = 1
@@ -192,7 +192,33 @@ offset_right = 242.824
 offset_bottom = -373.76
 mouse_default_cursor_shape = 2
 
+[node name="TimeAttackScore" type="Label" parent="."]
+visible = false
+offset_left = -113.0
+offset_top = 75.0
+offset_right = 80.0
+offset_bottom = 115.0
+theme = ExtResource("2_ik7mp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "SCORE: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreDelta" type="Label" parent="."]
+visible = false
+offset_left = -113.0
+offset_top = 119.0
+offset_right = 80.0
+offset_bottom = 159.0
+theme = ExtResource("2_ik7mp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="timeout" from="Temporizador/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="btns_inside_box_game/btn_home" to="." method="_on_btn_home_pressed"]
 [connection signal="pressed" from="btns_inside_box_game/btn_instructions" to="." method="_on_btn_instructions_pressed"]
-[connection signal="pressed" from="btns_inside_box_game/btn_help" to="." method="_on_btn_help_pressed"]
+[connection signal="pressed" from="btns_inside_box_game/btn_pausa" to="." method="_on_btn_pausa_pressed"]

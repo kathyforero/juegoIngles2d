@@ -6,7 +6,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_1rv6w"]
 font = ExtResource("3_wuleg")
-font_size = 135
+font_size = 125
 font_color = Color(0, 0, 0, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
@@ -181,6 +181,7 @@ offset_left = -715.22
 offset_top = -113.0
 offset_right = -714.42
 offset_bottom = -365.0
+theme_override_font_sizes/font_size = 16
 text = "She"
 label_settings = SubResource("LabelSettings_1rv6w")
 horizontal_alignment = 1
@@ -203,7 +204,7 @@ shape = SubResource("RectangleShape2D_wn6io")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_r3xoe")
+&"": SubResource("AnimationLibrary_r3xoe")
 }
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

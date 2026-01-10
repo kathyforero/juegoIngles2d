@@ -21,13 +21,20 @@ func load_language_setting() -> bool:
 
 func update_language_minigames():
 	if en:
-		# Modo inglés
+		# English mode
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame.png")
-		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random.png")
+		$btn_random.text = "RANDOM\nMODE"
+		$btn_random.tooltip_text = "Play a random minigame"
+		$btn_time_attack.text = "TURBO\nMODE"
+		$btn_time_attack.tooltip_text = "Endless rounds until time runs out"
 	else:
-		# Modo español
+		# Spanish mode
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame_es.png")
-		$btn_random/Sprite2D.texture = load("res://Sprites/mini_games/Letrero_Random_es.png")
+		$btn_random.text = "MODO\nALEATORIO"
+		$btn_random.tooltip_text = "Juega un minijuego aleatorio"
+		$btn_time_attack.text = "MODO\nTURBO"
+		$btn_time_attack.tooltip_text = "Rondas infinitas hasta que se acabe el tiempo."
+
 
 func _ready():
 	emit_signal("update_scene", "menu_principal")
@@ -47,7 +54,8 @@ func _ready():
 	$btn_random.mouse_entered.connect(_on_btn_random_mouse_entered)
 	$btn_random.mouse_exited.connect(_on_btn_random_mouse_exited)
 	verificar_progreso(Global.rutaArchivos + "/Progress/progressMinigames.dat")
-	
+	apply_practice_ui()
+
 func actualizar_candados(progreso):
 	# Solo desbloqueamos Random si se cumplen los requisitos
 	if progreso["puzzle"]["hard"] and progreso["match"]["hard"] and progreso["order"]["hard"]:
@@ -125,18 +133,24 @@ func actualizar_archivo(progress, path):
 # Función que se ejecuta cuando el botón del juego de puzzles es presionado.
 # Reproduce el sonido de clic y cambia la escena al nivel de dificultad de Puzzles.
 func _on_btn_puzzle_pressed():
+	if not Score.is_practice():
+		Score.set_mode_classic()
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/Dificultad_Puzzle.tscn")
 
 # Función que se ejecuta cuando el botón del juego 'Match It' es presionado.
 # Reproduce el sonido de clic y cambia la escena al nivel de dificultad de 'Match It'.
 func _on_btn_match_pressed():
+	if not Score.is_practice():
+		Score.set_mode_classic()
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/Dificultad_MatchIt.tscn")
 
 # Función que se ejecuta cuando el botón del juego 'Order It' es presionado.
 # Reproduce el sonido de clic y cambia la escena al nivel de dificultad de 'Order It'.
 func _on_btn_order_pressed():
+	if not Score.is_practice():
+		Score.set_mode_classic()
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/Dificultad_OrderIt.tscn")
 
@@ -161,6 +175,39 @@ func _on_btn_random_mouse_exited():
 
 # Función que se ejecuta cuando el botón del modo random es presionado.
 func _on_btn_random_pressed():
-	if random_desbloqueado:
-		ButtonClick.button_click()
-		DificultadRandom.load_next_random_level()
+	if not random_desbloqueado:
+		return
+
+	# Random debe comportarse como Classic (y no heredar Time Attack)
+	if not Score.is_practice():
+		Score.set_mode_classic()
+
+	Score.reset_run_state()
+
+	ButtonClick.button_click()
+	DificultadRandom.load_next_random_level()
+
+
+func _on_btn_time_attack_pressed():
+	ButtonClick.button_click()
+	Score.reset_run_state()
+	get_tree().change_scene_to_file("res://Escenas/TimeAttackConfig.tscn")
+
+func _on_btn_practice_on_pressed():
+	ButtonClick.button_click()
+	Score.set_mode_practice(Score.actualDifficult)
+	apply_practice_ui()
+
+func _on_btn_practice_off_pressed():
+	ButtonClick.button_click()
+	if Score.is_practice():
+		Score.set_mode_classic()
+	apply_practice_ui()
+
+func apply_practice_ui():
+	var practice_on := Score.is_practice()
+	$btn_practice_on.visible = not practice_on
+	$btn_practice_off.visible = practice_on
+	$btn_random.visible = not practice_on
+	$btn_time_attack.visible = not practice_on
+	$candado.visible = (not practice_on) and (not random_desbloqueado)

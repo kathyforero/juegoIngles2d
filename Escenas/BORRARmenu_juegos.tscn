@@ -1,0 +1,254 @@
+[gd_scene load_steps=22 format=3 uid="uid://rq33e1h7n8mu"]
+
+[ext_resource type="Script" uid="uid://cxc5bgurkkjxn" path="res://Scripts/menu_juegos1.gd" id="1_8om4q"]
+[ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_ae3ik"]
+[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="1_modal"]
+[ext_resource type="Texture2D" uid="uid://dtfvr6dmjys6b" path="res://Sprites/mini_games/Tablero_minigame.png" id="3_prnin"]
+[ext_resource type="Texture2D" uid="uid://b6i60n65brh3n" path="res://Sprites/mini_games/Letrero_minigame.png" id="4_41r5y"]
+[ext_resource type="Texture2D" uid="uid://cufijlsaxqdx8" path="res://Sprites/mini_games/Dibujo puzzles.png" id="5_1oynu"]
+[ext_resource type="Texture2D" uid="uid://cxrqvvuddwr7o" path="res://Sprites/mini_games/Boton Puzzles.png" id="6_5mxid"]
+[ext_resource type="Texture2D" uid="uid://cguy374ehh0lq" path="res://Sprites/mini_games/Dibujo match it.png" id="7_ai6fw"]
+[ext_resource type="Texture2D" uid="uid://bwkababwghvx" path="res://Sprites/mini_games/Boton Match it.png" id="8_40w6x"]
+[ext_resource type="Texture2D" uid="uid://cdlq28w1l3pmc" path="res://Sprites/mini_games/Dibujo Order it.png" id="9_yvfam"]
+[ext_resource type="Texture2D" uid="uid://dytluhvtfl6pu" path="res://Sprites/mini_games/Boton Order it.png" id="10_yd6ht"]
+[ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="11_13b7x"]
+[ext_resource type="Texture2D" uid="uid://0rxgucjtppx7" path="res://Sprites/mini_games/Letrero_Random.png" id="11_ov08e"]
+[ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="11_qllet"]
+[ext_resource type="Texture2D" uid="uid://cpgtso7quhpj8" path="res://Sprites/pngtree-padlocks-or-lock-open-and-closed-icons-isolated-transparant-png-image_5213443.png" id="14_ov08e"]
+[ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="15_1jjh1"]
+[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="17_rym7l"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="18_rk57w"]
+
+[sub_resource type="Animation" id="Animation_aggsv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lrwm3"]
+resource_name = "Unlock"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(28, 0), Vector2(28, -55.19)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.0313726)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3t862"]
+_data = {
+&"RESET": SubResource("Animation_aggsv"),
+&"Unlock": SubResource("Animation_lrwm3")
+}
+
+[node name="Menu_Juegos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8om4q")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_ae3ik")]
+
+[node name="Tablero" type="Sprite2D" parent="."]
+position = Vector2(646, 493)
+scale = Vector2(0.219223, 0.219223)
+texture = ExtResource("3_prnin")
+
+[node name="Letrero" type="Sprite2D" parent="."]
+position = Vector2(632.00006, 171)
+scale = Vector2(0.219223, 0.219223)
+texture = ExtResource("4_41r5y")
+
+[node name="Hbox_botones_juegos" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 320.0
+offset_right = 4069.0
+offset_bottom = 1971.0
+scale = Vector2(0.22, 0.22)
+theme_override_constants/separation = 215
+alignment = 1
+
+[node name="btn_puzzle" type="TextureButton" parent="Hbox_botones_juegos"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_1oynu")
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Hbox_botones_juegos/btn_puzzle"]
+position = Vector2(572, 1334)
+texture = ExtResource("6_5mxid")
+
+[node name="btn_match" type="TextureButton" parent="Hbox_botones_juegos"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("7_ai6fw")
+stretch_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Hbox_botones_juegos/btn_match"]
+position = Vector2(568.435, 1339.13)
+texture = ExtResource("8_40w6x")
+
+[node name="btn_order" type="TextureButton" parent="Hbox_botones_juegos"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("9_yvfam")
+
+[node name="Sprite2D" type="Sprite2D" parent="Hbox_botones_juegos/btn_order"]
+position = Vector2(592.652, 1339.13)
+texture = ExtResource("10_yd6ht")
+
+[node name="btn_random" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 514.0
+offset_top = 733.0
+offset_right = 703.0
+offset_bottom = 815.0
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="btn_random"]
+position = Vector2(107, 41)
+scale = Vector2(0.163003, 0.18)
+texture = ExtResource("11_ov08e")
+
+[node name="btn_sound" parent="." instance=ExtResource("11_13b7x")]
+layout_mode = 1
+offset_left = 1175.0
+offset_top = 42.0
+offset_right = 1175.64
+offset_bottom = 42.32
+
+[node name="btn_go_back" parent="." instance=ExtResource("11_qllet")]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 42.0
+offset_right = 88.0
+offset_bottom = 82.0
+
+[node name="candado" type="Sprite2D" parent="."]
+position = Vector2(601, 752)
+scale = Vector2(0.678863, 0.678863)
+texture = ExtResource("14_ov08e")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="candado"]
+libraries = {
+&"": SubResource("AnimationLibrary_3t862")
+}
+script = ExtResource("15_1jjh1")
+
+[node name="ModalBloqueo" parent="." instance=ExtResource("1_modal")]
+layout_mode = 1
+
+[node name="btn_practice_on" type="Button" parent="."]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 211.0
+offset_right = 753.0
+offset_bottom = 287.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
+theme_override_fonts/font = ExtResource("17_rym7l")
+theme_override_font_sizes/font_size = 19
+text = "Modo Práctica Libre"
+icon = ExtResource("18_rk57w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="btn_practice_off" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 507.0
+offset_top = 211.0
+offset_right = 753.0
+offset_bottom = 287.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
+theme_override_fonts/font = ExtResource("17_rym7l")
+theme_override_font_sizes/font_size = 19
+text = "Modo Normal"
+icon = ExtResource("18_rk57w")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Hbox_botones_juegos/btn_puzzle" to="." method="_on_btn_puzzle_pressed"]
+[connection signal="pressed" from="Hbox_botones_juegos/btn_match" to="." method="_on_btn_match_pressed"]
+[connection signal="pressed" from="Hbox_botones_juegos/btn_order" to="." method="_on_btn_order_pressed"]
+[connection signal="pressed" from="btn_random" to="." method="_on_btn_random_pressed"]
+[connection signal="pressed" from="btn_practice_on" to="." method="_on_btn_practice_on_pressed"]
+[connection signal="pressed" from="btn_practice_off" to="." method="_on_btn_practice_off_pressed"]
