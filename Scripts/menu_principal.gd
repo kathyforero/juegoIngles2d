@@ -1,7 +1,8 @@
 extends Control
 	
 var en: bool = false  # Variable para controlar el idioma (false = español, true = inglés)
- 
+@onready var guide_label: Label = $TextureButton5/Label if has_node("TextureButton5/Label") else null
+
 # Función para cambiar el texto según el idioma
 func update_language(): 
 	if en:
@@ -11,6 +12,8 @@ func update_language():
 		$TextureButton.texture_hover = load("res://Sprites/buttons/playhover.png")
 		$TextureButton3.texture_hover = load("res://Sprites/buttons/scoreHover.png")     
 		$TextureRect.texture = load("res://Sprites/global/cuadro_principal_en.png")
+	if guide_label:
+		guide_label.text = "Guide" if en else "Guía"
 		
 func load_language_setting():
 	if FileAccess.file_exists("res://language_setting.json"):  

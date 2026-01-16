@@ -448,7 +448,45 @@ func finish_time_attack() -> void:
 	_actualizar_puntajes_time_attack(ejecutablePath + "/Scores/puntajesMatch.dat", total)
 
 	instance = pantallaTimeAttackFin.instantiate()
-	_show_victory_overlay()
+	_lock_interaction_time_over_match()
+	_show_time_over_overlay()
+
+
+func _lock_interaction_time_over_match() -> void:
+	# evita clicks y estados raros si quedó algo seleccionado
+	selected_image = null
+
+	var nodes := [
+		box_imagen_match, box_imagen_match_2, box_imagen_match_3,
+		box_texto_match, box_texto_match_2, box_texto_match_3
+	]
+
+	for n in nodes:
+		if n == null:
+			continue
+		# Las piezas usan "blocked" para ignorar clicks
+		if n.get("blocked") != null:
+			n.blocked = true
+
+		# apaga el highlight si quedó encendido
+		var fondo = n.get_node_or_null("Button/Fondo_clic")
+		if fondo != null:
+			fondo.visible = false
+
+func _show_time_over_overlay() -> void:
+	# Igual que _show_victory_overlay() pero SIN animation_win()
+	instance.position = Vector2(1000, 0)
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(instanceDifuminado)
+	var canvas_layer1 = CanvasLayer.new()
+	canvas_layer1.add_child(instance)
+	add_child(canvas_layer)
+	add_child(canvas_layer1)
+	$AudioStreamPlayer2D.play()
+	while instance.position.x > 0:
+		await get_tree().create_timer(0.000000001).timeout
+		instance.position.x -= 50
+
 
 func _show_victory_overlay() -> void:
 	instance.position = Vector2(1000,0)

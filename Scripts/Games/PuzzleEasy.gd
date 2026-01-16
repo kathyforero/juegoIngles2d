@@ -494,8 +494,34 @@ func finish_time_attack() -> void:
 	_actualizar_puntajes_time_attack(ejecutablePath + "/Scores/puntajesPuzzle.dat", total)
 
 	instance = pantallaTimeAttackFin.instantiate()
-	# Mostrar overlay de victoria (mismo estilo)
-	_show_victory_overlay()
+	_lock_interaction_time_over_puzzle()
+	_show_time_over_overlay()
+
+
+func _lock_interaction_time_over_puzzle() -> void:
+	# Bloquea piezas (piezaPuzzle.gd ya respeta locked/dragging)
+	if has_node("Cadenas"):
+		for p in $Cadenas.get_children():
+			if p == null:
+				continue
+			if p.get("dragging") != null:
+				p.dragging = false
+			if p.get("locked") != null:
+				p.locked = true
+
+func _show_time_over_overlay() -> void:
+	# Igual que _show_victory_overlay() pero SIN $AnimationPlayer.play("Gana")
+	instance.position = Vector2(1000, 0)
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(instanceDifuminado)
+	var canvas_layer1 = CanvasLayer.new()
+	canvas_layer1.add_child(instance)
+	add_child(canvas_layer)
+	add_child(canvas_layer1)
+	$AudioStreamPlayer2D.play()
+	while instance.position.x > 0:
+		await get_tree().create_timer(0.000000001).timeout
+		instance.position.x -= 50
 
 
 func _show_victory_overlay() -> void:

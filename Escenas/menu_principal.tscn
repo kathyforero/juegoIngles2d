@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwpl3b47m1h8q"]
+[gd_scene load_steps=19 format=3 uid="uid://bwpl3b47m1h8q"]
 
 [ext_resource type="Script" uid="uid://bkrxuirr4wpoe" path="res://Scripts/menu_principal.gd" id="1_jn68a"]
 [ext_resource type="PackedScene" uid="uid://c6vh7gkg27w0a" path="res://Escenas/parallax_backgroundMenu.tscn" id="1_u1tl3"]
@@ -15,8 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://bxp6e6bchd8wr" path="res://Sprites/buttons/botonPuntajes.png" id="11_1ahhs"]
 [ext_resource type="Texture2D" uid="uid://r0dn38lkavun" path="res://Sprites/buttons/botonPuntajesHover.png" id="12_667qk"]
 [ext_resource type="Script" uid="uid://cjlpexi054ebs" path="res://DebugLeerDat.gd" id="13_c8vt5"]
-[ext_resource type="Texture2D" uid="uid://supmxa3us3kh" path="res://Sprites/buttons/btn_guia_principal.png" id="13_pg8rb"]
-[ext_resource type="Texture2D" uid="uid://b1wke883agt56" path="res://Sprites/buttons/btn_guia_hover.png" id="14_m202y"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="15_65y5l"]
+[ext_resource type="Texture2D" uid="uid://cal0kv5cdy5h2" path="res://Sprites/buttons/btnVacioHover.png" id="16_wmgje"]
+[ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="17_n7b32"]
 
 [node name="MenuPrincipal" type="Control"]
 layout_mode = 3
@@ -113,10 +114,23 @@ offset_top = 670.0
 offset_right = 792.0
 offset_bottom = 767.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("13_pg8rb")
-texture_hover = ExtResource("14_m202y")
+texture_normal = ExtResource("15_65y5l")
+texture_hover = ExtResource("16_wmgje")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureButton5"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 12.0
+offset_right = 214.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_n7b32")
+theme_override_font_sizes/font_size = 45
+text = "Guía"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("13_c8vt5")

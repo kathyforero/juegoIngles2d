@@ -21,7 +21,7 @@ const VERBS := [
 	"plays",
 	"dances",
 	"sings",
-	"drives",
+	"paints",
 	"explores",
 	"observes"
 ]
@@ -33,10 +33,11 @@ const PREDICATES := [
 	"in the laboratory",
 	"in the museum",
 	"in the city",
-	"on the stage",
 	"in the garden",
 	"in the library",
-	"on the beach"
+	"on the beach",
+	"in the coliseum",
+	"in the stadium"
 ]
 
 const MAX_CARDS := 9
@@ -92,7 +93,7 @@ func load_language_setting() -> bool:
 	return false
 
 func _update_language_texts():
-	var spanish_description := "La sintaxis es el orden de las palabras:\nQUIEN + HACE QUE + QUE\nEjemplo: \"Ella juega baloncesto\"\nElla (quien) -> Juega (que) -> Baloncesto (que)"
+	var spanish_description := "La sintaxis es el orden de las palabras:\nQUIEN + HACE QUE + ¿EN DÓNDE?\nEjemplo: \"El niño juega en la playa\"\nEl niño (quien) -> Juega (que) -> en la playa (en dónde)"
 	if title_label:
 		title_label.text = "Syntax" if en else "Sintaxis"
 	if title_label_2:

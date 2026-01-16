@@ -444,8 +444,35 @@ func finish_time_attack() -> void:
 	_actualizar_puntajes_time_attack(ejecutablePath + "/Scores/puntajesOrder.dat", total)
 
 	instance = pantallaTimeAttackFin.instantiate()
-	# Mostrar overlay de victoria (mismo estilo)
-	_show_victory_overlay()
+	_lock_interaction_time_over_order()
+	_show_time_over_overlay()
+
+
+func _lock_interaction_time_over_order() -> void:
+	# Letter.gd ya tiene locked/dragging, así que es el candado perfecto
+	if has_node("Letras"):
+		for l in $Letras.get_children():
+			if l == null:
+				continue
+			if l.get("dragging") != null:
+				l.dragging = false
+			if l.get("locked") != null:
+				l.locked = true
+
+func _show_time_over_overlay() -> void:
+	# Igual que _show_victory_overlay() pero SIN $AnimationPlayer.play("Gana")
+	instance.position = Vector2(1000, 0)
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.add_child(instanceDifuminado)
+	var canvas_layer1 = CanvasLayer.new()
+	canvas_layer1.add_child(instance)
+	add_child(canvas_layer)
+	add_child(canvas_layer1)
+	$AudioStreamPlayer2D.play()
+	while instance.position.x > 0:
+		await get_tree().create_timer(0.000000001).timeout
+		instance.position.x -= 50
+
 
 func _show_victory_overlay() -> void:
 	instance.position = Vector2(1000, 0)
