@@ -1,6 +1,7 @@
 extends Node2D
 
 var en: bool = false
+const TOTAL_LOGROS = 5
 # Called when the node enters the scene tree for the first time.
 
 func load_language_setting():
@@ -21,6 +22,23 @@ func _ready():
 	#Leer archivo
 	load_language_setting()
 	update_language_scores_screen()
+	update_logros()
+
+func update_logros():
+	var total = Score.get_unlocked_achievements_count()
+	$NumLogros.text = str(total) + "/" + str(TOTAL_LOGROS)
+	_set_logro_sprite($LogroPuzzle, "puzzle")
+	_set_logro_sprite($LogroMatchIt, "match")
+	_set_logro_sprite($LogroOrderIt, "order")
+	_set_logro_sprite($LogroSpeed, "speed")
+	_set_logro_sprite($LogroPerfect, "perfect")
+
+func _set_logro_sprite(sprite: Sprite2D, logro_id: String) -> void:
+	var texture_path = Score.get_unknown_achievement_texture_path()
+	if Score.is_achievement_unlocked(logro_id):
+		texture_path = Score.get_achievement_texture_path(logro_id)
+	if texture_path != "":
+		sprite.texture = load(texture_path)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

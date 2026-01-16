@@ -371,6 +371,9 @@ func victory():
 	Score.LatestGame = Score.Games.Puzzle
 	Score.perfectBonus = precisionActual
 	Score.fastBonus = velocidad
+	var time_spent = max(0.0, float(tiempoCronometro) - $Box_inside_game.time_seconds)
+	var is_perfect = precisionActual >= 100
+	Score.register_minigame_victory("match", Score.actualDifficult, time_spent, is_perfect)
 	animation_win()
 	await $AnimationPlayer.animation_finished
 	var canvas_layer = CanvasLayer.new()
