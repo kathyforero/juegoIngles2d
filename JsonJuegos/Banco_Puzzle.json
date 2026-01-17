@@ -810,7 +810,7 @@
 		  "Él pasea en bicicleta por la calle."
 		],
 		"medium": [
-		  "Él monta en bicicleta todas las tardes en el parque.",
+		  "Él monta en bicicleta todos los días en el parque.",
 		  "Él pasea en bicicleta con su hermano los fines de semana."
 		],
 		"hard": [
@@ -820,16 +820,16 @@
 	  },
 	  "eng": {
 		"easy": [
-		  ["He", "rides", "a bike."],
-		  ["He", "rides", "his bike."]
+		  ["He", "rides", "a bike"],
+		  ["He", "rides", "his bike"]
 		],
 		"medium": [
-		  ["He rides", "his bike", "in the park", "every afternoon."],
-		  ["He rides", "a bike", "with his brother", "on weekends."]
+		  ["He rides", "his bike", "in the park", "everyday"],
+		  ["He rides", "a bike with", "his brother", "on weekends"]
 		],
 		"hard": [
 		  ["He rides", "his bike", "through the big", "park after", "doing his", "homework."],
-		  ["He", "rides a bike", "with his brother", "and enjoys", "the fresh", "air."]
+		  ["He rides", "a bike with", "his brother", "while they", "enjoy the", "fresh air."]
 		]
 	  }
 	},
@@ -844,7 +844,7 @@
 		],
 		"medium": [
 		  "Él limpia su habitación y guarda sus juguetes.",
-		  "Él ordena su cuarto y acomoda la ropa en el armario."
+		  "Él ordena su cuarto y acomoda la ropa."
 		],
 		"hard": [
 		  "Él limpia su habitación, barre el piso y guarda todos sus juguetes.",
@@ -853,16 +853,16 @@
 	  },
 	  "eng": {
 		"easy": [
-		  ["He", "cleans", "his room."],
-		  ["He", "tidies", "his room."]
+		  ["He", "cleans", "his room"],
+		  ["He", "tidies", "his room"]
 		],
 		"medium": [
-		  ["He cleans", "his room", "and puts", "away toys."],
-		  ["He tidies", "his room", "and arranges", "his clothes."]
+		  ["He cleans", "his room", "and puts", "away toys"],
+		  ["He tidies", "his room", "and arranges", "his clothes"]
 		],
 		"hard": [
-		  ["He cleans", "his room", "sweeps the", "floor and", "puts away", "all toys."],
-		  ["He carefully", "tidies his", "room and", "folds his", "clothes before", "bedtime."]
+		  ["He cleans", "his room", "sweeps the", "floor and", "puts away", "all toys"],
+		  ["He carefully", "tidies his", "room and", "folds his", "clothes before", "bedtime"]
 		]
 	  }
 	},
@@ -880,21 +880,21 @@
 		],
 		"hard": [
 		  "Ella compra frutas y verduras frescas en el mercado para preparar la comida.",
-		  "Ella elige con cuidado las mejores frutas para su familia cada semana."
+		  "Ella elige con cuidado las frutas para su familia cada semana."
 		]
 	  },
 	  "eng": {
 		"easy": [
-		  ["She", "buys", "fruit."],
-		  ["She", "carries", "a bag."]
+		  ["She", "buys", "fruit"],
+		  ["She", "carries", "a bag"]
 		],
 		"medium": [
-		  ["She buys", "fresh fruit", "and vegetables", "at the market."],
-		  ["She chooses", "apples and", "oranges for", "her family."]
+		  ["She buys", "fresh fruit", "and vegetables", "at the market"],
+		  ["She chooses", "apples and", "oranges for", "her family"]
 		],
 		"hard": [
-		  ["She buys", "fresh fruit", "and vegetables", "at the market", "to prepare", "lunch."],
-		  ["She carefully", "chooses the", "best fruit", "for her", "family every", "week."]
+		  ["She buys", "fresh fruit", "and vegetables", "at the market", "to prepare", "lunch"],
+		  ["She chooses", "carefully", "the fruit", "for her", "family every", "week"]
 		]
 	  }
 	},
@@ -917,16 +917,16 @@
 	  },
 	  "eng": {
 		"easy": [
-		  ["He", "swims", "in the pool."],
-		  ["He", "plays", "in the water."]
+		  ["He", "swims", "in the pool"],
+		  ["He", "plays", "in the water"]
 		],
 		"medium": [
-		  ["He swims", "in the pool", "with his", "friends."],
-		  ["He plays", "in the water", "and practices", "his strokes."]
+		  ["He swims", "in the pool", "with his", "friends"],
+		  ["He plays", "in the water", "and practices", "his strokes"]
 		],
 		"hard": [
-		  ["He swims", "in the big", "pool with", "his friends", "on the", "weekend."],
-		  ["He plays", "in the water", "and practices", "swimming to", "get better", "every day."]
+		  ["He swims", "in the big", "pool with", "his friends", "on the", "weekend"],
+		  ["He plays", "in the water", "and practices", "swimming to", "get better", "every day"]
 		]
 	  }
 	},
@@ -939,26 +939,26 @@
 		  "Ella llama a su abuela."
 		],
 		"medium": [
-		  "Ella habla por teléfono con su abuela en la tarde.",
+		  "Ella habla por teléfono con su abuela.",
 		  "Ella llama a su abuela para contarle su día."
 		],
 		"hard": [
-		  "Ella habla por teléfono con su abuela y le cuenta todo lo que hizo en la escuela.",
-		  "Ella llama a su abuela cada tarde para conversar y contarle sus historias."
+		  "Ella habla por teléfono con su abuela y hablan toda la noche.",
+		  "Ella llama a su abuela cada tarde para contarle historias."
 		]
 	  },
 	  "eng": {
 		"easy": [
-		  ["She", "talks", "on the phone."],
-		  ["She", "calls", "her grandma."]
+		  ["She", "talks", "on the phone"],
+		  ["She", "calls", "her grandma"]
 		],
 		"medium": [
-		  ["She talks", "on the phone", "with her", "grandma in the afternoon."],
-		  ["She calls", "her grandma", "to tell", "about her day."]
+		  ["She talks", "on the phone", "with her", "grandma"],
+		  ["She calls", "her grandma", "to tell", "about her day"]
 		],
 		"hard": [
-		  ["She talks", "on the phone", "with her grandma", "and tells", "everything she", "did at school."],
-		  ["She calls", "her grandma", "every afternoon", "to talk", "and share", "her stories."]
+		  ["She talks", "on the phone", "with her", "grandma and", "they talk", "all night"],
+		  ["She calls", "her grandma", "every", "afternoon", "to tell", "her stories"]
 		]
 	  }
 	}
