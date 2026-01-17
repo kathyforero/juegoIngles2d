@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgew3uldeev2u"
-path="res://.godot/imported/CANTAN.png-587739e135682bbc94eaa6cb3c140866.ctex"
+path="res://.godot/imported/cantan.png-368853fd4b23b462e821c4bc48294738.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/images_games/puzzle/CANTAN.png"
-dest_files=["res://.godot/imported/CANTAN.png-587739e135682bbc94eaa6cb3c140866.ctex"]
+source_file="res://Sprites/images_games/puzzle/cantan.png"
+dest_files=["res://.godot/imported/cantan.png-368853fd4b23b462e821c4bc48294738.ctex"]
 
 [params]
 
