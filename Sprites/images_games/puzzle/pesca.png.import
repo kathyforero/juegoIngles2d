@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdsyiykaiwrjw"
-path="res://.godot/imported/pesca.png-6b761553dc763d66c0855c9a9b3c9ffd.ctex"
+path="res://.godot/imported/PESCA.png-5814cecc601153c34290dfafda349018.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/images_games/puzzle/pesca.png"
-dest_files=["res://.godot/imported/pesca.png-6b761553dc763d66c0855c9a9b3c9ffd.ctex"]
+source_file="res://Sprites/images_games/puzzle/PESCA.png"
+dest_files=["res://.godot/imported/PESCA.png-5814cecc601153c34290dfafda349018.ctex"]
 
 [params]
 

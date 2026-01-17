@@ -20,6 +20,7 @@ var time_seconds = 120
 @onready var temporizador = $Temporizador
 @onready var timer = $Temporizador/Timer
 @onready var cronometro: Sprite2D = $Cronometro
+@onready var pause_button = $btns_inside_box_game/btn_pausa
 
 @onready var ta_score_label: Label = $TimeAttackScore
 @onready var ta_delta_label: Label = $ScoreDelta
@@ -80,10 +81,12 @@ func _ready():
 		level_value.visible = false
 		temporizador.visible = false
 		cronometro.visible = false
+		pause_button.visible = false
 		timer.stop()
 	else:
 		level_value.visible = true
 		cronometro.visible = true
+		pause_button.visible = true
 
 	word.visible = false
 	sentense.visible = false
