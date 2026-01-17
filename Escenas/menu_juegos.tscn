@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cu1nuxh8st3ux"]
+[gd_scene load_steps=22 format=3 uid="uid://cu1nuxh8st3ux"]
 
 [ext_resource type="Script" uid="uid://cxc5bgurkkjxn" path="res://Scripts/menu_juegos.gd" id="1_8om4q"]
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_ae3ik"]
@@ -17,8 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="13_70jnk"]
 [ext_resource type="Texture2D" uid="uid://cpgtso7quhpj8" path="res://Sprites/pngtree-padlocks-or-lock-open-and-closed-icons-isolated-transparant-png-image_5213443.png" id="14_ov08e"]
 [ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="15_1jjh1"]
-[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="18_rk57w"]
-[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="19_vk4gg"]
+[ext_resource type="Texture2D" uid="uid://ccts7ok7r1xkk" path="res://Sprites/Tablero congratulation.png" id="17_rym7l"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -172,9 +171,9 @@ texture = ExtResource("10_yd6ht")
 
 [node name="btn_time_attack" type="Button" parent="."]
 layout_mode = 0
-offset_left = 748.0
+offset_left = 790.0
 offset_top = 694.0
-offset_right = 1132.0
+offset_right = 1158.0
 offset_bottom = 855.0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
@@ -190,10 +189,10 @@ expand_icon = true
 
 [node name="btn_random" type="Button" parent="."]
 layout_mode = 0
-offset_left = 167.0
-offset_top = 694.19525
-offset_right = 537.0
-offset_bottom = 855.19525
+offset_left = 127.0
+offset_top = 694.1953
+offset_right = 497.0
+offset_bottom = 855.1953
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_constants/h_separation = 4
@@ -221,7 +220,7 @@ offset_right = 90.0
 offset_bottom = 93.0
 
 [node name="candado" type="Sprite2D" parent="."]
-position = Vector2(329.00003, 736.1953)
+position = Vector2(293, 754)
 scale = Vector2(0.678863, 0.678863)
 texture = ExtResource("14_ov08e")
 hframes = 2
@@ -234,16 +233,18 @@ script = ExtResource("15_1jjh1")
 
 [node name="btn_practice_on" type="Button" parent="."]
 layout_mode = 0
-offset_left = 523.0
-offset_top = 733.0
-offset_right = 769.0
-offset_bottom = 809.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
-theme_override_fonts/font = ExtResource("18_rk57w")
-theme_override_font_sizes/font_size = 19
-text = "Modo Práctica Libre"
-icon = ExtResource("19_vk4gg")
+offset_left = 495.0
+offset_top = 690.0
+offset_right = 790.0
+offset_bottom = 862.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("12_vk4gg")
+theme_override_font_sizes/font_size = 28
+text = "MODO
+PRÁCTICA 
+LIBRE"
+icon = ExtResource("17_rym7l")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -251,16 +252,17 @@ expand_icon = true
 [node name="btn_practice_off" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 523.0
-offset_top = 733.0
-offset_right = 769.0
-offset_bottom = 809.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0.1111969, 0.11119684, 0.11119681, 1)
-theme_override_fonts/font = ExtResource("18_rk57w")
-theme_override_font_sizes/font_size = 19
-text = "Modo Normal"
-icon = ExtResource("19_vk4gg")
+offset_left = 494.0
+offset_top = 690.0
+offset_right = 791.0
+offset_bottom = 862.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("12_vk4gg")
+theme_override_font_sizes/font_size = 35
+text = "MODO
+NORMAL"
+icon = ExtResource("17_rym7l")
 flat = true
 icon_alignment = 1
 expand_icon = true
