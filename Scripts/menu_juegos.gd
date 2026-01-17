@@ -162,9 +162,8 @@ func _on_btn_order_pressed():
 func _on_btn_random_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not random_desbloqueado:
-			var titulo = "¡Modo Random Bloqueado!"
-			var mensaje = "Completa todos los niveles DIFÍCILES de los tres juegos para desbloquearlo."
-			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+			var texto = _get_random_locked_modal()
+			$ModalBloqueo.mostrar_modal(texto.title, texto.message)
 
 # Función que se ejecuta cuando el mouse entra sobre el botón random
 func _on_btn_random_mouse_entered():
@@ -190,6 +189,17 @@ func _on_btn_random_pressed():
 
 	ButtonClick.button_click()
 	DificultadRandom.load_next_random_level()
+
+func _get_random_locked_modal() -> Dictionary:
+	if en:
+		return {
+			"title": "Random Mode Locked!",
+			"message": "Complete every HARD level of Puzzle, Match It and Order It to unlock this mode."
+		}
+	return {
+		"title": "Modo Random Bloqueado!",
+		"message": "Completa todos los niveles DIFICILES de los tres juegos para desbloquearlo."
+	}
 
 
 func _on_btn_time_attack_pressed():

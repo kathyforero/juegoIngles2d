@@ -163,16 +163,14 @@ func _on_texture_button_pressed():
 func _on_texture_button_2_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not medium_desbloqueado:
-			var titulo = "¡Dificultad Media Bloqueada!"
-			var mensaje = "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FÁCIL de Puzzle.\n\n¡Sigue practicando!"
-			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+			var texto = _get_puzzle_medium_locked_modal()
+			$ModalBloqueo.mostrar_modal(texto.title, texto.message)
 
 func _on_texture_button_3_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not hard_desbloqueado:
-			var titulo = "¡Dificultad Difícil Bloqueada!"
-			var mensaje = "Para desbloquear la dificultad DIFÍCIL, primero debes completar el nivel MEDIO de Puzzle.\n\n¡Sigue practicando!"
-			$ModalBloqueo.mostrar_modal(titulo, mensaje)
+			var texto = _get_puzzle_hard_locked_modal()
+			$ModalBloqueo.mostrar_modal(texto.title, texto.message)
 
 func _on_texture_button_2_pressed():
 	if medium_desbloqueado:
@@ -204,3 +202,25 @@ func _on_texture_button_3_mouse_exited():
 		$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	else:
 		$TextureButton3.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND 
+
+func _get_puzzle_medium_locked_modal() -> Dictionary:
+	if en:
+		return {
+			"title": "Medium Difficulty Locked!",
+			"message": "To unlock Medium, finish the EASY Puzzle level first.\n\nKeep practicing!"
+		}
+	return {
+		"title": "Dificultad Media Bloqueada!",
+		"message": "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FACIL de Puzzle.\n\nSigue practicando!"
+	}
+
+func _get_puzzle_hard_locked_modal() -> Dictionary:
+	if en:
+		return {
+			"title": "Hard Difficulty Locked!",
+			"message": "To unlock Hard, finish the MEDIUM Puzzle level first.\n\nKeep practicing!"
+		}
+	return {
+		"title": "Dificultad Dificil Bloqueada!",
+		"message": "Para desbloquear la dificultad DIFICIL, primero debes completar el nivel MEDIO de Puzzle.\n\nSigue practicando!"
+	}
