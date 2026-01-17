@@ -1,7 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://ss04y7ph35hj"]
 
-[ext_resource type="Script" uid="uid://ciqcytmum8h1b" path="res://Scripts/DificultadUnir1.tres.gd" id="1_27khe"]
-[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="12_modal"]
+[ext_resource type="Script" uid="uid://ciqcytmum8h1b" path="res://Scripts/Dificultad_MatchIt.gd" id="1_27khe"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="2_ciqgj"]
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="3_01rqh"]
 [ext_resource type="Texture2D" uid="uid://b63gw1pfqwq50" path="res://Sprites/buttons/Boton_easy.png" id="4_fsai1"]
@@ -14,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bmskod04qg6fv" path="res://Sprites/buttons/Boton_difficult_hover.png" id="9_uyenx"]
 [ext_resource type="Script" uid="uid://csfyjf2bny35e" path="res://Scripts/AnimationPlayer.gd" id="10_u2ch7"]
 [ext_resource type="PackedScene" uid="uid://c1drlxu7mn1l7" path="res://Escenas/Global/parallax_background_difficult_match.tscn" id="11_d1vv5"]
+[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="12_modal"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -128,7 +128,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton2" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 519.0
 offset_top = 530.0
 offset_right = 800.0
@@ -141,7 +140,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton3" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 519.0
 offset_top = 600.0
 offset_right = 800.0
@@ -161,7 +159,7 @@ hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
-"": SubResource("AnimationLibrary_3t862")
+&"": SubResource("AnimationLibrary_3t862")
 }
 script = ExtResource("9_7tsse")
 
@@ -173,7 +171,7 @@ hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D3"]
 libraries = {
-"": SubResource("AnimationLibrary_3t862")
+&"": SubResource("AnimationLibrary_3t862")
 }
 script = ExtResource("10_u2ch7")
 

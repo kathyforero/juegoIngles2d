@@ -6,6 +6,11 @@ var fastBonus: int = 0
 var perfectBonus: int = 0
 var en: bool = false
 
+var _exit_locked: bool = true
+var _reveal_finished: bool = false
+var _record_required: bool = false
+var _record_saved: bool = false
+
 # ---------- Language ----------
 func load_language_setting() -> bool:
 	if FileAccess.file_exists("res://language_setting.json"):
@@ -122,6 +127,23 @@ func _set_new_record_text() -> void:
 		return
 	$NewBestLabel.text = "NEW\nRECORD!" if en else "NUEVO\nRÉCORD!"
 
+func _set_exit_locked(v: bool) -> void:
+	_exit_locked = v
+	if has_node("Button"):
+		$Button.disabled = v
+		# opcional: si quieres que no “tiente” al jugador visualmente
+		# $Button.visible = not v
+
+func _unlock_exit_if_ready() -> void:
+	# Solo se puede salir cuando:
+	# - el puntaje ya terminó de mostrarse
+	# - y si hubo record, ya guardó nombre
+	if not _reveal_finished:
+		return
+	if _record_required and not _record_saved:
+		return
+	_set_exit_locked(false)
+
 
 # ---------- Lifecycle ----------
 func _ready():
@@ -151,7 +173,13 @@ func _ready():
 	# Solo mostramos "NEW RECORD" si este score quedará como best-of-both en PantallaPuntajes
 	if Score.is_new_best and not _will_be_best_of_both_for_this_run():
 		Score.is_new_best = false
-
+		
+	# Bloquear salida hasta que se muestre todo el puntaje (y se guarde nombre si hay récord)
+	_set_exit_locked(true)
+	_reveal_finished = false
+	_record_required = false
+	_record_saved = false
+	
 	# Arrancar animación de conteo
 	updateScore()
 
@@ -215,20 +243,41 @@ func updateScore():
 			await get_tree().create_timer(0.01).timeout
 			score = min(score + 5, target_total)
 		$AudioStreamPlayer2D.stop()
+	# Ya terminó el “reveal” del puntaje
+	_reveal_finished = true
 
 	# NEW RECORD popup (solo si aplica)
 	if Score.is_new_best:
+		_record_required = true
+		_record_saved = false
+
 		_set_new_record_text()
 		_set_new_record_visible(true)
 
 		await get_tree().create_timer(0.6).timeout
 
+		# Mostrar popup
 		$BestNameDialog.visible = true
+
+		# 🔒 No permitir “Cancelar” (para que no lo esquiven)
+		var cancel_btn = $BestNameDialog.get_node_or_null("CenterContainer/Panel/MarginContainer/VBox/ButtonsRow/CancelButton")
+		if cancel_btn:
+			cancel_btn.visible = false
+			cancel_btn.disabled = true
+
 		var name_edit = $BestNameDialog/CenterContainer/Panel/MarginContainer/VBox/NameRow/NameEdit
 		name_edit.text = ""
 		name_edit.grab_focus()
+
+		# Seguimos bloqueados hasta que guarde nombre
+		_set_exit_locked(true)
 	else:
+		_record_required = false
+		_record_saved = true  # no aplica
 		_set_new_record_visible(false)
+
+		# ✅ Ya puede salir porque ya se mostró todo
+		_unlock_exit_if_ready()
 
 
 # ---------- Record file helpers ----------
@@ -337,14 +386,30 @@ func _on_BestNameDialog_confirmed():
 		name = "Player"
 
 	_save_best_name(name)
+
 	$BestNameDialog.visible = false
+	_record_saved = true
+
+	# ✅ ya puede salir (porque ya vio el puntaje + guardó nombre)
+	_unlock_exit_if_ready()
 
 
 func _on_BestNameDialog_cancelled():
+	# No permitir cerrar sin guardar cuando es récord
+	if _record_required and not _record_saved:
+		# lo devolvemos al input (modo: “no te me vas” 😄)
+		var name_edit = $BestNameDialog.get_node_or_null("CenterContainer/Panel/MarginContainer/VBox/NameRow/NameEdit")
+		if name_edit:
+			name_edit.grab_focus()
+		return
+
 	$BestNameDialog.visible = false
 
 
 func _on_button_pressed():
+	if _exit_locked:
+		return
+
 	ButtonClick.button_click()
 	Score.is_new_best = false
 	get_tree().change_scene_to_file("res://Escenas/menu_juegos.tscn")

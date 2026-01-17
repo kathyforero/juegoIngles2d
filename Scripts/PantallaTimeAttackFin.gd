@@ -10,6 +10,7 @@ const NEXT_ICON_ES_PATH := "res://Sprites/buttons/Boton_Next_es.png"
 @onready var btn_next: Button = $BtnNext
 
 var en: bool = false
+var pantalla_obtencion_logro = preload("res://Escenas/Global/PantallaObtencionLogro.tscn")
 
 func load_language_setting() -> bool:
 	if FileAccess.file_exists("res://language_setting.json"):
@@ -54,6 +55,10 @@ func _apply_next_icon() -> void:
 func _on_next_pressed() -> void:
 	ButtonClick.button_click()
 	if Score.has_pending_achievement():
-		get_tree().change_scene_to_file("res://Escenas/Global/PantallaObtencionLogro.tscn")
-	else:
-		get_tree().change_scene_to_file("res://Escenas/PuntajeScreen.tscn")
+		var logro_instance = pantalla_obtencion_logro.instantiate()
+		var canvas_layer = CanvasLayer.new()
+		canvas_layer.add_child(logro_instance)
+		get_tree().current_scene.add_child(canvas_layer)
+		queue_free()
+		return
+	get_tree().change_scene_to_file("res://Escenas/PuntajeScreen.tscn")
