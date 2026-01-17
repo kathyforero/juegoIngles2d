@@ -66,8 +66,7 @@
 		"res://Sprites/images_games/match/medium/Wombat.png",
 
 		"res://Sprites/images_games/order/Easy/bird.png",
-		"res://Sprites/images_games/order/Easy/lion.png",
-        "res://Sprites/images_games/order/Hard/animal.png"
+		"res://Sprites/images_games/order/Easy/lion.png"
 	  ],
 	  "cards": [
 		"Iguana:\nIguana",
@@ -132,8 +131,7 @@
 		"Wombat:\nWombat",
 
 		"Bird:\nAve",
-		"Lion:\nLeón",
-        "Animal:\nAnimal"
+		"Lion:\nLeón"
 	  ]
 	},
 
@@ -192,7 +190,7 @@
 		"Office:\nOficina",
 		"Forest:\nBosque",
 		"Market:\nMercado",
-		"Cities:\nCiudades",
+		"City:\nCiudad",
         "Pool:\nPiscina"
 	  ]
 	},
@@ -201,7 +199,6 @@
 	  "label": "Verbos",
 	  "label_en": "Verbs",
 	  "sprites": [
-		"res://Sprites/images_games/order/Easy/play.png",
 		"res://Sprites/images_games/order/Easy/sing.png",
 		"res://Sprites/images_games/order/Easy/read.png",
 		"res://Sprites/images_games/order/Easy/walk.png",
@@ -212,13 +209,10 @@
 		"res://Sprites/images_games/puzzle/BARRER.png",
 		"res://Sprites/images_games/puzzle/ESCUCHAR.png",
 		"res://Sprites/images_games/puzzle/LIMPIAR_HABITACION.png",
-		"res://Sprites/images_games/puzzle/JUGAR_TORRES.png",
 		"res://Sprites/images_games/puzzle/PLANTAS.png",
-		"res://Sprites/images_games/puzzle/GUITARRA.png",
-        "res://Sprites/images_games/puzzle/PASEAR_PERRO1.png"
+		"res://Sprites/images_games/puzzle/GUITARRA.png"
 	  ],
 	  "cards": [
-		"Play:\nJugar",
 		"Sing:\nCantar",
 		"Read:\nLeer",
 		"Walk:\nCaminar",
@@ -229,11 +223,9 @@
 		"Sweep:\nBarrer",
 		"Listen:\nEscuchar",
 		"Clean:\nLimpiar",
-		"Build:\nConstruir",
 		"Water:\nRegar",
-		"Play:\nTocar",
-        "Walk:\nPasear"
-	  ]
+		"Play:\nTocar"
+	]
 	},
 
 	{
@@ -278,7 +270,6 @@
 	  "label": "Naturaleza",
 	  "label_en": "Nature",
 	  "sprites": [
-		"res://Sprites/images_games/puzzle/UNIVERSO.png",
 		"res://Sprites/images_games/order/Medium/earth.jpg",
 		"res://Sprites/images_games/order/Easy/moon.png",
 		"res://Sprites/images_games/order/Easy/star.png",
@@ -289,11 +280,9 @@
 		"res://Sprites/images_games/order/Medium/night.jpg",
 		"res://Sprites/images_games/order/Hard/summer.png",
 		"res://Sprites/images_games/order/Hard/winter.png",
-		"res://Sprites/images_games/order/Hard/future.png",
-        "res://Sprites/images_games/order/Medium/water.png"
+		"res://Sprites/images_games/order/Medium/water.png"
 	  ],
 	  "cards": [
-		"Universe:\nUniverso",
 		"Earth:\nTierra",
 		"Moon:\nLuna",
 		"Star:\nEstrella",
@@ -304,8 +293,7 @@
 		"Night:\nNoche",
 		"Summer:\nVerano",
 		"Winter:\nInvierno",
-		"Future:\nFuturo",
-        "Water:\nAgua"
+		"Water:\nAgua"
 	  ]
 	},
 
