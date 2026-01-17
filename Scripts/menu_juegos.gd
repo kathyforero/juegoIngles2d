@@ -27,8 +27,11 @@ func update_language_minigames():
 		$btn_random.tooltip_text = "Play a random minigame"
 		$btn_time_attack.text = "TURBO\nMODE"
 		$btn_time_attack.tooltip_text = "Endless rounds until time runs out"
-		$btn_practice_on.text = "Free practice mode"
-		$btn_practice_off.text = "Normal Mode"
+		$btn_practice_on.text = "FREE
+		PRACTICE
+		MODE"
+		$btn_practice_off.text = "NORMAL
+		MODE"
 	else:
 		# Spanish mode
 		$Letrero.texture = load("res://Sprites/mini_games/Letrero_minigame_es.png")
@@ -36,8 +39,11 @@ func update_language_minigames():
 		$btn_random.tooltip_text = "Juega un minijuego aleatorio"
 		$btn_time_attack.text = "MODO\nTURBO"
 		$btn_time_attack.tooltip_text = "Rondas infinitas hasta que se acabe el tiempo."
-		$btn_practice_on.text = "Modo práctica Libre"
-		$btn_practice_off.text = "Modo normal"
+		$btn_practice_on.text = "MODO
+		PRÁCTICA
+		LIBRE"
+		$btn_practice_off.text = "MODO
+		NORMAL"
 
 
 func _ready():
