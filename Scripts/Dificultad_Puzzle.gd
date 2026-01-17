@@ -211,7 +211,7 @@ func _get_puzzle_medium_locked_modal() -> Dictionary:
 		}
 	return {
 		"title": "Dificultad Media Bloqueada!",
-		"message": "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FACIL de Puzzle.\n\nSigue practicando!"
+		"message": "Completa Puzzle fácil para desbloquear Media.\n\n¡Sigue practicando!"
 	}
 
 func _get_puzzle_hard_locked_modal() -> Dictionary:
@@ -221,6 +221,6 @@ func _get_puzzle_hard_locked_modal() -> Dictionary:
 			"message": "To unlock Hard, finish the MEDIUM Puzzle level first.\n\nKeep practicing!"
 		}
 	return {
-		"title": "Dificultad Dificil Bloqueada!",
-		"message": "Para desbloquear la dificultad DIFICIL, primero debes completar el nivel MEDIO de Puzzle.\n\nSigue practicando!"
+		"title": "Dificultad Difícil Bloqueada!",
+		"message": "Completa Puzzle medio para desbloquear Difícil.\n\n¡Sigue practicando!"
 	}

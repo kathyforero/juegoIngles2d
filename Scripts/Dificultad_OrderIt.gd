@@ -209,7 +209,7 @@ func _get_order_medium_locked_modal() -> Dictionary:
 		}
 	return {
 		"title": "Dificultad Media Bloqueada!",
-		"message": "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FACIL de Order It.\n\nSigue practicando!"
+		"message": "Completa Order It fácil para desbloquear Media.\n\n¡Sigue practicando!"
 	}
 
 func _get_order_hard_locked_modal() -> Dictionary:
@@ -219,6 +219,6 @@ func _get_order_hard_locked_modal() -> Dictionary:
 			"message": "To unlock Hard, finish the MEDIUM Order It level first.\n\nKeep practicing!"
 		}
 	return {
-		"title": "Dificultad Dificil Bloqueada!",
-		"message": "Para desbloquear la dificultad DIFICIL, primero debes completar el nivel MEDIO de Order It.\n\nSigue practicando!"
+		"title": "Dificultad Difícil Bloqueada!",
+		"message": "Completa Order It medio para desbloquear Difícil.\n\n¡Sigue practicando!"
 	}

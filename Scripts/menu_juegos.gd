@@ -198,7 +198,7 @@ func _get_random_locked_modal() -> Dictionary:
 		}
 	return {
 		"title": "Modo Random Bloqueado!",
-		"message": "Completa todos los niveles DIFICILES de los tres juegos para desbloquearlo."
+		"message": "Termina todos los niveles difíciles para desbloquear Random.\n\n¡Sigue practicando!"
 	}
 
 

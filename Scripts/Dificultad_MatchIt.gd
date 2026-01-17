@@ -222,7 +222,7 @@ func _get_match_medium_locked_modal() -> Dictionary:
 		}
 	return {
 		"title": "Dificultad Media Bloqueada!",
-		"message": "Para desbloquear la dificultad MEDIA, primero debes completar el nivel FACIL de Match It.\n\nSigue practicando!"
+		"message": "Completa Match It fácil para desbloquear Media.\n\n¡Sigue practicando!"
 	}
 
 func _get_match_hard_locked_modal() -> Dictionary:
@@ -232,6 +232,6 @@ func _get_match_hard_locked_modal() -> Dictionary:
 			"message": "To unlock Hard, finish the MEDIUM Match It level first.\n\nKeep practicing!"
 		}
 	return {
-		"title": "Dificultad Dificil Bloqueada!",
-		"message": "Para desbloquear la dificultad DIFICIL, primero debes completar el nivel MEDIO de Match It.\n\nSigue practicando!"
+		"title": "Dificultad Difícil Bloqueada!",
+		"message": "Completa Match It medio para desbloquear Difícil.\n\n¡Sigue practicando!"
 	}

@@ -24,7 +24,7 @@ func _on_color_rect_gui_input(event):
 
 func _update_button_label():
 	if en:
-		$LabelBoton.text = "Understood"
+		$LabelBoton.text = "OK"
 	else:
 		$LabelBoton.text = "Entendido"
 
