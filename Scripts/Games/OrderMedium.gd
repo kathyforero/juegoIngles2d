@@ -570,12 +570,6 @@ func nuevaRonda():
 	if not _is_practice:
 		$Box_inside_game.timer.stop()
 
-	$Letras/Letter.resetVars()
-	$Letras/Letter2.resetVars()
-	$Letras/Letter3.resetVars()
-	$Letras/Letter4.resetVars()
-	$Letras/Letter5.resetVars()
-
 	# Animación final en orden izquierda -> derecha (según posición actual)
 	var letras := $Letras.get_children()
 	letras.sort_custom(func(a, b): return a.global_position.x < b.global_position.x)
@@ -584,11 +578,13 @@ func nuevaRonda():
 		if l.has_method("animacionFinalizado"):
 			await l.animacionFinalizado()
 
-	$Letras/Letter.resetPos()
-	$Letras/Letter2.resetPos()
-	$Letras/Letter3.resetPos()
-	$Letras/Letter4.resetPos()
-	$Letras/Letter5.resetPos()
+	for l in letras:
+		if l.has_method("resetVars"):
+			l.resetVars()
+
+	for l in letras:
+		if l.has_method("resetPos"):
+			l.resetPos()
 
 	# Si el tiempo se acabó en medio de la animación, salimos sin iniciar otra ronda
 	if _is_time_attack and _ta_finished:
