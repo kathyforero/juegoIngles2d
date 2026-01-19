@@ -11,6 +11,8 @@ var _reveal_finished: bool = false
 var _record_required: bool = false
 var _record_saved: bool = false
 
+const BEST_NAME_MAX_LEN := 12
+
 # ---------- Language ----------
 func load_language_setting() -> bool:
 	if FileAccess.file_exists("res://language_setting.json"):
@@ -56,7 +58,7 @@ func _apply_best_name_popup_language() -> void:
 	var btn_save := $BestNameDialog.get_node_or_null("CenterContainer/Panel/MarginContainer/VBox/ButtonsRow/SaveButton")
 	if btn_save == null:
 		btn_save = $BestNameDialog.get_node_or_null("CenterContainer/Panel/MarginContainer/VBox/ButtonsRow/SaveButton")
-
+	name_edit.max_length = BEST_NAME_MAX_LEN
 	if en:
 		if title: title.text = "NEW RECORD!"
 		if msg: msg.text = "Type your name to save the record."
@@ -382,8 +384,11 @@ func _save_best_name(player_name: String) -> void:
 func _on_BestNameDialog_confirmed():
 	var name_edit = $BestNameDialog/CenterContainer/Panel/MarginContainer/VBox/NameRow/NameEdit
 	var name = name_edit.text.strip_edges()
+	if name.length() > BEST_NAME_MAX_LEN:
+		name = name.substr(0, BEST_NAME_MAX_LEN)
+
 	if name == "":
-		name = "Player"
+		name = "Player" if en else "Jugador"
 
 	_save_best_name(name)
 

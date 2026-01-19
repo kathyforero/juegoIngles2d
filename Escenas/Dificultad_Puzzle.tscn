@@ -1,7 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://0svvh0kcy8vw"]
 
-[ext_resource type="Script" uid="uid://bawing3mvr0vv" path="res://Scripts/DificultadOracion.gd" id="1_aqfyo"]
-[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="12_modal"]
+[ext_resource type="Script" uid="uid://bawing3mvr0vv" path="res://Scripts/Dificultad_Puzzle.gd" id="1_aqfyo"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="2_7jbap"]
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="3_jpkp6"]
 [ext_resource type="Texture2D" uid="uid://b63gw1pfqwq50" path="res://Sprites/buttons/Boton_easy.png" id="4_4wf2h"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="9_mok4k"]
 [ext_resource type="Script" uid="uid://csfyjf2bny35e" path="res://Scripts/AnimationPlayer.gd" id="10_emjnk"]
 [ext_resource type="PackedScene" uid="uid://wid5vqcftmu4" path="res://Escenas/Global/parallax_background_difficult_puzzle.tscn" id="11_nw8vl"]
+[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="12_modal"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -126,7 +126,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton2" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 519.0
 offset_top = 530.0
 offset_right = 800.0
@@ -139,7 +138,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton3" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 519.0
 offset_top = 600.0
 offset_right = 800.0
@@ -152,7 +150,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(636, 556)
+position = Vector2(779, 557)
 scale = Vector2(0.244, 0.244)
 texture = ExtResource("8_be7nf")
 hframes = 2
@@ -164,7 +162,7 @@ libraries = {
 script = ExtResource("9_mok4k")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(636, 627)
+position = Vector2(779, 627.00006)
 scale = Vector2(0.244444, 0.244444)
 texture = ExtResource("8_be7nf")
 hframes = 2

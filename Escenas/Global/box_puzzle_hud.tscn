@@ -211,15 +211,15 @@ vertical_alignment = 1
 
 [node name="ScoreDelta" type="Label" parent="."]
 visible = false
-offset_left = -113.0
-offset_top = 119.0
-offset_right = 80.0
-offset_bottom = 159.0
+offset_left = -78.0
+offset_top = 134.0
+offset_right = 115.0
+offset_bottom = 174.0
 theme = ExtResource("4_gr8xd")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 40
 text = "+0"
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [connection signal="timeout" from="Temporizador/Timer" to="." method="_on_timer_timeout"]

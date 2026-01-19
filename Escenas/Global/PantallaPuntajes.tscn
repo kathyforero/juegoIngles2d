@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cu0dpyjickxqh"]
+[gd_scene load_steps=14 format=3 uid="uid://cu0dpyjickxqh"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
 [ext_resource type="Script" uid="uid://dk7ut6kx3uukb" path="res://Scripts/Global/PantallaPuntajes.gd" id="1_rtl8m"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="4_an7tm"]
 [ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="4_w4kn8"]
 [ext_resource type="Texture2D" uid="uid://cnankw7ub7ikf" path="res://Sprites/mini_games/ContainerLetraFrases.png" id="5_o5mnc"]
+[ext_resource type="FontFile" uid="uid://by6docfjh045t" path="res://Fonts/Retropix-Regular.ttf" id="6_sg1c5"]
 [ext_resource type="Texture2D" uid="uid://basjxg7xw0kpa" path="res://Sprites/TableroInfoPuntajes.png" id="7_77o4p"]
 [ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
 [ext_resource type="Texture2D" uid="uid://bhe6k2m5irfb7" path="res://Sprites/buttons/seguirPuntajeHover.png" id="9_6g8l0"]
@@ -71,56 +72,56 @@ text = "Score"
 
 [node name="Difficulty1" type="Label" parent="Tablero"]
 offset_left = -662.0
-offset_top = -66.0
+offset_top = -98.0
 offset_right = -401.0
-offset_bottom = 45.0
+offset_bottom = 13.0
 theme_override_colors/font_color = Color(0.95686275, 0.74509805, 0.4745098, 1)
-theme_override_fonts/font = ExtResource("4_an7tm")
+theme_override_fonts/font = ExtResource("6_sg1c5")
 theme_override_font_sizes/font_size = 110
 text = "Easy"
 
 [node name="Difficulty2" type="Label" parent="Tablero"]
 offset_left = -662.0
-offset_top = 132.0
+offset_top = 116.0
 offset_right = -277.0
-offset_bottom = 243.0
+offset_bottom = 227.0
 theme_override_colors/font_color = Color(0.95686275, 0.74509805, 0.4745098, 1)
-theme_override_fonts/font = ExtResource("4_an7tm")
+theme_override_fonts/font = ExtResource("6_sg1c5")
 theme_override_font_sizes/font_size = 110
 text = "Medium"
 
 [node name="Difficulty3" type="Label" parent="Tablero"]
 offset_left = -660.0
-offset_top = 330.0
+offset_top = 310.0
 offset_right = -227.0
-offset_bottom = 441.0
+offset_bottom = 421.0
 theme_override_colors/font_color = Color(0.95686275, 0.74509805, 0.4745098, 1)
-theme_override_fonts/font = ExtResource("4_an7tm")
+theme_override_fonts/font = ExtResource("6_sg1c5")
 theme_override_font_sizes/font_size = 110
 text = "Difficult"
 
 [node name="EasyNameLabel" type="Label" parent="Tablero"]
-offset_left = -110.0
+offset_left = -62.0
 offset_top = -66.0
-offset_right = 306.0
+offset_right = 354.0
 offset_bottom = 14.0
 theme_override_fonts/font = ExtResource("4_an7tm")
 theme_override_font_sizes/font_size = 80
 text = "Fulano"
 
 [node name="MediumNameLabel" type="Label" parent="Tablero"]
-offset_left = -106.0
+offset_left = -62.0
 offset_top = 132.0
-offset_right = 310.0
+offset_right = 354.0
 offset_bottom = 212.0
 theme_override_fonts/font = ExtResource("4_an7tm")
 theme_override_font_sizes/font_size = 80
 text = "Pepito"
 
 [node name="HardNameLabel" type="Label" parent="Tablero"]
-offset_left = -110.0
+offset_left = -62.0
 offset_top = 330.0
-offset_right = 306.0
+offset_right = 354.0
 offset_bottom = 410.0
 theme_override_fonts/font = ExtResource("4_an7tm")
 theme_override_font_sizes/font_size = 80

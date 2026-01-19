@@ -1,7 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://b7b6lpl8pnuro"]
 
-[ext_resource type="Script" uid="uid://dnojyjejh5pqy" path="res://Scripts/DificultadPalabra.gd" id="1_4w5kx"]
-[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="11_modal"]
+[ext_resource type="Script" uid="uid://dnojyjejh5pqy" path="res://Scripts/Dificultad_OrderIt.gd" id="1_4w5kx"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="1_simt8"]
 [ext_resource type="Texture2D" uid="uid://cn0bvm36rr6rs" path="res://Sprites/global/Letrero select difficulty order it.png" id="2_3sr3a"]
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="2_8usbs"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="8_jehwx"]
 [ext_resource type="Script" uid="uid://csfyjf2bny35e" path="res://Scripts/AnimationPlayer.gd" id="9_w6nfa"]
 [ext_resource type="Texture2D" uid="uid://bmskod04qg6fv" path="res://Sprites/buttons/Boton_difficult_hover.png" id="10_uit7o"]
+[ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="11_modal"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -134,7 +134,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton2" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 519.0
 offset_top = 530.0
 offset_right = 800.0
@@ -147,7 +146,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="TextureButton3" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 519.0
 offset_top = 600.0
 offset_right = 798.0
@@ -160,7 +158,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(638.25, 554.5)
+position = Vector2(781.00006, 555.00006)
 scale = Vector2(0.274999, 0.274999)
 texture = ExtResource("7_8uica")
 hframes = 2
@@ -172,7 +170,7 @@ libraries = {
 script = ExtResource("8_jehwx")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(637, 626)
+position = Vector2(781, 626)
 scale = Vector2(0.277778, 0.277778)
 texture = ExtResource("7_8uica")
 hframes = 2
