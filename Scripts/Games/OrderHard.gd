@@ -73,6 +73,36 @@ func _end_hint_cooldown() -> void:
 	_hint_disabled_by_cooldown = false
 
 
+var _hint_flash_tween: Tween
+
+func _flash_hint_button_error() -> void:
+	var btn := $Box_inside_game.get_node_or_null("btns_inside_box_game/btn_instructions")
+	if btn == null:
+		return
+	if btn.disabled:
+		return
+
+	if _hint_flash_tween and _hint_flash_tween.is_running():
+		_hint_flash_tween.kill()
+
+	var base_rgb := Color(btn.modulate.r, btn.modulate.g, btn.modulate.b, 1.0)
+	btn.set_meta("_hint_flash_base_rgb", base_rgb)
+
+	var flash := Color(1.0, 0.8, 0.25, btn.modulate.a)
+	btn.modulate = flash
+
+	_hint_flash_tween = create_tween()
+	_hint_flash_tween.tween_interval(1.0)
+	_hint_flash_tween.tween_callback(Callable(self, "_restore_hint_button_modulate").bind(btn))
+
+func _restore_hint_button_modulate(btn: CanvasItem) -> void:
+	if btn == null:
+		return
+	var base_rgb: Color = btn.get_meta("_hint_flash_base_rgb", Color(1, 1, 1))
+	var a := 0.25 if btn.disabled else 1.0
+	btn.modulate = Color(base_rgb.r, base_rgb.g, base_rgb.b, a)
+
+
 var instance
 var instanceAcaboTiempo
 var instantiatedAcaboTiempo = false
