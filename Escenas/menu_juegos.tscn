@@ -220,12 +220,25 @@ offset_right = 90.0
 offset_bottom = 93.0
 
 [node name="candado" type="Sprite2D" parent="."]
-position = Vector2(293, 754)
-scale = Vector2(0.678863, 0.678863)
+position = Vector2(434, 735)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("14_ov08e")
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="candado"]
+libraries = {
+&"": SubResource("AnimationLibrary_3t862")
+}
+script = ExtResource("15_1jjh1")
+
+[node name="candado2" type="Sprite2D" parent="."]
+position = Vector2(1096, 735)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_ov08e")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="candado2"]
+root_node = NodePath("../../candado2")
 libraries = {
 &"": SubResource("AnimationLibrary_3t862")
 }

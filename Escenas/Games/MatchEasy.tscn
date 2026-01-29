@@ -334,6 +334,7 @@ stream = ExtResource("9_qahem")
 volume_db = -1.0
 
 [node name="HintsPanel" type="Panel" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_v8i7e")
 offset_left = 355.0
 offset_top = 834.0

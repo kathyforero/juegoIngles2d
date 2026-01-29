@@ -67,10 +67,10 @@ func _apply_language_texts() -> void:
 	lbl_header3.text = "Score" if en else "Puntaje"
 
 	# Dificultades (solo texto visual)
-	lbl_diff1.text = "Easy" if en else "Facil"
+	lbl_diff1.text = "Easy" if en else "Fácil"
 	lbl_diff2.text = "Medium" if en else "Medio"
 	# Tú tenías "Difficult" en el .tscn; lo normal aquí es "Hard"
-	lbl_diff3.text = "Hard" if en else "Dificil"
+	lbl_diff3.text = "Hard" if en else "Difícil"
 
 	# Sección
 	lbl_seccion.text = "Scores" if en else "Puntajes"

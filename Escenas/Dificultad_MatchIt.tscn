@@ -152,7 +152,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(633.75, 557.564)
+position = Vector2(784, 556)
 scale = Vector2(0.302777, 0.264243)
 texture = ExtResource("8_u01sl")
 hframes = 2
@@ -164,7 +164,7 @@ libraries = {
 script = ExtResource("9_7tsse")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(634, 621.741)
+position = Vector2(784.00006, 625.00006)
 scale = Vector2(0.3, 0.281896)
 texture = ExtResource("8_u01sl")
 hframes = 2

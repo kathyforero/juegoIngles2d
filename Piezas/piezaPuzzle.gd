@@ -147,12 +147,15 @@ func _marcar_correcto():
 func _marcar_incorrecto(): 
 	var principal = get_parent().get_parent()
 	if principal:
+		if principal.has_method("_flash_hint_button_error"):
+			principal._flash_hint_button_error()
 		if principal.precisionActual > principal.precisionMinima:
 			principal.precisionActual -= 10
 		print("Precision ahora: ", principal.precisionActual)
 	$AnimationPlayer.play("Incorrecto")
 	await $AnimationPlayer.animation_finished
 	_reset_position()
+
 
 # Función para reiniciar la posición
 func _reset_position():

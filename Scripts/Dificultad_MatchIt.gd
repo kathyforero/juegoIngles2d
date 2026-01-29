@@ -56,6 +56,14 @@ func update_language_difficulty():
 var medium_desbloqueado = false
 var hard_desbloqueado = false
 
+func _set_difficulty_locked(btn: TextureButton, locked: bool) -> void:
+	if btn == null:
+		return
+	btn.disabled = locked
+	var c: Color = btn.modulate
+	c.a = 0.25 if locked else 1.0
+	btn.modulate = c
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("set_timer")
@@ -66,8 +74,8 @@ func _ready():
 	#emit_signal("update_difficulty", "Easy")
 	#emit_signal("update_level", "1")
 	emit_signal("set_not_visible_image")
-	$TextureButton2.disabled = true
-	$TextureButton3.disabled = true
+	_set_difficulty_locked($TextureButton2, true)
+	_set_difficulty_locked($TextureButton3, true)
 	# Conectar señales gui_input para capturar clics incluso cuando disabled
 	$TextureButton2.gui_input.connect(_on_texture_button_2_gui_input)
 	$TextureButton3.gui_input.connect(_on_texture_button_3_gui_input)
@@ -83,19 +91,19 @@ func actualizar_candados(progreso, minigame):
 	if(progreso[minigame]["medium"] && progreso[minigame]["firstMedium"] == false):
 		$Sprite2D.visible = false
 		medium_desbloqueado = true
-		$TextureButton2.disabled = false
+		_set_difficulty_locked($TextureButton2, false)
 		$TextureButton2.mouse_default_cursor_shape = $TextureButton2.CURSOR_POINTING_HAND
 	if(progreso[minigame]["hard"] && progreso[minigame]["firstHard"] == false):
 		$Sprite2D3.visible=false
 		hard_desbloqueado = true
-		$TextureButton3.disabled = false
+		_set_difficulty_locked($TextureButton3, false)
 		$TextureButton3.mouse_default_cursor_shape = $TextureButton3.CURSOR_POINTING_HAND
 	
 	if(progreso[minigame]["medium"] && progreso[minigame]["firstMedium"]):
 		$Sprite2D/AnimationPlayer.play("Unlock")
 		await $Sprite2D/AnimationPlayer.animation_finished
 		medium_desbloqueado = true
-		$TextureButton2.disabled = false
+		_set_difficulty_locked($TextureButton2, false)
 		$TextureButton2.mouse_default_cursor_shape = $TextureButton2.CURSOR_POINTING_HAND
 		progreso[minigame]["firstMedium"] = false
 		actualizar_archivo(progreso, Global.rutaArchivos+"/Progress/progressMinigames.dat")
@@ -104,7 +112,7 @@ func actualizar_candados(progreso, minigame):
 		$Sprite2D3/AnimationPlayer.play("Unlock")
 		await $Sprite2D3/AnimationPlayer.animation_finished
 		hard_desbloqueado = true
-		$TextureButton3.disabled = false	
+		_set_difficulty_locked($TextureButton3, false)
 		$TextureButton3.mouse_default_cursor_shape = $TextureButton3.CURSOR_POINTING_HAND
 		progreso[minigame]["firstHard"] = false
 		actualizar_archivo(progreso, Global.rutaArchivos+"/Progress/progressMinigames.dat")

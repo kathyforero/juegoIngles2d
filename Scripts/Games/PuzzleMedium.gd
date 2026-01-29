@@ -21,7 +21,91 @@ var instance
 
 @onready var hints_panel = $HintsPanel
 @onready var hints_label = $HintsPanel/Label
-var pistas_restantes := 2  # Medium: 2 hints
+var pistas_restantes := 8
+
+var en: bool = false
+
+const HINT_COOLDOWN_SEC := 3
+var _hint_on_cooldown: bool = false
+var _hint_disabled_by_cooldown: bool = false
+
+func _load_language_setting() -> bool:
+	if FileAccess.file_exists("res://language_setting.json"):
+		var json_as_text := FileAccess.get_file_as_string("res://language_setting.json")
+		var data = JSON.parse_string(json_as_text)
+		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
+			return bool(data["english"])
+	return false  # default ES
+
+func _hint_no_remaining() -> String:
+	return "No hints remaining!" if en else "¡No quedan pistas!"
+
+func _hint_remaining(n: int) -> String:
+	return (str(n) + " Hints Remaining") if en else ("Quedan " + str(n) + " pistas")
+
+func _hint_infinite() -> String:
+	return "∞ Hints" if en else "∞ Pistas"
+
+func _set_hint_button_disabled(disabled: bool) -> void:
+	var btn := $Box_inside_game.get_node_or_null("btns_inside_box_game/btn_instructions")
+	if not btn:
+		return
+	btn.disabled = disabled
+	var c: Color = btn.modulate
+	c.a = 0.25 if disabled else 1.0
+	btn.modulate = c
+
+func _start_hint_cooldown() -> void:
+	_hint_on_cooldown = true
+	_hint_disabled_by_cooldown = false
+
+	var btn := $Box_inside_game.get_node_or_null("btns_inside_box_game/btn_instructions")
+	if btn and not btn.disabled:
+		_set_hint_button_disabled(true)
+		_hint_disabled_by_cooldown = true
+
+	get_tree().create_timer(HINT_COOLDOWN_SEC).connect("timeout", Callable(self, "_end_hint_cooldown"))
+
+func _end_hint_cooldown() -> void:
+	_hint_on_cooldown = false
+
+	if _hint_disabled_by_cooldown and not _ta_finished:
+		var can_enable := _is_practice or pistas_restantes > 0
+		if can_enable:
+			_set_hint_button_disabled(false)
+
+	_hint_disabled_by_cooldown = false
+
+
+var _hint_flash_tween: Tween
+
+func _flash_hint_button_error() -> void:
+	var btn := $Box_inside_game.get_node_or_null("btns_inside_box_game/btn_instructions")
+	if btn == null:
+		return
+	if btn.disabled:
+		return
+
+	if _hint_flash_tween and _hint_flash_tween.is_running():
+		_hint_flash_tween.kill()
+
+	var base_rgb := Color(btn.modulate.r, btn.modulate.g, btn.modulate.b, 1.0)
+	btn.set_meta("_hint_flash_base_rgb", base_rgb)
+
+	var flash := Color(1.0, 0.8, 0.25, btn.modulate.a)
+	btn.modulate = flash
+
+	_hint_flash_tween = create_tween()
+	_hint_flash_tween.tween_interval(1.0)
+	_hint_flash_tween.tween_callback(Callable(self, "_restore_hint_button_modulate").bind(btn))
+
+func _restore_hint_button_modulate(btn: CanvasItem) -> void:
+	if btn == null:
+		return
+	var base_rgb: Color = btn.get_meta("_hint_flash_base_rgb", Color(1, 1, 1))
+	var a := 0.25 if btn.disabled else 1.0
+	btn.modulate = Color(base_rgb.r, base_rgb.g, base_rgb.b, a)
+
 
 #Ruta donde se encuentra el ejecutable
 var ejecutablePath = Global.rutaArchivos
@@ -93,6 +177,7 @@ func _ready():
 	_is_time_attack = (Score.current_mode == Score.Mode.TIME_ATTACK)
 	_is_practice = (Score.current_mode == Score.Mode.PRACTICE)
 	_ta_finished = false
+	en = _load_language_setting()
 
 	# Si venimos desde Time Attack Config, el tiempo se toma de Score.time_attack_seconds
 	if _is_time_attack:
@@ -222,22 +307,27 @@ func _animacion_retorno():
 	
 #Da pista tomando en cuenta las píezas que no han sido puestas
 func _dar_pista():
+	if _hint_on_cooldown:
+		return
+	_start_hint_cooldown()
+
 	if not _is_practice:
 		if pistas_restantes <= 0:
-			hints_label.text = "No hints remaining!"
+			hints_label.text = _hint_no_remaining()
 			hints_panel.visible = true
 			get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
+			_set_hint_button_disabled(true)
 			return
 
 		pistas_restantes -= 1
-		hints_label.text = str(pistas_restantes) + " Hints Remaining"
+		hints_label.text = _hint_remaining(pistas_restantes)
 	else:
-		hints_label.text = "∞ Hints"
+		hints_label.text = _hint_infinite()
 
 	hints_panel.visible = true
 	get_tree().create_timer(3.0).connect("timeout", Callable(self, "_hide_hints_panel"))
 
-	var numeros = [0, 1, 2, 3]
+	var numeros = [0, 1, 2]
 	while numeros.size() > 0:
 		var indice_aleatorio = randi() % numeros.size()
 		var numero_seleccionado = numeros[indice_aleatorio]
@@ -251,6 +341,7 @@ func _dar_pista():
 			nodePiezaBox._animacion_pista()
 			return
 		numeros.remove_at(indice_aleatorio)
+
 
 func _hide_hints_panel():
 	hints_panel.visible = false

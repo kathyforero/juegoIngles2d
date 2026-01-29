@@ -65,6 +65,10 @@ func _on_button_button_up():
 			correct = true
 			locked = true
 		else:
+			var scene := get_tree().current_scene
+			if scene and scene.has_method("_flash_hint_button_error"):
+				scene._flash_hint_button_error()
+
 			$AnimationPlayer.play("Incorrecto")
 			await $AnimationPlayer.animation_finished
 			position = originalpos
@@ -72,9 +76,9 @@ func _on_button_button_up():
 			locked = false
 			if Score.perfectBonus > 20:
 				Score.perfectBonus -= 10
-				var scene := get_tree().current_scene
 				if scene and scene.has_method("_ta_update_live_score"):
 					scene._ta_update_live_score()
+
 	else:
 		position = originalpos
 
@@ -117,6 +121,10 @@ func _posicionar_automaticamente() -> void:
 			correct = true
 			locked = true
 		else:
+			var sc := get_tree().current_scene
+			if sc and sc.has_method("_flash_hint_button_error"):
+				sc._flash_hint_button_error()
+
 			$AnimationPlayer.play("Incorrecto")
 			await $AnimationPlayer.animation_finished
 			position = originalpos
@@ -130,9 +138,9 @@ func _posicionar_automaticamente() -> void:
 			# Penalización (igual que en tu drop normal)
 			if Score.perfectBonus > 20:
 				Score.perfectBonus -= 10
-				var sc := get_tree().current_scene
 				if sc and sc.has_method("_ta_update_live_score"):
 					sc._ta_update_live_score()
+
 		return
 
 
