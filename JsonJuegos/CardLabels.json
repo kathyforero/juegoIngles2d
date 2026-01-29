@@ -298,61 +298,13 @@
 	},
 
 	{
-	  "label": "Personas",
-	  "label_en": "People",
+	  "label": "Tiempo",
+	  "label_en": "Time",
 	  "sprites": [
-		"res://Sprites/images_games/order/Hard/family.jpg",
-		"res://Sprites/images_games/order/Hard/friend.png",
-		"res://Sprites/images_games/order/Hard/doctor.png",
-		"res://Sprites/images_games/order/Hard/singer.png",
-        "res://Sprites/images_games/order/Hard/people.png"
+		"res://Sprites/images_games/order/Hard/future.png"
 	  ],
 	  "cards": [
-		"Family:\nFamilia",
-		"Friend:\nAmigo",
-		"Doctor:\nDoctor",
-		"Singer:\nCantante",
-        "People:\nPersonas"
-	  ]
-	},
-
-	{
-	  "label": "Escuela",
-	  "label_en": "School",
-	  "sprites": [
-		"res://Sprites/images_games/puzzle/INGLES.png",
-		"res://Sprites/images_games/puzzle/MATEMATICAS.png",
-        "res://Sprites/images_games/order/Easy/math.png"
-	  ],
-	  "cards": [
-		"English:\nInglés",
-		"Math:\nMatemáticas",
-        "Homework:\nTarea"
-	  ]
-	},
-
-	{
-	  "label": "Misc.",
-	  "label_en": "Misc.",
-	  "sprites": [
-		"res://Sprites/images_games/order/Easy/blue.png",
-		"res://Sprites/images_games/order/Easy/cold.png",
-		"res://Sprites/images_games/order/Medium/happy.png",
-		"res://Sprites/images_games/order/Medium/music.png",
-		"res://Sprites/images_games/order/Medium/smile.png",
-		"res://Sprites/images_games/order/Medium/heart.png",
-		"res://Sprites/images_games/order/Easy/game.png",
-        "res://Sprites/images_games/order/Easy/hand.png"
-	  ],
-	  "cards": [
-		"Blue:\nAzul",
-		"Cold:\nFrío",
-		"Happy:\nFeliz",
-		"Music:\nMúsica",
-		"Smile:\nSonrisa",
-		"Heart:\nCorazón",
-		"Game:\nJuego",
-        "Hand:\nMano"
+		"Future:\nFuturo"
 	  ]
 	}
   ]
