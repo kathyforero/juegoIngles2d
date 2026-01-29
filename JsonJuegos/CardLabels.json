@@ -301,10 +301,12 @@
 	  "label": "Tiempo",
 	  "label_en": "Time",
 	  "sprites": [
-		"res://Sprites/images_games/order/Hard/future.png"
+		"res://Sprites/images_games/order/Hard/future.png",
+		"res://Sprites/images_games/order/Hard/past.png"
 	  ],
 	  "cards": [
-		"Future:\nFuturo"
+		"Future:\nFuturo",
+		"Past:\nPasado"
 	  ]
 	}
   ]
