@@ -300,13 +300,17 @@
 	{
 	  "label": "Tiempo",
 	  "label_en": "Time",
-	  "sprites": [
+    "sprites": [
+		"res://Sprites/images_games/order/Hard/past.png",
+		"res://Sprites/images_games/order/Hard/Ayer.png",
 		"res://Sprites/images_games/order/Hard/future.png",
-		"res://Sprites/images_games/order/Hard/past.png"
+		"res://Sprites/images_games/order/Hard/Mañana.png"
 	  ],
 	  "cards": [
+		"Past:\nPasado",
+		"Yesterday:\nAyer",
 		"Future:\nFuturo",
-		"Past:\nPasado"
+		"Tomorrow:\nMañana"
 	  ]
 	}
   ]
