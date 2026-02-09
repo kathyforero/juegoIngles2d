@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="JuegoIngles2D"
+config/name="JuegoIngles2D MergeFinal Remoto"
 run/main_scene="res://Escenas/menu_principal.tscn"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://Sprites/icon.svg"
@@ -24,9 +24,12 @@ buses/default_bus_layout=""
 ButtonClick="*res://Escenas/Global/buttonClick.tscn"
 BackgroundMusic="*res://Escenas/Global/background_music.tscn"
 Score="*res://Scripts/Global/Score.gd"
-BancoFrases="*res://Scripts/Global/BancoFrases.gd"
 Global="*res://Scripts/Global/Global.gd"
-DificultadRandom="*res://Scripts/DificultadRandom.gd"
+DificultadRandom="*res://Scripts/Dificultad_Random.gd"
+BancoPuzzle="*res://Scripts/Global/Banco_Puzzle.gd"
+BancoOrderIt="*res://Scripts/Global/Banco_OrderIt.gd"
+BancoMatchIt="*res://Scripts/Global/Banco_MatchIt.gd"
+SceneRouter="*res://Scripts/scene_router.gd"
 
 [display]
 

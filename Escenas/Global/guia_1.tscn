@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://guia1scene"]
+[gd_scene load_steps=19 format=3 uid="uid://clx0echsxmbjm"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
-[ext_resource type="Script" uid="uid://cfhi485tgf86w" path="res://Scripts/Guia.gd" id="1_rtl8m"]
+[ext_resource type="Script" uid="uid://dyx0rfsns2un7" path="res://Scripts/Guia.gd" id="1_rtl8m"]
 [ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="2_cnaa0"]
 [ext_resource type="Texture2D" uid="uid://bmod2si6oetow" path="res://Sprites/buttons/Boton_Guia.png" id="4_d3r3n"]
 [ext_resource type="Texture2D" uid="uid://daly56xxhs84s" path="res://Sprites/buttons/Boton_Guia_Hover.png" id="5_o54eq"]

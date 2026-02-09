@@ -34,6 +34,7 @@ const PREDICATES := [
 	"in the museum",
 	"in the city",
 	"in the garden",
+	"in the library",
 	"on the beach",
 	"in the coliseum",
 	"in the stadium"

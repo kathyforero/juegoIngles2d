@@ -1,0 +1,303 @@
+[gd_scene load_steps=17 format=3 uid="uid://bj1mma77iqrjc"]
+
+[ext_resource type="Script" uid="uid://cwkd70xk4o811" path="res://Scripts/time_attack_config.gd" id="1_sju8y"]
+[ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="2_yq774"]
+[ext_resource type="Texture2D" uid="uid://dtfvr6dmjys6b" path="res://Sprites/mini_games/Tablero_minigame.png" id="3_ngsk1"]
+[ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="4_t16be"]
+[ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="5_5nce1"]
+[ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="5_p8pba"]
+[ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="6_4rs64"]
+[ext_resource type="Texture2D" uid="uid://cu0i06sruddhf" path="res://Sprites/global/cards - timeattack.png" id="9_v01h7"]
+[ext_resource type="Texture2D" uid="uid://cufijlsaxqdx8" path="res://Sprites/mini_games/Dibujo puzzles.png" id="10_v01h7"]
+[ext_resource type="Texture2D" uid="uid://cxrqvvuddwr7o" path="res://Sprites/mini_games/Boton Puzzles.png" id="11_pfr8r"]
+[ext_resource type="Texture2D" uid="uid://bqmec4vfmg3mu" path="res://Sprites/buttons/btn_jugar_principal.png" id="12_1m563"]
+[ext_resource type="Texture2D" uid="uid://cguy374ehh0lq" path="res://Sprites/mini_games/Dibujo match it.png" id="12_pfr8r"]
+[ext_resource type="Texture2D" uid="uid://bwkababwghvx" path="res://Sprites/mini_games/Boton Match it.png" id="13_1m563"]
+[ext_resource type="Texture2D" uid="uid://cdlq28w1l3pmc" path="res://Sprites/mini_games/Dibujo Order it.png" id="14_euret"]
+[ext_resource type="Texture2D" uid="uid://dytluhvtfl6pu" path="res://Sprites/mini_games/Boton Order it.png" id="15_lwcpb"]
+[ext_resource type="Texture2D" uid="uid://qkoqtb5h3bn3" path="res://Sprites/mini_games/star - timeattack.png" id="16_pfr8r"]
+
+[node name="TimeAttackConfig" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sju8y")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_yq774")]
+
+[node name="Tablero" type="Sprite2D" parent="."]
+position = Vector2(646, 493)
+scale = Vector2(0.219223, 0.219223)
+texture = ExtResource("3_ngsk1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 100.0
+offset_right = 1281.0
+offset_bottom = 285.0
+texture = ExtResource("5_p8pba")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LblTittle" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 19.0
+offset_right = 826.0
+offset_bottom = 165.0
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 55
+text = "TURBO
+MODE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Board" type="Control" parent="UI"]
+anchors_preset = 0
+offset_left = 318.0
+offset_top = 269.0
+offset_right = 958.0
+offset_bottom = 709.0
+
+[node name="TopBar" type="Control" parent="UI/Board"]
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 440.0
+
+[node name="btn_go_back" parent="UI/Board/TopBar" instance=ExtResource("4_t16be")]
+layout_mode = 0
+offset_left = -267.5
+offset_top = -180.0
+offset_right = -227.5
+offset_bottom = -140.0
+
+[node name="btn_sound" parent="UI/Board/TopBar" instance=ExtResource("5_5nce1")]
+layout_mode = 1
+offset_left = 857.5
+offset_top = -191.0
+offset_right = 858.1401
+offset_bottom = -190.68001
+
+[node name="PanelMinigames" type="Control" parent="UI/Board"]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 44.0
+offset_right = 50.0
+offset_bottom = 84.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Board/PanelMinigames"]
+position = Vector2(146, 144.00002)
+scale = Vector2(0.7734807, 0.73137695)
+texture = ExtResource("9_v01h7")
+
+[node name="LblMinigamesTitle" type="Label" parent="UI/Board/PanelMinigames"]
+layout_mode = 0
+offset_left = -130.0
+offset_top = 8.0
+offset_right = 421.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.24650815, 0.098954804, 0.029884094, 1)
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 25
+text = "CHOOSE MINIGAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnPuzzles" type="Button" parent="UI/Board/PanelMinigames"]
+layout_mode = 0
+offset_left = -116.0
+offset_top = 59.0
+offset_right = 46.0
+offset_bottom = 288.0
+toggle_mode = true
+icon = ExtResource("10_v01h7")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Board/PanelMinigames/BtnPuzzles"]
+position = Vector2(80.5, 192)
+scale = Vector2(0.13416666, 0.17834829)
+texture = ExtResource("11_pfr8r")
+
+[node name="BtnMatchIt" type="Button" parent="UI/Board/PanelMinigames"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 59.0
+offset_right = 225.0
+offset_bottom = 288.0
+toggle_mode = true
+icon = ExtResource("12_pfr8r")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Board/PanelMinigames/BtnMatchIt"]
+position = Vector2(80.5, 192)
+scale = Vector2(0.13416666, 0.17834829)
+texture = ExtResource("13_1m563")
+
+[node name="BtnOrderIt" type="Button" parent="UI/Board/PanelMinigames"]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 59.0
+offset_right = 406.0
+offset_bottom = 288.0
+toggle_mode = true
+icon = ExtResource("14_euret")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Board/PanelMinigames/BtnOrderIt"]
+position = Vector2(80.5, 192)
+scale = Vector2(0.13416666, 0.17834829)
+texture = ExtResource("15_lwcpb")
+
+[node name="PanelDifficulty" type="Control" parent="UI/Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Board/PanelDifficulty"]
+position = Vector2(608, 114.0625)
+scale = Vector2(0.43687508, 0.39376166)
+texture = ExtResource("9_v01h7")
+
+[node name="LblDifficultyTitle" type="Label" parent="UI/Board/PanelDifficulty"]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 41.0
+offset_right = 763.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(0.24705882, 0.09803922, 0.03137255, 1)
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 25
+text = "CHOOSE
+DIFFICULTY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnStar1" type="Button" parent="UI/Board/PanelDifficulty"]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 97.0
+offset_right = 562.0
+offset_bottom = 196.0
+theme_override_colors/font_color = Color(0.85882354, 0.6313726, 0, 1)
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+icon = ExtResource("16_pfr8r")
+flat = true
+expand_icon = true
+
+[node name="BtnStar2" type="Button" parent="UI/Board/PanelDifficulty"]
+layout_mode = 0
+offset_left = 566.0
+offset_top = 97.0
+offset_right = 649.0
+offset_bottom = 196.0
+theme_override_colors/font_color = Color(0.85882354, 0.6313726, 0, 1)
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+icon = ExtResource("16_pfr8r")
+flat = true
+expand_icon = true
+
+[node name="BtnStar3" type="Button" parent="UI/Board/PanelDifficulty"]
+layout_mode = 0
+offset_left = 653.0
+offset_top = 96.0
+offset_right = 736.0
+offset_bottom = 195.0
+theme_override_colors/font_color = Color(0.85882354, 0.6313726, 0, 1)
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+icon = ExtResource("16_pfr8r")
+flat = true
+expand_icon = true
+
+[node name="PanelTime" type="Control" parent="UI/Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Board/PanelTime"]
+position = Vector2(608, 332)
+scale = Vector2(0.43687508, 0.39376166)
+texture = ExtResource("9_v01h7")
+
+[node name="LblTimeBig" type="Label" parent="UI/Board/PanelTime"]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 263.0
+offset_right = 763.0
+offset_bottom = 294.0
+theme_override_colors/font_color = Color(0.24705882, 0.09803922, 0.03137255, 1)
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 30
+text = "60 SEC"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Btn60" type="Button" parent="UI/Board/PanelTime"]
+layout_mode = 0
+offset_left = 473.0
+offset_top = 314.0
+offset_right = 556.0
+offset_bottom = 397.0
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 25
+toggle_mode = true
+text = "60
+SEC"
+
+[node name="Btn120" type="Button" parent="UI/Board/PanelTime"]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 314.0
+offset_right = 648.0
+offset_bottom = 397.0
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 25
+toggle_mode = true
+text = "120
+SEC"
+
+[node name="Btn180" type="Button" parent="UI/Board/PanelTime"]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 314.0
+offset_right = 741.0
+offset_bottom = 397.0
+theme_override_fonts/font = ExtResource("6_4rs64")
+theme_override_font_sizes/font_size = 25
+toggle_mode = true
+text = "180
+SEC"
+
+[node name="BtnStart" type="Button" parent="UI/Board"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 362.0
+offset_right = 285.0
+offset_bottom = 443.0
+icon = ExtResource("12_1m563")
+flat = true
+icon_alignment = 1
+expand_icon = true

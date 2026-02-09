@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://guia2scene"]
+[gd_scene load_steps=24 format=3 uid="uid://decxtrh1uguwv"]
 
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_mnt6j"]
-[ext_resource type="Script" uid="uid://cfhi485tgf86w" path="res://Scripts/Guia.gd" id="1_rtl8m"]
+[ext_resource type="Script" uid="uid://dyx0rfsns2un7" path="res://Scripts/Guia.gd" id="1_rtl8m"]
 [ext_resource type="Texture2D" uid="uid://bqk1d4psul3o6" path="res://Sprites/global/Fondo_mesa_juego.png" id="2_cnaa0"]
 [ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="8_0eotb"]
 [ext_resource type="Texture2D" uid="uid://b5a6s0vkmbud8" path="res://Sprites/buttons/seguirPuntaje.png" id="8_dttvj"]
@@ -243,6 +243,31 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Tag1" type="Label" parent="Categoria7"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 14.0
+offset_right = 224.0
+offset_bottom = 50.0
+theme = ExtResource("12_h5syi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Categoria"
+label_settings = SubResource("LabelSettings_xcv02")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Categoria8" type="TextureButton" parent="."]
+offset_left = 72.0
+offset_top = 704.0
+offset_right = 320.0
+offset_bottom = 768.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_hjplg")
+texture_hover = ExtResource("11_lt6of")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Tag1" type="Label" parent="Categoria8"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 14.0

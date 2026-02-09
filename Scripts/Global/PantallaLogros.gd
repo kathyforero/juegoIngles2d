@@ -2,7 +2,6 @@ extends Node2D
 
 var en: bool = false
 const TOTAL_LOGROS = 5
-# Called when the node enters the scene tree for the first time.
 
 func load_language_setting():
 	if FileAccess.file_exists("res://language_setting.json"):
@@ -11,15 +10,11 @@ func load_language_setting():
 		en = json_as_dict["english"]
 		return
 	en = false
-	
+
 func update_language_scores_screen():
-	if en:
-		$Logros.text = "Achievements"
-	else:
-		$Logros.text = "Logros"
+	$Logros.text = "Achievements" if en else "Logros"
 
 func _ready():
-	#Leer archivo
 	load_language_setting()
 	update_language_scores_screen()
 	update_logros()
@@ -27,6 +22,7 @@ func _ready():
 func update_logros():
 	var total = Score.get_unlocked_achievements_count()
 	$NumLogros.text = str(total) + "/" + str(TOTAL_LOGROS)
+
 	_set_logro_sprite($LogroPuzzle, "puzzle")
 	_set_logro_sprite($LogroMatchIt, "match")
 	_set_logro_sprite($LogroOrderIt, "order")
@@ -40,13 +36,6 @@ func _set_logro_sprite(sprite: Sprite2D, logro_id: String) -> void:
 	if texture_path != "":
 		sprite.texture = load(texture_path)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_salir_button_pressed():
 	ButtonClick.button_click()
 	get_tree().change_scene_to_file("res://Escenas/menu_principal.tscn")
-	pass # Replace with function body.

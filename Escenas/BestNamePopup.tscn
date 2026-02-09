@@ -1,0 +1,151 @@
+[gd_scene load_steps=4 format=3 uid="uid://bes70044ak1if"]
+
+[ext_resource type="Texture2D" uid="uid://cu0i06sruddhf" path="res://Sprites/global/cards - timeattack.png" id="1_y261t"]
+[ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="2_p7p2t"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="3_8syml"]
+
+[node name="BestNamePopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -110.0
+offset_right = 220.0
+offset_bottom = 110.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer"]
+position = Vector2(277.50003, 115.625)
+scale = Vector2(0.81767964, 0.59311515)
+texture = ExtResource("1_y261t")
+
+[node name="Panel" type="Control" parent="CenterContainer"]
+custom_minimum_size = Vector2(440, 220)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.5
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="Control" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -4.0
+offset_right = 562.0
+offset_bottom = 28.0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.22921845, 0.107878916, 0.013080073, 1)
+theme_override_fonts/font = ExtResource("2_p7p2t")
+theme_override_font_sizes/font_size = 32
+text = "New Best Score!"
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 44.0
+offset_right = 561.0
+offset_bottom = 79.0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.22921845, 0.107878916, 0.013080073, 1)
+theme_override_fonts/font = ExtResource("2_p7p2t")
+text = "You got a new best score.
+Write your name:"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="NameRow" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBox"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 98.0
+offset_right = 499.0
+offset_bottom = 130.0
+
+[node name="NameLabel" type="Label" parent="CenterContainer/Panel/MarginContainer/VBox/NameRow"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.22921845, 0.107878916, 0.013080073, 1)
+theme_override_fonts/font = ExtResource("2_p7p2t")
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="CenterContainer/Panel/MarginContainer/VBox/NameRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_p7p2t")
+placeholder_text = "Enter your name"
+
+[node name="ButtonsRow" type="Control" parent="CenterContainer/Panel/MarginContainer/VBox"]
+anchors_preset = 0
+offset_top = 134.0
+offset_right = 440.0
+offset_bottom = 165.0
+size_flags_vertical = 0
+
+[node name="CancelButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBox/ButtonsRow"]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 14.0
+offset_right = 268.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.15735397, 0.08493731, 0.014970336, 1)
+theme_override_fonts/font = ExtResource("2_p7p2t")
+text = "Cancel"
+icon = ExtResource("3_8syml")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="SaveButton" type="Button" parent="CenterContainer/Panel/MarginContainer/VBox/ButtonsRow"]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 14.0
+offset_right = 487.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.15735397, 0.08493731, 0.014970336, 1)
+theme_override_fonts/font = ExtResource("2_p7p2t")
+text = "Save"
+icon = ExtResource("3_8syml")
+flat = true
+icon_alignment = 1
+expand_icon = true

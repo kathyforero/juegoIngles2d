@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://4axweujk3q73"]
+[gd_scene load_steps=15 format=3 uid="uid://4axweujk3q73"]
 
 [ext_resource type="Script" uid="uid://cpdvsfk14lhlq" path="res://Scripts/Puntaje.gd" id="1_da5bc"]
 [ext_resource type="Texture2D" uid="uid://dfqhr1lcxhukc" path="res://Sprites/global/Background_game.png" id="2_2sjkm"]
@@ -6,7 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://btk1xkyf2fyr8" path="res://Sprites/buttons/Boton_Next.png" id="5_mfcgm"]
 [ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="6_63w4k"]
 [ext_resource type="Texture2D" uid="uid://dysynh8dy4kgi" path="res://Sprites/global/texto felicitaciones.png" id="6_li3sf"]
+[ext_resource type="Texture2D" uid="uid://byyrv8xfvmrel" path="res://Sprites/mini_games/wow.png" id="8_g3djh"]
 [ext_resource type="AudioStream" uid="uid://bfv3xkxn5hs8y" path="res://Sonido/subidaPuntaje.mp3" id="8_spwxl"]
+[ext_resource type="PackedScene" uid="uid://bes70044ak1if" path="res://Escenas/BestNamePopup.tscn" id="9_5x4im"]
+[ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="9_upoh7"]
 [ext_resource type="Texture2D" uid="uid://b6adqoc1dhqe5" path="res://Sprites/Hojas en letrero.png" id="9_v2qdo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_htnof"]
@@ -72,8 +75,37 @@ offset_left = 858.0
 offset_top = 381.0
 offset_right = 910.0
 offset_bottom = 428.0
-text = "00"
+text = "0"
 label_settings = SubResource("LabelSettings_htnof")
+
+[node name="NewBestFrame" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1061.5, 174.25002)
+scale = Vector2(0.32747394, 0.3266602)
+texture = ExtResource("8_g3djh")
+
+[node name="NewBestLabel" type="Label" parent="."]
+visible = false
+offset_left = 964.0
+offset_top = 157.5
+offset_right = 1166.0
+offset_bottom = 222.5
+theme_override_colors/font_color = Color(1.1377786, 1.1377786, 1.1377786, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_upoh7")
+theme_override_font_sizes/font_size = 30
+text = "NEW
+RECORD!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BestNameDialog" parent="." instance=ExtResource("9_5x4im")]
+visible = false
+offset_left = 581.0
+offset_top = 144.0
+offset_right = 581.0
+offset_bottom = 144.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Puntaje2" type="Label" parent="."]
 offset_left = 830.0
@@ -119,3 +151,6 @@ label_settings = SubResource("LabelSettings_htnof")
 stream = ExtResource("8_spwxl")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="BestNameDialog/CenterContainer/Panel/MarginContainer/VBox/ButtonsRow/CancelButton" to="." method="_on_BestNameDialog_cancelled"]
+
+[editable path="BestNameDialog"]

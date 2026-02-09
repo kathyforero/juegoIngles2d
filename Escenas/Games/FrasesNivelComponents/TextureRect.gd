@@ -13,8 +13,6 @@ func update_container_button(name):
 	var buttonScript = load(SCRIPTS_PATH+"/botonOrdenate.gd")
 	button.set_script(buttonScript)
 	add_child(button)
-
-
 	
 func _on_timer_timeout(ra):
 	# Código que deseas ejecutar después del tiempo

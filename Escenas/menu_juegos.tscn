@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://cu1nuxh8st3ux"]
 
-[ext_resource type="Script" uid="uid://cxc5bgurkkjxn" path="res://Scripts/menu_juegos1.gd" id="1_8om4q"]
+[ext_resource type="Script" uid="uid://cxc5bgurkkjxn" path="res://Scripts/menu_juegos.gd" id="1_8om4q"]
 [ext_resource type="PackedScene" uid="uid://c183geb74nt45" path="res://Escenas/Global/parallax_background.tscn" id="1_ae3ik"]
 [ext_resource type="PackedScene" uid="uid://dc1k87rpikrsk" path="res://Escenas/Global/ModalBloqueo.tscn" id="1_modal"]
 [ext_resource type="Texture2D" uid="uid://dtfvr6dmjys6b" path="res://Sprites/mini_games/Tablero_minigame.png" id="3_prnin"]
@@ -12,12 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://cdlq28w1l3pmc" path="res://Sprites/mini_games/Dibujo Order it.png" id="9_yvfam"]
 [ext_resource type="Texture2D" uid="uid://dytluhvtfl6pu" path="res://Sprites/mini_games/Boton Order it.png" id="10_yd6ht"]
 [ext_resource type="PackedScene" uid="uid://xwnqhcqrd6mc" path="res://Escenas/Global/btn_sounds.tscn" id="11_13b7x"]
-[ext_resource type="Texture2D" uid="uid://0rxgucjtppx7" path="res://Sprites/mini_games/Letrero_Random.png" id="11_ov08e"]
 [ext_resource type="PackedScene" uid="uid://875h5ifgqt53" path="res://Escenas/Global/btn_go_back.tscn" id="11_qllet"]
+[ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="12_vk4gg"]
+[ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="13_70jnk"]
 [ext_resource type="Texture2D" uid="uid://cpgtso7quhpj8" path="res://Sprites/pngtree-padlocks-or-lock-open-and-closed-icons-isolated-transparant-png-image_5213443.png" id="14_ov08e"]
 [ext_resource type="Script" uid="uid://ch1elwjjyojaw" path="res://Scripts/AnimationPlayer1.gd" id="15_1jjh1"]
-[ext_resource type="FontFile" uid="uid://bwypsxqradgdm" path="res://Fonts/PixelOperator8-Bold.ttf" id="17_rym7l"]
-[ext_resource type="Texture2D" uid="uid://bk1kqcvbf06jb" path="res://Sprites/global/letreroVacio.png" id="18_rk57w"]
+[ext_resource type="Texture2D" uid="uid://ccts7ok7r1xkk" path="res://Sprites/Tablero congratulation.png" id="17_rym7l"]
 
 [sub_resource type="Animation" id="Animation_aggsv"]
 length = 0.001
@@ -120,7 +120,7 @@ scale = Vector2(0.219223, 0.219223)
 texture = ExtResource("3_prnin")
 
 [node name="Letrero" type="Sprite2D" parent="."]
-position = Vector2(632.00006, 171)
+position = Vector2(632, 192)
 scale = Vector2(0.219223, 0.219223)
 texture = ExtResource("4_41r5y")
 
@@ -169,20 +169,41 @@ texture_normal = ExtResource("9_yvfam")
 position = Vector2(592.652, 1339.13)
 texture = ExtResource("10_yd6ht")
 
-[node name="btn_random" type="TextureButton" parent="."]
+[node name="btn_time_attack" type="Button" parent="."]
 layout_mode = 0
-offset_left = 226.0
-offset_top = 699.0
-offset_right = 665.0
-offset_bottom = 848.0
-size_flags_horizontal = 4
-size_flags_stretch_ratio = 0.0
+offset_left = 790.0
+offset_top = 694.0
+offset_right = 1158.0
+offset_bottom = 855.0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_constants/h_separation = 4
+theme_override_fonts/font = ExtResource("12_vk4gg")
+theme_override_font_sizes/font_size = 34
+text = "TIME
+ATTACK"
+icon = ExtResource("13_70jnk")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="Sprite2D" type="Sprite2D" parent="btn_random"]
-position = Vector2(219, 74)
-scale = Vector2(0.163003, 0.18)
-texture = ExtResource("11_ov08e")
+[node name="btn_random" type="Button" parent="."]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 694.1953
+offset_right = 497.0
+offset_bottom = 855.1953
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_constants/h_separation = 4
+theme_override_fonts/font = ExtResource("12_vk4gg")
+theme_override_font_sizes/font_size = 34
+text = "MODO
+ALEATORIO"
+icon = ExtResource("13_70jnk")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="btn_sound" parent="." instance=ExtResource("11_13b7x")]
 layout_mode = 1
@@ -193,14 +214,14 @@ offset_bottom = 42.32
 
 [node name="btn_go_back" parent="." instance=ExtResource("11_qllet")]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 42.0
-offset_right = 88.0
-offset_bottom = 82.0
+offset_left = 50.0
+offset_top = 53.0
+offset_right = 90.0
+offset_bottom = 93.0
 
 [node name="candado" type="Sprite2D" parent="."]
-position = Vector2(425, 759)
-scale = Vector2(0.678863, 0.678863)
+position = Vector2(434, 735)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("14_ov08e")
 hframes = 2
 
@@ -210,24 +231,33 @@ libraries = {
 }
 script = ExtResource("15_1jjh1")
 
-[node name="ModalBloqueo" parent="." instance=ExtResource("1_modal")]
-layout_mode = 1
+[node name="candado2" type="Sprite2D" parent="."]
+position = Vector2(1096, 735)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_ov08e")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="candado2"]
+root_node = NodePath("../../candado2")
+libraries = {
+&"": SubResource("AnimationLibrary_3t862")
+}
+script = ExtResource("15_1jjh1")
 
 [node name="btn_practice_on" type="Button" parent="."]
 layout_mode = 0
-offset_left = 672.0
-offset_top = 687.0
-offset_right = 1050.0
-offset_bottom = 859.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/h_separation = 4
-theme_override_fonts/font = ExtResource("17_rym7l")
-theme_override_font_sizes/font_size = 34
+offset_left = 495.0
+offset_top = 690.0
+offset_right = 790.0
+offset_bottom = 862.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("12_vk4gg")
+theme_override_font_sizes/font_size = 28
 text = "MODO
-PRÁCTICA
-LIBRE
-"
-icon = ExtResource("18_rk57w")
+PRÁCTICA 
+LIBRE"
+icon = ExtResource("17_rym7l")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -235,23 +265,28 @@ expand_icon = true
 [node name="btn_practice_off" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 472.0
-offset_top = 693.0
-offset_right = 847.0
-offset_bottom = 859.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("17_rym7l")
-theme_override_font_sizes/font_size = 43
+offset_left = 494.0
+offset_top = 690.0
+offset_right = 791.0
+offset_bottom = 862.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("12_vk4gg")
+theme_override_font_sizes/font_size = 35
 text = "MODO
 NORMAL"
-icon = ExtResource("18_rk57w")
+icon = ExtResource("17_rym7l")
 flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="ModalBloqueo" parent="." instance=ExtResource("1_modal")]
+layout_mode = 1
+
 [connection signal="pressed" from="Hbox_botones_juegos/btn_puzzle" to="." method="_on_btn_puzzle_pressed"]
 [connection signal="pressed" from="Hbox_botones_juegos/btn_match" to="." method="_on_btn_match_pressed"]
 [connection signal="pressed" from="Hbox_botones_juegos/btn_order" to="." method="_on_btn_order_pressed"]
+[connection signal="pressed" from="btn_time_attack" to="." method="_on_btn_time_attack_pressed"]
 [connection signal="pressed" from="btn_random" to="." method="_on_btn_random_pressed"]
 [connection signal="pressed" from="btn_practice_on" to="." method="_on_btn_practice_on_pressed"]
 [connection signal="pressed" from="btn_practice_off" to="." method="_on_btn_practice_off_pressed"]

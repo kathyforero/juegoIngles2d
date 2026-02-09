@@ -10,18 +10,14 @@
 [ext_resource type="Script" uid="uid://d1kt63n1oatll" path="res://Scripts/Buttons/JugarButton.gd" id="6_u18oc"]
 [ext_resource type="Texture2D" uid="uid://bgjwu474b2sm5" path="res://Sprites/buttons/btn_jugar_principal_hover.png" id="7_4bx0k"]
 [ext_resource type="Texture2D" uid="uid://1j7ys5sxfofk" path="res://Sprites/buttons/LenguajeBoton.png" id="7_r82gn"]
-[ext_resource type="Texture2D" uid="uid://7ogkxv85g881" path="res://Sprites/buttons/Boton_logros.png" id="8_vhl05"]
-[ext_resource type="Texture2D" uid="uid://drv3n6ls3wi2x" path="res://Sprites/buttons/Boton_logros_hover.png" id="9_vho2a"]
+[ext_resource type="Texture2D" uid="uid://7ogkxv85g881" path="res://Sprites/buttons/Boton_logros.png" id="8_vho2a"]
+[ext_resource type="Texture2D" uid="uid://drv3n6ls3wi2x" path="res://Sprites/buttons/Boton_logros_hover.png" id="9_65y5l"]
 [ext_resource type="Texture2D" uid="uid://bxp6e6bchd8wr" path="res://Sprites/buttons/botonPuntajes.png" id="11_1ahhs"]
 [ext_resource type="Texture2D" uid="uid://r0dn38lkavun" path="res://Sprites/buttons/botonPuntajesHover.png" id="12_667qk"]
-[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="15_vhl05"]
-[ext_resource type="Texture2D" uid="uid://cal0kv5cdy5h2" path="res://Sprites/buttons/btnVacioHover.png" id="16_vho2a"]
-[ext_resource type="Theme" uid="uid://s5bs26vdrwjc" path="res://styles/UnirFacil1_Style_Words.tres" id="17_vho2a"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_65y5l"]
-font_size = 50
-font_color = Color(0, 0, 0, 1)
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="Script" uid="uid://cjlpexi054ebs" path="res://DebugLeerDat.gd" id="13_c8vt5"]
+[ext_resource type="Texture2D" uid="uid://cnfqiirg64rjc" path="res://Sprites/buttons/btnVacio.png" id="15_65y5l"]
+[ext_resource type="Texture2D" uid="uid://cal0kv5cdy5h2" path="res://Sprites/buttons/btnVacioHover.png" id="16_wmgje"]
+[ext_resource type="FontFile" uid="uid://bl1il7t5684pv" path="res://Fonts/Minecraft.ttf" id="17_n7b32"]
 
 [node name="MenuPrincipal" type="Control"]
 layout_mode = 3
@@ -50,8 +46,8 @@ expand_mode = 1
 layout_mode = 1
 offset_left = 1167.0
 offset_top = 121.0
-offset_right = 1188.677
-offset_bottom = 121.32001
+offset_right = 1188.68
+offset_bottom = 121.32
 
 [node name="TextureButton2" type="TextureButton" parent="."]
 layout_mode = 0
@@ -79,12 +75,12 @@ stretch_mode = 0
 [node name="TextureButton6" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 1164.0
-offset_top = 293.0
+offset_top = 298.0
 offset_right = 1230.0
-offset_bottom = 354.0
+offset_bottom = 359.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("8_vhl05")
-texture_hover = ExtResource("9_vho2a")
+texture_normal = ExtResource("8_vho2a")
+texture_hover = ExtResource("9_65y5l")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -118,24 +114,26 @@ offset_top = 670.0
 offset_right = 792.0
 offset_bottom = 767.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("15_vhl05")
-texture_hover = ExtResource("16_vho2a")
+texture_normal = ExtResource("15_65y5l")
+texture_hover = ExtResource("16_wmgje")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Boton" type="Label" parent="TextureButton5"]
+[node name="Label" type="Label" parent="TextureButton5"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 288.0
-offset_bottom = 83.0
-theme = ExtResource("17_vho2a")
+offset_left = 97.0
+offset_top = 12.0
+offset_right = 214.0
+offset_bottom = 77.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 35
+theme_override_fonts/font = ExtResource("17_n7b32")
+theme_override_font_sizes/font_size = 45
 text = "Guía"
-label_settings = SubResource("LabelSettings_65y5l")
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("13_c8vt5")
 
 [connection signal="pressed" from="TextureButton2" to="." method="_on_texture_button_2_pressed"]
 [connection signal="pressed" from="TextureButton4" to="." method="_on_texture_button_4_pressed"]

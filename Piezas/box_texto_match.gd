@@ -26,17 +26,13 @@ func _ready():
 
 # Método que se ejecuta cuando el botón es presionado.
 func _on_button_pressed():
+	# Si el texto está bloqueado, no hacer nada.
 	if blocked:
 		return
-
-	var parent = get_parent()
-
-	# Respetar la pausa de interacción del juego
-	if "interaction_locked" in parent and parent.interaction_locked:
-		return
-
+	# Hacer visible el fondo de clic cuando se selecciona el texto.
 	fondo_clic.visible = true
-	parent.handle_value_match(self)
+	# Llamar al método en el nodo padre para manejar la validación del emparejamiento.
+	get_parent().handle_value_match(self)
 
 # Método para actualizar el texto en el nodo de la etiqueta.
 func put_text(new_text):

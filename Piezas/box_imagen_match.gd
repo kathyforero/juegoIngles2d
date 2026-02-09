@@ -20,20 +20,13 @@ func put_image(url_path, entry_value):
 	
 # Método que se ejecuta cuando se presiona el botón asociado a la imagen.
 func _on_button_pressed():
-	# Si ya está emparejada, no hacer nada
 	if blocked:
+		# Si la imagen está bloqueada, no hacer nada.
 		return
-
-	var parent = get_parent()
-
-	# Si el juego está en pausa de interacción (mostrando ✔ / ✖), ignorar el clic
-	if "interaction_locked" in parent and parent.interaction_locked:
-		return
-
-	# Solo si NO estamos bloqueados, mostrar selección y avisar al juego
+	# Mostrar el fondo de clic al seleccionar la imagen.
 	fondo_clic.visible = true
-	parent.handle_value_selected(self)
-
+	# Notificar al nodo padre que esta imagen ha sido seleccionada.
+	get_parent().handle_value_selected(self)
 	
 # Animación que se ejecuta cuando se logra un emparejamiento correcto.
 func animation_match():
