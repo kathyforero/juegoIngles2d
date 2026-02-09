@@ -277,7 +277,6 @@
 		"res://Sprites/images_games/order/Medium/cloud.png",
 		"res://Sprites/images_games/order/Easy/rain.png",
 		"res://Sprites/images_games/order/Easy/tree.png",
-		"res://Sprites/images_games/order/Medium/night.jpg",
 		"res://Sprites/images_games/order/Hard/summer.png",
 		"res://Sprites/images_games/order/Hard/winter.png",
 		"res://Sprites/images_games/order/Medium/water.png"
@@ -290,7 +289,6 @@
 		"Cloud:\nNube",
 		"Rain:\nLluvia",
 		"Tree:\nÁrbol",
-		"Night:\nNoche",
 		"Summer:\nVerano",
 		"Winter:\nInvierno",
 		"Water:\nAgua"
@@ -302,15 +300,25 @@
 	  "label_en": "Time",
     "sprites": [
 		"res://Sprites/images_games/order/Hard/past.png",
-		"res://Sprites/images_games/order/Hard/Ayer.png",
+		"res://Sprites/images_games/order/Hard/present.png",
 		"res://Sprites/images_games/order/Hard/future.png",
-		"res://Sprites/images_games/order/Hard/Mañana.png"
+		"res://Sprites/images_games/order/Hard/Ayer.png",
+		"res://Sprites/images_games/order/Hard/Hoy.png",
+		"res://Sprites/images_games/order/Hard/Mañana.png",
+		"res://Sprites/images_games/order/Hard/morning.png",
+		"res://Sprites/images_games/order/Hard/afternoon.png",
+		"res://Sprites/images_games/order/Hard/night.png"
 	  ],
 	  "cards": [
 		"Past:\nPasado",
-		"Yesterday:\nAyer",
+		"Present:\nPresente",
 		"Future:\nFuturo",
-		"Tomorrow:\nMañana"
+		"Yesterday:\nAyer",
+		"Today:\nHoy",
+		"Tomorrow:\nMañana",
+		"Morning:\nMañana",
+		"Afternoon:\nTarde",
+		"Night:\nNoche"
 	  ]
 	}
   ]

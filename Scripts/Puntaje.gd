@@ -11,7 +11,7 @@ var _reveal_finished: bool = false
 var _record_required: bool = false
 var _record_saved: bool = false
 
-const BEST_NAME_MAX_LEN := 12
+const BEST_NAME_MAX_LEN := 10
 
 # ---------- Language ----------
 func load_language_setting() -> bool:
