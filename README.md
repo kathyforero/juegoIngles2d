@@ -14,6 +14,55 @@ Proyecto en Godot 4.5 con minijuegos para practicar inglés.
 - `JsonJuegos/` -> datos para los juegos.
 - `Sprites/`, `Sonido/`, `Fonts/`, `Piezas/`, `Videos/`, `styles/` -> assets.
 
+## Modos de juego
+El proyecto tiene 4 modos, que se desbloquean/gestionan desde el menú de juegos (según progreso):
+
+### 1) Normal (Classic)
+Modo estándar por minijuego y dificultad (Easy/Medium/Hard).
+- Guarda progreso y records.
+- Se usa para desbloquear contenido y modos.
+
+### 2) Random
+Modo con selección aleatoria (orientado a rejugabilidad).
+- Se desbloquea al cumplir condiciones de progreso.
+- Puede seleccionar contenido aleatorio del banco del minijuego.
+- También guarda records/progreso según configuración del modo.
+
+### 3) Libre (Practice)
+Modo de práctica sin presión.
+- No guarda records (ideal para practicar sin afectar puntajes).
+- Puede desactivar lógica de tiempo/competencia (según minijuego).
+- Útil para repetir ejercicios sin penalización.
+
+### 4) Turbo (Time Attack)
+Modo contrarreloj.
+- El objetivo es hacer la mayor cantidad de aciertos antes de que acabe el tiempo.
+- Puede ser por minijuego específico o selección aleatoria (según configuración actual).
+- Guarda records del modo Turbo/Time Attack.
+
+> Nota: Las reglas exactas (si guarda record, si usa random interno, si aplica timer) están centralizadas principalmente en `Scripts/Global/Score.gd` y el progreso/desbloqueos se guardan en archivos dentro de `user://Progress/`.
+
+## Sistemas de puntajes y logros
+
+### Puntajes / Records
+El sistema maneja records por modo y minijuego.
+- Centralizado en `Scripts/Global/Score.gd`.
+- Incluye soporte para:
+  - **Classic** (Normal)
+  - **Time Attack** (Turbo)
+  - **Practice** (Libre, usualmente sin persistencia de record)
+- Los records se guardan en `user://Progress/` (archivos `.dat`).
+- Dependiendo del modo:
+  - Classic guarda progreso y record.
+  - Time Attack guarda record específico del modo.
+  - Practice evita persistir records para no “ensuciar” estadísticas.
+
+### Logros (Achievements)
+El juego incluye un sistema de logros persistentes.
+- Se guardan en `user://Progress/achievements.dat`.
+- También se gestionan desde `Scripts/Global/Score.gd` (y escenas/UI relacionadas).
+- Hay logros por minijuego, por desempeño (ej. perfect), y por modos (ej. speed/time-attack), con soporte de iconos/estados (incluyendo “unknown” cuando no está desbloqueado).
+
 ## Exportar a Windows
 GUI: Project > Export > preset **Windows Desktop** (ya creado). Ajustar la ruta de salida y Export.
 
@@ -58,6 +107,19 @@ Todo el contenido editable está en `JsonJuegos/`.
 ## Checks rápidos
 - Correr el minijuego afectado y observar la consola por `push_error` (formato JSON o rutas rotas).
 - Verificar que las imágenes carguen y que la cantidad de ítems por dificultad coincida.
+
+## Issues
+Durante el desarrollo hubo problemas debido a un **cambio de estructura del proyecto** (reorganización de carpetas), que incluyó:
+- Mover archivos a nuevas rutas.
+- Eliminar archivos obsoletos.
+- Renombrar escenas/scripts/assets.
+
+Esto provocó errores típicos como:
+- Rutas rotas en escenas (`.tscn`) y scripts (`res://...`).
+- Recursos no encontrados (sprites, sonidos, JSON).
+- Referencias antiguas en botones, nodos o `load()/preload()`.
+
+**Recomendación:** Si aparece un error de “resource not found”, revisar primero rutas y nombres reales en el árbol del proyecto, y luego buscar en scripts por `res://` hardcodeado.
 
 ## Contribución
 - Mantener rutas y carpetas existentes; reutilizar scripts globales (`Scripts/Global/*`) y `scene_router.gd`.
