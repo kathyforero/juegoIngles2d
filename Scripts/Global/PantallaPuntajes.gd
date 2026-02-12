@@ -50,8 +50,8 @@ var en: bool = false  # idioma (true = EN, false = ES)
 # =========================
 func load_language_setting() -> bool:
 	# Misma lógica que el resto del proyecto
-	if FileAccess.file_exists("res://language_setting.json"):
-		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+	if FileAccess.file_exists("user://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("user://language_setting.json")
 		var data = JSON.parse_string(json_as_text)
 		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
 			return bool(data["english"])
@@ -69,8 +69,7 @@ func _apply_language_texts() -> void:
 	# Dificultades (solo texto visual)
 	lbl_diff1.text = "Easy" if en else "Fácil"
 	lbl_diff2.text = "Medium" if en else "Medio"
-	# Tú tenías "Difficult" en el .tscn; lo normal aquí es "Hard"
-	lbl_diff3.text = "Hard" if en else "Difícil"
+	lbl_diff3.text = "Difficult" if en else "Difícil"
 
 	# Sección
 	lbl_seccion.text = "Scores" if en else "Puntajes"

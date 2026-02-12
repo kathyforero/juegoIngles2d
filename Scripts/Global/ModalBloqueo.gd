@@ -29,8 +29,8 @@ func _update_button_label():
 		$LabelBoton.text = "Entendido"
 
 func load_language_setting() -> bool:
-	if FileAccess.file_exists("res://language_setting.json"):
-		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+	if FileAccess.file_exists("user://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("user://language_setting.json")
 		var data = JSON.parse_string(json_as_text)
 		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
 			return data["english"]

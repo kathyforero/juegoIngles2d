@@ -30,8 +30,8 @@ var _hint_on_cooldown: bool = false
 var _hint_disabled_by_cooldown: bool = false
 
 func _load_language_setting() -> bool:
-	if FileAccess.file_exists("res://language_setting.json"):
-		var json_as_text := FileAccess.get_file_as_string("res://language_setting.json")
+	if FileAccess.file_exists("user://language_setting.json"):
+		var json_as_text := FileAccess.get_file_as_string("user://language_setting.json")
 		var data = JSON.parse_string(json_as_text)
 		if typeof(data) == TYPE_DICTIONARY and data.has("english"):
 			return bool(data["english"])

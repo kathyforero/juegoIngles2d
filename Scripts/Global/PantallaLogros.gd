@@ -4,8 +4,8 @@ var en: bool = false
 const TOTAL_LOGROS = 5
 
 func load_language_setting():
-	if FileAccess.file_exists("res://language_setting.json"):
-		var json_as_text = FileAccess.get_file_as_string("res://language_setting.json")
+	if FileAccess.file_exists("user://language_setting.json"):
+		var json_as_text = FileAccess.get_file_as_string("user://language_setting.json")
 		var json_as_dict = JSON.parse_string(json_as_text)
 		en = json_as_dict["english"]
 		return
